@@ -1,5 +1,9 @@
-## YAML Template.
----
+mon_home:
+    pattern:  /
+    defaults: { _controller: FFNMonBundle:Default:home}
+    requirements:
+        _method: GET
+        
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 
