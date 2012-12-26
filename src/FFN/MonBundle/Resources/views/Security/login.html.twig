@@ -1,0 +1,17 @@
+{% extends 'FFNMonBundle::layout.html.twig' %}
+
+{% block body %}
+<div class="container main_page top_50">
+  <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <h2 class="form-signin-heading">{{ 'mon_login'|trans({}, 'messages') }}</h2>
+    <input type="text" class="input-block-level" id="username" name="_username" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" value="{{ last_username }}" required="required">
+    <input type="password" class="input-block-level" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}">
+    <label class="checkbox">
+      <input type="checkbox" id="remember_me" name="_remember_me" value="on"> 
+      {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+    </label>
+    <button class="btn btn-large btn-primary" type="submit">{{ 'bgd_validate'|trans({}, 'messages') }}</button>
+  </form>
+</div> <!-- /container -->
+{% endblock %}
