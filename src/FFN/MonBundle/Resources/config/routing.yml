@@ -1,3 +1,15 @@
+mon_user_add:
+    pattern:  /user/add
+    defaults: { _controller: FFNMonBundle:Default:userAdd}
+    requirements:
+        _method: GET
+
+mon_user_manage:
+    pattern:  /user/manage
+    defaults: { _controller: FFNMonBundle:Default:userManage}
+    requirements:
+        _method: GET
+        
 mon_home:
     pattern:  /
     defaults: { _controller: FFNMonBundle:Default:home}

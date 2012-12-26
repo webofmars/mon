@@ -11,4 +11,16 @@ class DefaultController extends Controller
     return $this->render('FFNMonBundle:Page:home.html.twig', array(
     ));
   }
+  
+  public function userAddAction(){
+    echo 'TODO';
+    return $this->render('FFNMonBundle:Page:home.html.twig', array(
+    ));
+  }
+  
+  public function userManageAction(){
+    echo 'TODO';
+    return $this->render('FFNMonBundle:Page:home.html.twig', array(
+    ));
+  }
 }

@@ -6,8 +6,19 @@
       </a>
       <div class="nav-collapse collapse">
         <ul class="nav">
+          {% if is_granted('ROLE_ADMIN') %}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'mon_menu_admin' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class=""><a href="{{ path("mon_user_add")}}">{{ 'mon_menu_admin_create_user' | trans({}, 'messages') | raw }}</a></li>
+                <li class=""><a href="{{ path("mon_user_manage")}}">{{ 'mon_menu_admin_manage_users' | trans({}, 'messages') | raw }}</a></li>
+              </ul>
+            </li>
+          {% endif %}
           {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="{{ path("fos_user_security_logout")}}">{{ 'bgd_logout' | trans({}, 'messages') | raw }}</a></li>
+            <li><a href="{{ path("fos_user_security_logout")}}">{{ 'mon_logout' | trans({}, 'messages') | raw }}</a></li>
+          {% else %}
+            <li><a href="{{ path('fos_user_registration_register')}}">{{ 'mon_register' | trans({}, 'messages') | raw }}</a></li>
           {% endif %}
           <li><a href="#about">About</a></li>
           <li><a href="#contact">Contact</a></li>
