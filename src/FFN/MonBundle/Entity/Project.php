@@ -3,6 +3,10 @@
 namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use FFN\MonBundle\Entity\User;
+use FFN\MonBundle\Entity\scenario;
 
 /**
  * Project
@@ -31,9 +35,9 @@ class Project
     /**
      * @var boolean
      *
-     * @ORM\Column(name="enable", type="boolean")
+     * @ORM\Column(name="enabled", type="boolean")
      */
-    private $enable;
+    private $enabled;
 
     /**
      * @var \DateTime
@@ -42,6 +46,16 @@ class Project
      */
     private $dateCreation;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="projects")
+     * @ORM\JoinColumn(name="ref_id_user", referencedColumnName="id")
+     */
+    protected $refIdUser;
+
+    /**
+     * @ORM\OneToMany(targetEntity="scenario", mappedBy="id", cascade={"persist"})
+     */
+    protected $scenarios;
 
     /**
      * Get id
@@ -77,29 +91,6 @@ class Project
     }
 
     /**
-     * Set enable
-     *
-     * @param boolean $enable
-     * @return Project
-     */
-    public function setEnable($enable)
-    {
-        $this->enable = $enable;
-    
-        return $this;
-    }
-
-    /**
-     * Get enable
-     *
-     * @return boolean 
-     */
-    public function getEnable()
-    {
-        return $this->enable;
-    }
-
-    /**
      * Set dateCreation
      *
      * @param \DateTime $dateCreation
@@ -120,5 +111,91 @@ class Project
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+
+    /**
+     * Set refIdUser
+     *
+     * @param User $refIdUser
+     * @return Project
+     */
+    public function setRefIdUser(User $refIdUser = null)
+    {
+        $this->refIdUser = $refIdUser;
+    
+        return $this;
+    }
+
+    /**
+     * Get refIdUser
+     *
+     * @return User 
+     */
+    public function getRefIdUser()
+    {
+        return $this->refIdUser;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return Project
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->scenarios = new ArrayCollection();
+    }
+    
+    /**
+     * Add scenarios
+     *
+     * @param scenario $scenarios
+     * @return Project
+     */
+    public function addScenario(scenario $scenarios)
+    {
+        $this->scenarios[] = $scenarios;
+    
+        return $this;
+    }
+
+    /**
+     * Remove scenarios
+     *
+     * @param scenario $scenarios
+     */
+    public function removeScenario(scenario $scenarios)
+    {
+        $this->scenarios->removeElement($scenarios);
+    }
+
+    /**
+     * Get scenarios
+     *
+     * @return Collection 
+     */
+    public function getScenarios()
+    {
+        return $this->scenarios;
     }
 }

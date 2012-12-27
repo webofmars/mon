@@ -3,6 +3,11 @@
 namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use FFN\MonBundle\Entity\validator;
+use FFN\MonBundle\Entity\control_header;
+use FFN\MonBundle\Entity\capture;
 
 /**
  * control
@@ -56,7 +61,21 @@ class control
      */
     private $responseTimeout;
 
+    /**
+     * @ORM\OneToMany(targetEntity="validator", mappedBy="id", cascade={"persist"})
+     */
+    protected $validators;
 
+    /**
+     * @ORM\OneToMany(targetEntity="control_header", mappedBy="id", cascade={"persist"})
+     */
+    protected $controlHeaders;
+
+    /**
+     * @ORM\OneToMany(targetEntity="capture", mappedBy="id", cascade={"persist"})
+     */
+    protected $captures;
+    
     /**
      * Get id
      *
@@ -180,5 +199,110 @@ class control
     public function getResponseTimeout()
     {
         return $this->responseTimeout;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->validators = new ArrayCollection();
+    }
+    
+    /**
+     * Add validators
+     *
+     * @param \FFN\MonBundle\Entity\ control
+     */
+    public function addValidator(validator $validators)
+    {
+        $this->validators[] = $validators;
+    
+        return $this;
+    }
+
+    /**
+     * Remove validators
+     *
+     * @param validator $validators
+     */
+    public function removeValidator(validator $validators)
+    {
+        $this->validators->removeElement($validators);
+    }
+
+    /**
+     * Get validators
+     *
+     * @return Collection 
+     */
+    public function getValidators()
+    {
+        return $this->validators;
+    }
+
+    /**
+     * Add controlHeaders
+     *
+     * @param control_header $controlHeaders
+     * @return control
+     */
+    public function addControlHeader(control_header $controlHeaders)
+    {
+        $this->controlHeaders[] = $controlHeaders;
+    
+        return $this;
+    }
+
+    /**
+     * Remove controlHeaders
+     *
+     * @param control_header $controlHeaders
+     */
+    public function removeControlHeader(control_header $controlHeaders)
+    {
+        $this->controlHeaders->removeElement($controlHeaders);
+    }
+
+    /**
+     * Get controlHeaders
+     *
+     * @return Collection 
+     */
+    public function getControlHeaders()
+    {
+        return $this->controlHeaders;
+    }
+
+    /**
+     * Add captures
+     *
+     * @param capture $captures
+     * @return control
+     */
+    public function addCapture(capture $captures)
+    {
+        $this->captures[] = $captures;
+    
+        return $this;
+    }
+
+    /**
+     * Remove captures
+     *
+     * @param capture $captures
+     */
+    public function removeCapture(capture $captures)
+    {
+        $this->captures->removeElement($captures);
+    }
+
+    /**
+     * Get captures
+     *
+     * @return Collection 
+     */
+    public function getCaptures()
+    {
+        return $this->captures;
     }
 }

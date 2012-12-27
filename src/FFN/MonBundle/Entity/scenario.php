@@ -24,7 +24,8 @@ class scenario
     /**
      * @var integer
      *
-     * @ORM\Column(name="ref_id_project", type="integer")
+     * @ORM\ManyToOne(targetEntity="Project", inversedBy="scenarios")
+     * @ORM\JoinColumn(name="ref_id_project", referencedColumnName="id")
      */
     private $refIdProject;
 
@@ -45,9 +46,9 @@ class scenario
     /**
      * @var boolean
      *
-     * @ORM\Column(name="enable", type="boolean")
+     * @ORM\Column(name="enabled", type="boolean")
      */
-    private $enable;
+    private $enabled;
 
     /**
      * @var \DateTime
@@ -55,7 +56,6 @@ class scenario
      * @ORM\Column(name="date_creation", type="datetime")
      */
     private $dateCreation;
-
 
     /**
      * Get id
@@ -137,29 +137,6 @@ class scenario
     }
 
     /**
-     * Set enable
-     *
-     * @param boolean $enable
-     * @return scenario
-     */
-    public function setEnable($enable)
-    {
-        $this->enable = $enable;
-    
-        return $this;
-    }
-
-    /**
-     * Get enable
-     *
-     * @return boolean 
-     */
-    public function getEnable()
-    {
-        return $this->enable;
-    }
-
-    /**
      * Set dateCreation
      *
      * @param \DateTime $dateCreation
@@ -180,5 +157,28 @@ class scenario
     public function getDateCreation()
     {
         return $this->dateCreation;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return scenario
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
     }
 }

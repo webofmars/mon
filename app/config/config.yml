@@ -58,14 +58,21 @@ doctrine:
         auto_mapping: true
 
 # Swiftmailer Configuration
+#swiftmailer:
+#    transport: %mailer_transport%
+#    host:      %mailer_host%
+#    username:  %mailer_user%
+#    password:  %mailer_password%
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
+    transport: gmail
+    username:  %your_gmail_username%
+    password:  %your_gmail_password%
     spool:     { type: memory }
 
 fos_user:
     db_driver: orm 
     firewall_name: main
     user_class: FFN\MonBundle\Entity\User
+    registration:
+        confirmation:
+            enabled:    true

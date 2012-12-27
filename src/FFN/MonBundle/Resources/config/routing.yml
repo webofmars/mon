@@ -1,3 +1,29 @@
+mon_user_add:
+    pattern:  /admin/user/add
+    defaults: { _controller: FFNMonBundle:Default:adminUserAdd}
+    requirements:
+        _method: GET
+
+mon_admin_user:
+    pattern:  /admin/user
+    defaults: { _controller: FFNMonBundle:Default:adminUser}
+    requirements:
+        _method: GET
+
+mon_admin_user_edit:
+    pattern:  /admin/user/{id}
+    defaults: { _controller: FFNMonBundle:Default:adminUserEdit}
+    requirements:
+        _method: GET
+        id: \d+
+
+mon_admin_user_delete:
+    pattern:  /admin/delete/{id}
+    defaults: { _controller: FFNMonBundle:Default:adminUserDelete}
+    requirements:
+        _method: GET
+        id: \d+
+        
 mon_home:
     pattern:  /
     defaults: { _controller: FFNMonBundle:Default:home}

@@ -17,7 +17,6 @@ class capture_detail
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -150,5 +149,18 @@ class capture_detail
     public function getIsResponseTimeout()
     {
         return $this->isResponseTimeout;
+    }
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     * @return capture_detail
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    
+        return $this;
     }
 }

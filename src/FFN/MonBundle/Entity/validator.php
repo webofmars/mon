@@ -38,7 +38,8 @@ class validator
     /**
      * @var integer
      *
-     * @ORM\Column(name="ref_id_control", type="integer")
+     * @ORM\ManyToOne(targetEntity="Control", inversedBy="validators")
+     * @ORM\JoinColumn(name="ref_id_control", referencedColumnName="id")
      */
     private $refIdControl;
 

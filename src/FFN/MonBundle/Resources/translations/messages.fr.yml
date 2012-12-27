@@ -12,6 +12,7 @@ mon_photo_date_ingestion: Date Ingestion
 mon_photo_display_order: Ordre
 mon_photo_is_active: Active
 mon_photo_filename: Nom du fichier
+mon_register: S'inscrire
 mon_title: gallery title
 mon_user_already_exist: Utilisateur déjà existant
 mon_user_active: Actif
