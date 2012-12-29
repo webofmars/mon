@@ -25,7 +25,7 @@
     {% block header %}
       {% include 'FFNMonBundle:Common:header_navbar.html.twig' %}
     {% endblock %} 
-
+    <div class="container">
     {% block body %}
     {% endblock %}
     {% block fos_user_content %}
@@ -33,6 +33,7 @@
     {% block footer %}
       {% include 'FFNMonBundle:Common:footer.html.twig' %}
     {% endblock %} 
+    </div> <!-- /container -->
     {% javascripts 
       '@FFNMonBundle/Resources/public/js/jquery-1.8.3.js' 
       '@FFNMonBundle/Resources/public/js/jquery.tablesorter.js' 

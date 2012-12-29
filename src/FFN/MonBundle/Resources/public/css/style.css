@@ -28,3 +28,77 @@ body {
   margin-bottom: 15px;
   padding: 7px 9px;
 }
+
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	background-color: #CDCDCD;
+	margin:10px 0pt 15px;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url('/bundles/ffnmon/images/bg.gif');
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	background-color: #FFF;
+	vertical-align: top;
+  line-height: 31px;
+}
+table.tablesorter tbody td p{
+  margin: 0px;
+}
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url('/bundles/ffnmon/images/asc.gif');
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url('/bundles/ffnmon/images/desc.gif');
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+  background-color: #8dbdd8;
+}
+
+.edit_icon{
+  background: url("/bundles/ffnmon/images/preview_icons.jpg") no-repeat scroll -105px -214px transparent;
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.delete_icon{
+  background: url("/bundles/ffnmon/images/preview_icons.jpg") no-repeat scroll -236px -124px transparent;
+  width: 32px;
+  height: 32px;
+  display: block;
+}
+
+.alertRight.on {
+    background-position: 0 -30px;
+}
+
+.alertRight.off {
+    background-position: 0 0;
+}
+
+.alertRight {
+    background: url("/bundles/ffnmon/images/btn_switch.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    height: 30px;
+    width: 60px;
+}

@@ -13,11 +13,13 @@
     </div>
   {% endif %}
     <table class="table table-striped tablesorter" id="table_user_manage">
+      <caption>{{ 'mon_user_list' | trans({}, 'messages') | raw }}</caption>
       <thead>
         <tr>
           <th class="header">#</th>
           <th class="header">{{ 'mon_username' | trans({}, 'messages') | raw }}</th>
           <th class="header">{{ 'mon_mail' | trans({}, 'messages') | raw }}</th>
+          <th class="header">{{ 'mon_user_last_login' | trans({}, 'messages') | raw }}</th>
           <th class="header">{{ 'mon_user_active' | trans({}, 'messages') | raw }}</th>
           <th class="header">{{ 'mon_user_administration' | trans({}, 'messages') | raw }}</th>
         </tr>
@@ -36,6 +38,7 @@
             <td>{{user.id}}</td>
             <td>{{user.username}}</td>
             <td>{{user.email}}</td>
+            <td>{{user.lastlogin|date("Y:m:d H:i:s")}}</td>
             <td><div id="user_activ_{{user.id}}" class="alertRight {{is_active}}" onclick="manageUserActivation($(this), '{{user.id}}');"></div></td>
             <td>
               <p>
@@ -49,8 +52,6 @@
         {% endfor %}
       </tbody>
     </table>
-      <!--<a href="#myModal" role="button" class="btn" data-toggle="modal">Launch demo modal</a>-->
-      <a href="#" id="test_ajax">test</a>
   </div><!-- end row-fluid -->
 </div> <!-- /container -->
 <div id="myModal" class="modal hide fade">

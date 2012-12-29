@@ -12,7 +12,15 @@ mon_photo_date_ingestion: Date Ingestion
 mon_photo_display_order: Ordre
 mon_photo_is_active: Active
 mon_photo_filename: Nom du fichier
+mon_project_create: Créer un projet
+mon_project_creation_failed: Création du projet echouée
+mon_project_creation_validated: Création du projet avec succès
+mon_project_my_projects: Mes Projets
+mon_project_name: Nom
+mon_project_projects: Projets
 mon_register: S'inscrire
+mon_scenario_create: Créer un scénario
+mon_scenario_name: Nom
 mon_title: gallery title
 mon_user_already_exist: Utilisateur déjà existant
 mon_user_active: Actif
@@ -25,7 +33,10 @@ mon_user_delete_user_confirmed: Suppression de l'utilisateur confirmé
 mon_user_delete_failed: Suppression de l'utilisateur echouée
 mon_user_edit: Edition
 mon_user_folder: Dossier
+mon_user_last_login: Dernière Connexion
+mon_user_list: Liste des utilisateurs
 mon_user_photo_manage: Manage Photos
 mon_user_no_created: Utilisateur non créé
 mon_username: Nom d'utilisateur
 mon_validate: Valider
+mon_view_details: Plus de détails &raquo;

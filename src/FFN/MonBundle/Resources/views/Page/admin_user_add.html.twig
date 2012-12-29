@@ -1,0 +1,29 @@
+{% extends 'FFNMonBundle::layout.html.twig' %}
+{% block body %}
+<div class="container main_page top_50">
+  <div class="row-fluid">
+    {% if app.session.hasFlash('success_msg') %}
+      <div class="alert alert-success">
+        {{ app.session.flash('success_msg') }}
+      </div>
+    {% endif %}
+      {% if app.session.hasFlash('error_msg') %}
+      <div class="alert alert-error">
+        {{ app.session.flash('error_msg') }}
+      </div>
+    {% endif %}
+    <form action="{#{ path('user_new') }#}" method="post" {{ form_enctype(form) }}>
+    {{ form_errors(form) }}
+
+    {#{ form_row(form.user) }#}
+    {{ form_row(form.username) }}
+    {{ form_row(form.password) }}
+    {{ form_row(form.email) }}
+    
+    {{ form_rest(form) }}
+
+    <input type="submit" />
+</form>
+  </div><!-- end row-fluid -->
+</div> <!-- /container -->
+{% endblock %}
