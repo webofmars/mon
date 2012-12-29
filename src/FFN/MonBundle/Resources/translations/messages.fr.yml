@@ -20,6 +20,9 @@ mon_project_name: Nom
 mon_project_projects: Projets
 mon_register: S'inscrire
 mon_scenario_create: Créer un scénario
+mon_scenario_creation_failed: Création du scénario echouée
+mon_scenario_creation_validated: Création du scénario avec succès
+mon_scenario_form_name_placeholder: Nom de votre scénario
 mon_scenario_name: Nom
 mon_title: gallery title
 mon_user_already_exist: Utilisateur déjà existant

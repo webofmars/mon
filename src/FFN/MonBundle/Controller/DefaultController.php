@@ -7,8 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FFN\MonBundle\Entity\User;
 use FFN\MonBundle\Entity\Project;
 use FFN\MonBundle\Entity\Scenario;
+
 use FFN\MonBundle\Form\UserType;
-use FFN\MonBundle\Form\°ProjectType;
+use FFN\MonBundle\Form\ProjectType;
 use FFN\MonBundle\Form\ScenarioType;
 
 use Doctrine\ORM\EntityManager;
@@ -129,8 +130,11 @@ class DefaultController extends Controller
     $em = $this->get('doctrine')->getEntityManager();
     $user = $this->get('security.context')->getToken()->getUser();
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
+    //Récupération de tous les scénarios associés au projet
+    $scenarios = $em->getRepository('FFN\MonBundle\Entity\scenario')->findByRefIdProject($project);
     return $this->render('FFNMonBundle:Page:project_home.html.twig', array(
         'project' => $project,
+        'scenarios' => $scenarios,
     ));
   }
   
@@ -166,7 +170,22 @@ class DefaultController extends Controller
     $scenario = New Scenario();
     $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
     $request = $this->getRequest();
-    
+    if ($request->getMethod() == 'POST') {
+      $form->bindRequest($request);
+      if ($form->isValid()) {
+        
+        $em = $this->get('doctrine')->getEntityManager();
+        $scenario->setDateCreation(new \DateTime());
+        $scenario->setEnabled(false);
+        $scenario->setFrequency(0);
+        $scenario->setRefIdProject($project);
+        $em->persist($scenario);
+        $em->flush();
+        $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_creation_validated'));
+      } else {
+        $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
+      }
+    }
     return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(
         'form' => $form->createView(),
         'project' => $project,

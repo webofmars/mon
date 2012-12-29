@@ -1,9 +1,10 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
 {% block body %}
-<div class="container main_page top_50">
-  
-  {% if app.session.hasFlash('success_msg') %}
+<div class="container">
+  {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
+  <div class="row">
+    {% if app.session.hasFlash('success_msg') %}
       <div class="alert alert-success">
         {{ app.session.flash('success_msg') }}
       </div>
@@ -13,11 +14,12 @@
         {{ app.session.flash('error_msg') }}
       </div>
     {% endif %}
-  <form class="form-signin" action="{{ path("mon_scenario_add", {'id': project.id}) }}" method="post">
-    <h2 class="form-signin-heading">{{ 'mon_scenario_create'|trans({}, 'messages') }}</h2>
-    {{ form_row(form.name) }}
-    <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
-    {{ form_rest(form) }}
-  </form>
-</div> <!-- /container -->
+    <form class="form-signin" action="{{ path("mon_scenario_add", {'id': project.id}) }}" method="post">
+      <h2 class="form-signin-heading">{{ 'mon_scenario_create'|trans({}, 'messages') }}</h2>
+      {{ form_row(form.name) }} 
+      <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
+      {{ form_rest(form) }}
+    </form>
+  </div>
+</div>
 {% endblock %}
