@@ -1,3 +1,8 @@
+mon_control_create: Créer un control
+mon_control_creation_failed: Création du control echouée
+mon_control_creation_validated: Création du control avec succès
+mon_control_form_name_placeholder: Nom de votre control
+mon_control_name: Nom
 mon_menu_admin: Administration
 mon_menu_admin_create_user: Cr&eacute;er un utilisateur
 mon_menu_admin_manage_users: G&eacute;rer les utilisateurs

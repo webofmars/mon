@@ -18,7 +18,7 @@
       <tr>
         <td>{{scenario.id}}</td>
         <td>{{scenario.name}}</td>
-        <td></td>
+        <td><a href="{{path('mon_control_add', {'id': scenario.id})}}">creer control</a></td>
       </tr>
       {% endfor %}
     </tbody>

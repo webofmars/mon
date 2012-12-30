@@ -4,13 +4,15 @@ namespace FFN\MonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use FFN\MonBundle\Entity\User;
+use FFN\MonBundle\Entity\control;
 use FFN\MonBundle\Entity\Project;
 use FFN\MonBundle\Entity\Scenario;
+use FFN\MonBundle\Entity\User;
 
-use FFN\MonBundle\Form\UserType;
+use FFN\MonBundle\Form\ControlType;
 use FFN\MonBundle\Form\ProjectType;
 use FFN\MonBundle\Form\ScenarioType;
+use FFN\MonBundle\Form\UserType;
 
 use Doctrine\ORM\EntityManager;
 
@@ -112,6 +114,38 @@ class DefaultController extends Controller
   public function adminUserEditAction($id){
     echo 'TODO';
     return $this->render('FFNMonBundle:Page:home.html.twig', array(
+    ));
+  }
+  
+  public function controlAddAction($id){
+    $em = $this->get('doctrine')->getEntityManager();
+    $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
+    $project = $scenario->getRefIdProject();
+    $control = New Control();
+    $form = $this->createForm(new ControlType($this->get('translator')), $control);
+    $request = $this->getRequest();
+    if ($request->getMethod() == 'POST') {
+      /*
+      $form->bindRequest($request);
+      if ($form->isValid()) {
+        
+        $em = $this->get('doctrine')->getEntityManager();
+        $scenario->setDateCreation(new \DateTime());
+        $scenario->setEnabled(false);
+        $scenario->setFrequency(0);
+        $scenario->setRefIdProject($project);
+        $em->persist($scenario);
+        $em->flush();
+        $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_creation_validated'));
+      } else {
+        $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
+      }
+       */
+    }
+    return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
+        'form' => $form->createView(),
+        'project' => $project,
+        'scenario' => $scenario,
     ));
   }
   

@@ -51,6 +51,13 @@ mon_scenario_add:
         _method: GET|POST
         id: \d+
         
+mon_control_add:
+    pattern: /control/add/{id}
+    defaults: { _controller: FFNMonBundle:Default:controlAdd}
+    requirements:
+        _method: GET|POST
+        id: \d+
+        
 mon_home:
     pattern:  /
     defaults: { _controller: FFNMonBundle:Default:home}
