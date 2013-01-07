@@ -22,12 +22,12 @@ class capture {
    */
   private $id;
 
-  /**
-   * @var integer
-   *
-   * @ORM\ManyToOne(targetEntity="Control", inversedBy="validators")
-   * @ORM\JoinColumn(name="ref_id_control", referencedColumnName="id")
-   */
+//  /**
+//   * @var integer
+//   *
+//   * @ORM\ManyToOne(targetEntity="Control", inversedBy="validators")
+//   * @ORM\JoinColumn(name="ref_id_control", referencedColumnName="id")
+//   */
   private $refIdControl;
 
   /**

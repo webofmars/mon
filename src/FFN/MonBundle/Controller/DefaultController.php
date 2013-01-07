@@ -4,9 +4,10 @@ namespace FFN\MonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use FFN\MonBundle\Entity\control;
+use FFN\MonBundle\Entity\Control;
+use FFN\MonBundle\Entity\ControlHeader;
 use FFN\MonBundle\Entity\Project;
-use FFN\MonBundle\Entity\Scenario;
+use FFN\MonBundle\Entity\scenario;
 use FFN\MonBundle\Entity\User;
 
 use FFN\MonBundle\Form\ControlType;
@@ -125,22 +126,23 @@ class DefaultController extends Controller
     $form = $this->createForm(new ControlType($this->get('translator')), $control);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      /*
+      
       $form->bindRequest($request);
       if ($form->isValid()) {
         
         $em = $this->get('doctrine')->getEntityManager();
-        $scenario->setDateCreation(new \DateTime());
-        $scenario->setEnabled(false);
-        $scenario->setFrequency(0);
-        $scenario->setRefIdProject($project);
-        $em->persist($scenario);
+        $control->setConnectionTimeout(0);
+        $control->setMimeType('html');
+        $control->setResponseTimeout(0);
+        $control->setUrl('http://google.fr');
+        $em->persist($control);
         $em->flush();
-        $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_creation_validated'));
+        $data = $form->getData();
+        $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_control_creation_validated'));
       } else {
-        $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
+        $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
       }
-       */
+      
     }
     return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
         'form' => $form->createView(),
@@ -226,5 +228,44 @@ class DefaultController extends Controller
     ));
   }
   
+  public function scenarioEditAction($id){
+    $em = $this->get('doctrine')->getEntityManager();
+    $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
+    if($scenario instanceof scenario){
+      $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getRefIdProject()->getId());
+      $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
+      $request = $this->getRequest();
+      if ($request->getMethod() == 'POST') {
+        $form->bindRequest($request);
+        if ($form->isValid()) {
+          $em->persist($scenario);
+          $em->flush();
+          $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_edit_validated'));
+        } else {
+          $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_edit_failed'));
+        }
+      }
+      return $this->render('FFNMonBundle:Page:scenario_edit.html.twig', array(
+          'form' => $form->createView(),
+          'project' => $project,
+          'scenario' => $scenario,
+      ));
+    } else {
+      return $this->redirect($this->generateUrl('mon_home'));
+    }
+    
+  }
   
+  public function scenarioDeleteAction($id){
+    $em = $this->get('doctrine')->getEntityManager();
+    $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
+    if($scenario instanceof scenario){
+      $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getRefIdProject()->getId());
+      $em->remove($scenario);
+      $em->flush();
+      return $this->projectAction($project->getId());
+    } else {
+      return $this->redirect($this->generateUrl('mon_home'));
+    }
+  }
 }

@@ -38,11 +38,10 @@ class validator
     /**
      * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Control", inversedBy="validators")
-     * @ORM\JoinColumn(name="ref_id_control", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="FFN\MonBundle\Entity\Control", inversedBy="validators")
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $refIdControl;
-
+    private $control;
 
     /**
      * Get id
@@ -101,25 +100,20 @@ class validator
     }
 
     /**
-     * Set refIdControl
-     *
-     * @param integer $refIdControl
-     * @return validator
-     */
-    public function setRefIdControl($refIdControl)
-    {
-        $this->refIdControl = $refIdControl;
-    
-        return $this;
-    }
+      * @param FFN\MonBundle\Entity\Control $control
+      * @return this
+      */
+     public function setControl(Control $control)
+     {
+       $this->control = $control;
+       return $this;
+     }
 
-    /**
-     * Get refIdControl
-     *
-     * @return integer 
-     */
-    public function getRefIdControl()
-    {
-        return $this->refIdControl;
-    }
+     /**
+      * @return FFN\MonBundle\Entity\Control
+      */
+     public function getControl()
+     {
+       return $this->control;
+     }
 }

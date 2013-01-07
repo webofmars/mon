@@ -50,6 +50,20 @@ mon_scenario_add:
     requirements:
         _method: GET|POST
         id: \d+
+
+mon_scenario_edit:
+    pattern: /scenario/edit/{id}
+    defaults: { _controller: FFNMonBundle:Default:scenarioEdit}
+    requirements:
+        _method: GET|POST
+        id: \d+
+
+mon_scenario_delete:
+    pattern: /scenario/delete/{id}
+    defaults: { _controller: FFNMonBundle:Default:scenarioDelete}
+    requirements:
+        _method: GET
+        id: \d+
         
 mon_control_add:
     pattern: /control/add/{id}

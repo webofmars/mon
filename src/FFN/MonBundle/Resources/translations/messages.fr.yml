@@ -27,6 +27,11 @@ mon_register: S'inscrire
 mon_scenario_create: Créer un scénario
 mon_scenario_creation_failed: Création du scénario echouée
 mon_scenario_creation_validated: Création du scénario avec succès
+mon_scenario_edit: Modifier un scénario
+mon_scenario_edit_failed: Modification du scénario echouée
+mon_scenario_edit_validated: Modification du scénario avec succès
+mon_scenario_enabled: Actif
+mon_scenario_frequency: Fréquence (en min)
 mon_scenario_form_name_placeholder: Nom de votre scénario
 mon_scenario_name: Nom
 mon_title: gallery title

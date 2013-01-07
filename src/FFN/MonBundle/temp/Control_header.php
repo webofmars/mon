@@ -4,13 +4,15 @@ namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use FFN\MonBundle\Entity\Control;
+
 /**
- * control_header
+ * Control_header
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\control_headerRepository")
  */
-class control_header
+class Control_header
 {
     /**
      * @var integer
@@ -22,10 +24,9 @@ class control_header
     private $id;
 
     /**
-     * @var integer
      *
-     * @ORM\ManyToOne(targetEntity="Control", inversedBy="validators")
-     * @ORM\JoinColumn(name="ref_id_control", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="FFN\MonBundle\Entity\Control", inversedBy="controlHeaders")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $refIdControl;
 
@@ -64,10 +65,10 @@ class control_header
     /**
      * Set refIdControl
      *
-     * @param integer $refIdControl
+     * @param Control $refIdControl
      * @return control_header
      */
-    public function setRefIdControl($refIdControl)
+    public function setRefIdControl(Control $refIdControl)
     {
         $this->refIdControl = $refIdControl;
     

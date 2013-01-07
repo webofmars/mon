@@ -21,7 +21,15 @@ class ControlType extends AbstractType{
   
   public function buildForm(FormBuilderInterface $builder, array $options) {
     //parent::buildForm($builder, $options);
-    $builder->add('name', 'text', array('label' => $this->getTranslator()->trans('mon_control_name')));
+    $builder
+      ->add('name', 'text', array('label' => $this->getTranslator()->trans('mon_control_name')))
+      ->add('controlHeaders', 'collection', array(
+          'type' => new ControlHeaderType(),
+          'allow_add'    => true,
+          'allow_delete' => true,
+          'by_reference' => false
+      ))
+    ;
   }
   
   public function getName(){
