@@ -29,6 +29,13 @@ class ControlType extends AbstractType{
           'allow_delete' => true,
           'by_reference' => false
       ))
+      ->add('validators', 'collection', array(
+          'type' => new validatorType(),
+          'allow_add'    => true,
+          'allow_delete' => true,
+          'by_reference' => false
+      ))
+            
     ;
   }
   

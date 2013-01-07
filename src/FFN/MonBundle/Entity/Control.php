@@ -65,7 +65,7 @@ class Control
     private $controlHeaders; // Ici commentaires prend un « s », car un article a plusieurs commentaires !
 
     /**
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\validator", mappedBy="control")
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\validator", mappedBy="control",cascade={"persist"})
      */
     private $validators; // Ici commentaires prend un « s », car un article a plusieurs commentaires !
 
