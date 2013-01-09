@@ -33,10 +33,17 @@ class capture {
   /**
    * @var \DateTime
    *
-   * @ORM\Column(name="date", type="datetime")
+   * @ORM\Column(name="date_scheduled", type="datetime")
    */
-  private $date;
+  private $dateScheduled;
 
+  /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="date_executed", type="datetime")
+   */
+  private $dateExecuted;
+  
   /**
    * @var integer
    *
@@ -122,26 +129,47 @@ class capture {
   }
 
   /**
-   * Set date
+   * Set dateScheduled
    *
-   * @param \DateTime $date
+   * @param \DateTime $dateScheduled
    * @return capture
    */
-  public function setDate($date) {
-    $this->date = $date;
+  public function setDateScheduled($date) {
+    $this->dateScheduled = $date;
 
     return $this;
   }
 
   /**
-   * Get date
+   * Get dateScheduled
    *
    * @return \DateTime
    */
-  public function getDate() {
-    return $this->date;
+  public function getDateScheduled() {
+    return $this->dateScheduled;
   }
 
+  /**
+   * Set dateExecuted
+   *
+   * @param \DateTime $dateExecuted
+   * @return capture
+   */
+  public function setDateExecuted($date) {
+    $this->dateExecuted = $date;
+
+    return $this;
+  }
+
+  /**
+   * Get dateExecuted
+   *
+   * @return \DateTime
+   */
+  public function getDateExecuted() {
+    return $this->dateExecuted;
+  }
+  
   /**
    * Set dns
    *
