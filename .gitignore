@@ -11,6 +11,9 @@ web/bundles/*
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+
+# misc
 *nbproject*
 *~
 *.dia.autosave
+composer.phar
