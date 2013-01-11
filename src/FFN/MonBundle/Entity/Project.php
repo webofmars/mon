@@ -47,16 +47,16 @@ class Project
     private $dateCreation;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="projects")
-     * @ORM\JoinColumn(name="ref_id_user", referencedColumnName="id")
-     */
-    protected $refIdUser;
-
-    /**
      * @ORM\OneToMany(targetEntity="scenario", mappedBy="id", cascade={"persist"})
      */
     protected $scenarios;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="projects", cascade={"persist"})
+     */
+    protected $user;
+    
+    
     /**
      * Get id
      *
@@ -111,29 +111,6 @@ class Project
     public function getDateCreation()
     {
         return $this->dateCreation;
-    }
-
-    /**
-     * Set refIdUser
-     *
-     * @param User $refIdUser
-     * @return Project
-     */
-    public function setRefIdUser(User $refIdUser = null)
-    {
-        $this->refIdUser = $refIdUser;
-    
-        return $this;
-    }
-
-    /**
-     * Get refIdUser
-     *
-     * @return User 
-     */
-    public function getRefIdUser()
-    {
-        return $this->refIdUser;
     }
 
     /**
@@ -197,5 +174,28 @@ class Project
     public function getScenarios()
     {
         return $this->scenarios;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \FFN\MonBundle\Entity\User $user
+     * @return Project
+     */
+    public function setUser(\FFN\MonBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+    
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \FFN\MonBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }

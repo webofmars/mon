@@ -3,6 +3,7 @@
 namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * scenario
@@ -25,9 +26,9 @@ class scenario
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="Project", inversedBy="scenarios")
-     * @ORM\JoinColumn(name="ref_id_project", referencedColumnName="id")
+     * @ORM\JoinColumn(name="project_id", referencedColumnName="id")
      */
-    private $refIdProject;
+    private $project;
 
     /**
      * @var string
@@ -56,6 +57,20 @@ class scenario
      * @ORM\Column(name="date_creation", type="datetime")
      */
     private $dateCreation;
+    
+    /**
+     * @var array
+     * 
+     * @ORM\OneToMany(targetEntity="Control", mappedBy="scenario", cascade={"persist"})
+     */
+    protected $controls;
+
+    /**
+     * constructor
+     */
+    public function __construct() {
+        $this->controls = new ArrayCollection;
+    }
 
     /**
      * Get id
@@ -65,29 +80,6 @@ class scenario
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set refIdProject
-     *
-     * @param integer $refIdProject
-     * @return scenario
-     */
-    public function setRefIdProject($refIdProject)
-    {
-        $this->refIdProject = $refIdProject;
-    
-        return $this;
-    }
-
-    /**
-     * Get refIdProject
-     *
-     * @return integer 
-     */
-    public function getRefIdProject()
-    {
-        return $this->refIdProject;
     }
 
     /**
@@ -180,5 +172,62 @@ class scenario
     public function getEnabled()
     {
         return $this->enabled;
+    }
+
+
+    /**
+     * Set project
+     *
+     * @param \FFN\MonBundle\Entity\Project $project
+     * @return scenario
+     */
+    public function setProject(\FFN\MonBundle\Entity\Project $project = null)
+    {
+        $this->project = $project;
+    
+        return $this;
+    }
+
+    /**
+     * Get project
+     *
+     * @return \FFN\MonBundle\Entity\Project 
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * Add controls
+     *
+     * @param \FFN\MonBundle\Entity\Control $controls
+     * @return scenario
+     */
+    public function addControl(\FFN\MonBundle\Entity\Control $controls)
+    {
+        $this->controls[] = $controls;
+    
+        return $this;
+    }
+
+    /**
+     * Remove controls
+     *
+     * @param \FFN\MonBundle\Entity\Control $controls
+     */
+    public function removeControl(\FFN\MonBundle\Entity\Control $controls)
+    {
+        $this->controls->removeElement($controls);
+    }
+
+    /**
+     * Get controls
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getControls()
+    {
+        return $this->controls;
     }
 }

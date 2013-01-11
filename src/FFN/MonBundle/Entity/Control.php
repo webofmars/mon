@@ -60,14 +60,27 @@ class Control
     private $responseTimeout;
     
     /**
+     * @var array
+     * 
      * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\ControlHeader", mappedBy="control",cascade={"persist"})
      */
     private $controlHeaders; // Ici commentaires prend un « s », car un article a plusieurs commentaires !
 
     /**
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\validator", mappedBy="control",cascade={"persist"})
+     * @var array
+     * 
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\validator", mappedBy="control", cascade={"persist"})
      */
     private $validators; // Ici commentaires prend un « s », car un article a plusieurs commentaires !
+
+    /**
+     * @var integer
+     * 
+     * @ORM\ManyToOne(targetEntity="scenario", inversedBy="controls", cascade={"persist"})
+     * @ORM\JoinColumn(name="scenario_id", referencedColumnName="id")
+     */
+    protected $scenario;
+
 
     /**
      * Constructor
@@ -254,4 +267,27 @@ class Control
       return $this->validators;
     }
 
+
+    /**
+     * Set scenario
+     *
+     * @param \FFN\MonBundle\Entity\scenario $scenario
+     * @return Control
+     */
+    public function setScenario(\FFN\MonBundle\Entity\scenario $scenario = null)
+    {
+        $this->scenario = $scenario;
+    
+        return $this;
+    }
+
+    /**
+     * Get scenario
+     *
+     * @return \FFN\MonBundle\Entity\scenario 
+     */
+    public function getScenario()
+    {
+        return $this->scenario;
+    }
 }

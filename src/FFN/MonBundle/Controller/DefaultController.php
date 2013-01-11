@@ -121,7 +121,7 @@ class DefaultController extends Controller
   public function controlAddAction($id){
     $em = $this->get('doctrine')->getEntityManager();
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
-    $project = $scenario->getRefIdProject();
+    $project = $scenario->getProject();
     $control = New Control();
     $form = $this->createForm(new ControlType($this->get('translator')), $control);
     $request = $this->getRequest();
@@ -155,7 +155,7 @@ class DefaultController extends Controller
     $em = $this->get('doctrine')->getEntityManager();
     $user = $this->get('security.context')->getToken()->getUser();
     $projects = $em->getRepository('FFN\MonBundle\Entity\Project')->findBy(array(
-        'refIdUser' => $user
+        'user' => $user
     ));
     return $this->render('FFNMonBundle:Page:home.html.twig', array(
         'projects' => $projects,
@@ -167,7 +167,7 @@ class DefaultController extends Controller
     $user = $this->get('security.context')->getToken()->getUser();
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     //Récupération de tous les scénarios associés au projet
-    $scenarios = $em->getRepository('FFN\MonBundle\Entity\scenario')->findByRefIdProject($project);
+    $scenarios = $em->getRepository('FFN\MonBundle\Entity\scenario')->findByProject($project);
     return $this->render('FFNMonBundle:Page:project_home.html.twig', array(
         'project' => $project,
         'scenarios' => $scenarios,
@@ -187,7 +187,7 @@ class DefaultController extends Controller
         //$project->setName($form->get('name'));
         $project->setDateCreation(new \DateTime());
         $project->setEnabled(false);
-        $project->setRefIdUser($user);
+        $project->setUser($user);
         $em->persist($project);
         $em->flush();
         $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_project_creation_validated'));
@@ -214,7 +214,7 @@ class DefaultController extends Controller
         $scenario->setDateCreation(new \DateTime());
         $scenario->setEnabled(false);
         $scenario->setFrequency(0);
-        $scenario->setRefIdProject($project);
+        $scenario->setProject($project);
         $em->persist($scenario);
         $em->flush();
         $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_creation_validated'));
@@ -232,7 +232,7 @@ class DefaultController extends Controller
     $em = $this->get('doctrine')->getEntityManager();
     $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
     if($scenario instanceof scenario){
-      $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getRefIdProject()->getId());
+      $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
       $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
       $request = $this->getRequest();
       if ($request->getMethod() == 'POST') {
@@ -260,7 +260,7 @@ class DefaultController extends Controller
     $em = $this->get('doctrine')->getEntityManager();
     $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
     if($scenario instanceof scenario){
-      $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getRefIdProject()->getId());
+      $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
       $em->remove($scenario);
       $em->flush();
       return $this->projectAction($project->getId());
