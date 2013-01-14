@@ -3,7 +3,8 @@
 namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use FFN\MonBundle\Entity\capture_detail;
+use Doctrine\Common\Collections\ArrayCollection;
+use FFN\MonBundle\Entity\CaptureDetail;
 
 /**
  * capture
@@ -22,82 +23,83 @@ class capture {
    */
   private $id;
 
-//  /**
-//   * @var integer
-//   *
-//   * @ORM\ManyToOne(targetEntity="Control", inversedBy="validators")
-//   * @ORM\JoinColumn(name="ref_id_control", referencedColumnName="id")
-//   */
-  private $refIdControl;
+  /**
+   * @var \DateTime
+   *
+   * @ORM\Column(name="date_scheduled", type="datetime", nullable=true)
+   */
+  private $dateScheduled = null;
 
   /**
    * @var \DateTime
    *
-   * @ORM\Column(name="date_scheduled", type="datetime")
+   * @ORM\Column(name="date_executed", type="datetime", nullable=true)
    */
-  private $dateScheduled;
-
-  /**
-   * @var \DateTime
-   *
-   * @ORM\Column(name="date_executed", type="datetime")
-   */
-  private $dateExecuted;
+  private $dateExecuted = null;
   
   /**
    * @var integer
    *
-   * @ORM\Column(name="dns", type="integer")
+   * @ORM\Column(name="dns", type="integer", nullable=true)
    */
-  private $dns;
+  private $dns = 0;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="tcp", type="integer")
+   * @ORM\Column(name="tcp", type="integer", nullable=true)
    */
-  private $tcp;
+  private $tcp = 0;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="first_packet", type="integer")
+   * @ORM\Column(name="first_packet", type="integer", nullable=true)
    */
-  private $firstPacket;
+  private $firstPacket = 0;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="total", type="integer")
+   * @ORM\Column(name="total", type="integer", nullable=true)
    */
-  private $total;
+  private $total = 0;
 
   /**
    * @var integer
    *
-   * @ORM\Column(name="response_code", type="integer")
+   * @ORM\Column(name="response_code", type="integer", nullable=true)
    */
-  private $responseCode;
+  private $responseCode = 0;
 
   /**
    * @var boolean
    *
-   * @ORM\Column(name="is_valid", type="boolean")
+   * @ORM\Column(name="is_valid", type="boolean", nullable=true)
    */
-  private $isValid;
+  private $isValid = false;
 
   /**
    * @var boolean
    *
-   * @ORM\Column(name="is_timeout", type="boolean")
+   * @ORM\Column(name="is_timeout", type="boolean", nullable=true)
    */
-  private $isTimeout;
+  private $isTimeout = false;
 
   /**
-   * @ORM\OneToOne(targetEntity="capture_detail", cascade={"persist"})
+   * @var ArrayCollection
+   * 
+   * @ORM\ManyToOne(targetEntity="captureDetail", inversedBy="capture", cascade={"persist"})
+   * @ORM\JoinColumn(name="capture_detail_id", referencedColumnName="id")
+   * 
    */
-  private $capture_detail;
+  protected $captureDetail;
 
+    public function __construct()
+    {
+        $this->captureDetail = new ArrayCollection();
+    }
+  
   /**
    * Get id
    *
@@ -105,27 +107,6 @@ class capture {
    */
   public function getId() {
     return $this->id;
-  }
-
-  /**
-   * Set refIdControl
-   *
-   * @param integer $refIdControl
-   * @return capture
-   */
-  public function setRefIdControl($refIdControl) {
-    $this->refIdControl = $refIdControl;
-
-    return $this;
-  }
-
-  /**
-   * Get refIdControl
-   *
-   * @return integer
-   */
-  public function getRefIdControl() {
-    return $this->refIdControl;
   }
 
   /**
@@ -316,26 +297,53 @@ class capture {
   public function getIsTimeout() {
     return $this->isTimeout;
   }
+  
 
-  /**
-   * Set capture_detail
-   *
-   * @param \FFN\MonBundle\Entity\capture_detail $captureDetail
-   * @return capture
-   */
-  public function setCaptureDetail(\FFN\MonBundle\Entity\capture_detail $captureDetail = null) {
-    $this->capture_detail = $captureDetail;
+    /**
+     * Set capture_detail
+     *
+     * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
+     * @return capture
+     */
+    public function setCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail = null)
+    {
+        $this->captureDetail = $captureDetail;
+    
+        return $this;
+    }
 
-    return $this;
-  }
+    /**
+     * Get capture_detail
+     *
+     * @return \FFN\MonBundle\Entity\capture_detail 
+     */
+    public function getCaptureDetail()
+    {
+        return $this->captureDetail;
+    }
 
-  /**
-   * Get capture_detail
-   *
-   * @return \FFN\MonBundle\Entity\capture_detail
-   */
-  public function getCaptureDetail() {
-    return $this->capture_detail;
-  }
 
+
+    /**
+     * Add captureDetail
+     *
+     * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
+     * @return capture
+     */
+    public function addCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail)
+    {
+        $this->captureDetail[] = $captureDetail;
+    
+        return $this;
+    }
+
+    /**
+     * Remove captureDetail
+     *
+     * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
+     */
+    public function removeCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail)
+    {
+        $this->captureDetail->removeElement($captureDetail);
+    }
 }

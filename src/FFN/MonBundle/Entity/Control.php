@@ -30,6 +30,13 @@ class Control
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
+    /**
+     * @var integer
+     * 
+     * @ORM\Column(name="frequency", type="integer")
+     */
+    private $frequency;
 
     /**
      * @var string
@@ -289,5 +296,28 @@ class Control
     public function getScenario()
     {
         return $this->scenario;
+    }
+
+    /**
+     * Set frequency
+     *
+     * @param integer $frequency
+     * @return Control
+     */
+    public function setFrequency($frequency)
+    {
+        $this->frequency = $frequency;
+    
+        return $this;
+    }
+
+    /**
+     * Get frequency
+     *
+     * @return integer 
+     */
+    public function getFrequency()
+    {
+        return $this->frequency;
     }
 }
