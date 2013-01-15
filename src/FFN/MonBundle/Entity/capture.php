@@ -3,14 +3,22 @@
 namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\Common\Collections\ArrayCollection;
 use FFN\MonBundle\Entity\CaptureDetail;
+
 
 /**
  * capture
  *
- * @ORM\Table()
+ * @ORM\Table(
+ *  uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="const_dateSched_ctrl_idx", columns={"date_scheduled", "control_id"})
+ *  })
  * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\captureRepository")
+ * @UniqueEntity({ "dateScheduled", "control" })
+ * 
+ * 
  */
 class capture {
 
@@ -95,10 +103,20 @@ class capture {
    */
   protected $captureDetail;
 
+    /**
+     * @var int
+     * 
+     * @ORM\ManyToOne(targetEntity="control", inversedBy="capture")
+     * @ORM\JoinColumn(name="control_id", referencedColumnName="id", nullable=false)
+     * 
+     */
+    protected $control;
+  
+  
     public function __construct()
-    {
-        $this->captureDetail = new ArrayCollection();
-    }
+ {
+    $this->captureDetail = new ArrayCollection();
+ }
   
   /**
    * Get id
@@ -345,5 +363,28 @@ class capture {
     public function removeCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail)
     {
         $this->captureDetail->removeElement($captureDetail);
+    }
+
+    /**
+     * Set control
+     *
+     * @param \FFN\MonBundle\Entity\control $control
+     * @return capture
+     */
+    public function setControl(\FFN\MonBundle\Entity\control $control = null)
+    {
+        $this->control = $control;
+    
+        return $this;
+    }
+
+    /**
+     * Get control
+     *
+     * @return \FFN\MonBundle\Entity\control 
+     */
+    public function getControl()
+    {
+        return $this->control;
     }
 }

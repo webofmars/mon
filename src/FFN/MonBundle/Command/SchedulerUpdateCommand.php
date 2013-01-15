@@ -22,15 +22,15 @@ use \DateTime;
         {
             $this->setName('mon:scheduler:update');
             $this->setDescription('update the captures scheduled date based on the control frequency');
+            $this->addArgument('interval', InputArgument::OPTIONAL,'Interval to schedule captures for', 60);
+            $this->addArgument('round', InputArgument::OPTIONAL,'Round values in increment of', 10);
         }
         
         protected function execute(InputInterface $input, OutputInterface $output)
         {
          
-            $nbMinutes      = 60;
-            $nbMinutesRound = 10;
-            $startTS  = $this->minutes_round( time(), $nbMinutesRound, 'Y-m-d H:i:s');
-            $stopTS   = $this->minutes_round( time() + $nbMinutes*60, $nbMinutesRound, 'Y-m-d H:i:s');
+            $startTS  = $this->minutes_round( time(), $input->getArgument('round'), 'Y-m-d H:i:s');
+            $stopTS   = $this->minutes_round( time() + $input->getArgument('interval')*60, $input->getArgument('round'), 'Y-m-d H:i:s');
             
             $output->writeln("- Updating capture table beetween $startTS and $stopTS ...");
             
@@ -52,7 +52,7 @@ use \DateTime;
                     while ($startTS < $stopTS) {
                         
                         $output->writeln("---- added capture at $startTS");
-                        $this->scheduleCapture($startTS);
+                        $this->scheduleCapture($startTS, $control);
                         $startTS += $control->getFrequency();
                     }
                 }                
@@ -60,14 +60,14 @@ use \DateTime;
         }
         
         // TODO: a externaliser
-        protected function scheduleCapture($dateTime) {
-            
+        protected function scheduleCapture($dateTime, \FFN\MonBundle\Entity\Control $control) {
+                        
             $em = $this->getContainer()->get('doctrine')->getEntityManager();
-            
             $capDetails = new CaptureDetail();
             $cap = new capture();
             
             $cap->setDateScheduled(new DateTime($dateTime));
+            $cap->setControl($control);
             $cap->setCaptureDetail($capDetails);
             
             $em->persist($capDetails);

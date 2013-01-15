@@ -87,6 +87,15 @@ class Control
      * @ORM\JoinColumn(name="scenario_id", referencedColumnName="id")
      */
     protected $scenario;
+    
+    /**
+     *
+     * @var ArrayCollection
+     * 
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\capture", mappedBy="control", cascade={"persist"})
+     * 
+     */
+    protected $captures;
 
 
     /**
@@ -94,6 +103,7 @@ class Control
      */
     public function __construct()
     {
+      $this->captures = new \Doctrine\Common\Collections\ArrayCollection();
       $this->controlHeaders = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -319,5 +329,38 @@ class Control
     public function getFrequency()
     {
         return $this->frequency;
+    }
+
+    /**
+     * Add captures
+     *
+     * @param \FFN\MonBundle\Entity\capture $captures
+     * @return Control
+     */
+    public function addCapture(\FFN\MonBundle\Entity\capture $captures)
+    {
+        $this->captures[] = $captures;
+    
+        return $this;
+    }
+
+    /**
+     * Remove captures
+     *
+     * @param \FFN\MonBundle\Entity\capture $captures
+     */
+    public function removeCapture(\FFN\MonBundle\Entity\capture $captures)
+    {
+        $this->captures->removeElement($captures);
+    }
+
+    /**
+     * Get captures
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCaptures()
+    {
+        return $this->captures;
     }
 }
