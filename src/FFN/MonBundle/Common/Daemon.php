@@ -7,7 +7,22 @@ use FFN\MonBundle\Entity\capture as Capture;
 class Daemon {
 
     public static function run(Capture $capture) {
-        return Daemon::curl_wrapper($capture->getControl()->getUrl());
+        // TODO: try-catch
+        $res = Daemon::curl_wrapper($capture->getControl()->getUrl());
+        if ($res != false) {
+            $capture->setResponseCode($res[1]);        
+            $capture->setTcp($res[2]);
+            $capture->setDns($res[3]);
+            $capture->setFirstPacket($res[4]);
+            $capture->setTotal($res[5]);
+            $capture->setIsTimeout(false);
+            
+            // TODO: add callback for validator
+            $capture->setIsValid(true);
+        }
+        else {
+            $capture->setIsTimeout(true);
+        }
     }
 
     /**
@@ -16,12 +31,12 @@ class Daemon {
      * 
      * Wraper arround libcurl
      * returns array or null
-     *      reponse,
-     *      response_code,
-     *      connect_time,
-     *      namelookup_time,
-     *      starttransfer_time,
-     *      total_time
+     *   0   reponse,
+     *   1   response_code,
+     *   2   connect_time,
+     *   3   namelookup_time,
+     *   4   starttransfer_time,
+     *   5   total_time
      */
     public static function curl_wrapper($url) {
         

@@ -46,32 +46,32 @@ class capture {
   private $dateExecuted = null;
   
   /**
-   * @var integer
+   * @var decimal
    *
-   * @ORM\Column(name="dns", type="integer", nullable=true)
+   * @ORM\Column(name="dns", type="decimal", scale=3, nullable=true)
    */
-  private $dns = 0;
+  private $dns = 0.000;
 
   /**
-   * @var integer
+   * @var decimal
    *
-   * @ORM\Column(name="tcp", type="integer", nullable=true)
+   * @ORM\Column(name="tcp", type="decimal", scale=3, nullable=true)
    */
-  private $tcp = 0;
+  private $tcp = 0.000;
 
   /**
-   * @var integer
+   * @var decimal
    *
-   * @ORM\Column(name="first_packet", type="integer", nullable=true)
+   * @ORM\Column(name="first_packet", type="decimal", scale=3, nullable=true)
    */
-  private $firstPacket = 0;
+  private $firstPacket = 0.000;
 
   /**
-   * @var integer
+   * @var decimal
    *
-   * @ORM\Column(name="total", type="integer", nullable=true)
+   * @ORM\Column(name="total", type="decimal", scale=3, nullable=true)
    */
-  private $total = 0;
+  private $total = 0.000;
 
   /**
    * @var integer

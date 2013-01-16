@@ -29,11 +29,15 @@ class SchedulerRunCommand extends ContainerAwareCommand {
         $captures = $em->getRepository("FFNMonBundle:capture")->findAll();
         
         foreach($captures as $capture) {
-            if ( is_null($capture->getDateExecuted()) ) {
+            if ( ($capture->getDateExecuted() < time()) and is_null($capture->getDateExecuted()) ) {
                 $output->writeln("- running control #".$capture->getControl()->getId());
-                $results = FFNDaemon::run($capture);
+                FFNDaemon::run($capture);
+                
+                $capture->setDateExecuted(new DateTime());
+                $em->persist($capture);
+                $em->flush();
             }
         }
+        $em->close();
     }
-
 }
