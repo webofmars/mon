@@ -32,13 +32,6 @@ class Control
     private $name;
     
     /**
-     * @var integer
-     * 
-     * @ORM\Column(name="frequency", type="integer")
-     */
-    private $frequency;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="url", type="string", length=255)

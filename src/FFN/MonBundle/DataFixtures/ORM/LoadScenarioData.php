@@ -23,13 +23,16 @@ class LoadScenarioData  extends AbstractFixture implements OrderedFixtureInterfa
         $sc->setEnabled(true);
         $sc->setName('FFN_fixtures_scenarios_1');
         $sc->setFrequency(1);
-        $sc->setProject($om->getRepository("FFN\MonBundle\Entity\Project")->find(1));
+        $sc->setProject($om->merge($this->getReference('proj')));
         
         $om->persist($sc);
         $om->flush();
+        
+        $this->setReference('sc', $sc);
+        
     }
     
     public function getOrder() {
-        return(2);
+        return(3);
     }
 }

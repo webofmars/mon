@@ -14,14 +14,14 @@ use \DateTime;
 
 
     /**
-     * Command that fill up the capture scheduled dates based on their frequencies
+     * Command that fill up the capture scheduled dates based on the scenario frequencies
      */
     class SchedulerUpdateCommand extends ContainerAwareCommand {
         
         protected function configure() 
         {
             $this->setName('mon:scheduler:update');
-            $this->setDescription('update the captures scheduled date based on the control frequency');
+            $this->setDescription('update the captures scheduled date based on the scenario frequency');
             $this->addArgument('interval', InputArgument::OPTIONAL,'Interval to schedule captures for', 60);
             $this->addArgument('round', InputArgument::OPTIONAL,'Round values in increment of', 10);
         }
@@ -34,7 +34,7 @@ use \DateTime;
             
             $output->writeln("- Updating capture table beetween $startTS and $stopTS ...");
             
-            // get all the scenarii frequencies
+            // get all the scenarii
             $em = $this->getContainer()->get('doctrine')->getEntityManager();
             $scenarios = $em->getRepository("FFNMonBundle:Scenario")->findAll();
                         
@@ -53,7 +53,7 @@ use \DateTime;
                         
                         $output->writeln("---- added capture at $startTS");
                         $this->scheduleCapture($startTS, $control);
-                        $startTS += $control->getFrequency();
+                        $startTS += $scenario->getFrequency();
                     }
                 }                
             }

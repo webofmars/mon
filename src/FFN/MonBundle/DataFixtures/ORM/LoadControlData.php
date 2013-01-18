@@ -25,14 +25,17 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
         $ctrl->setMimeType('text/html');
         $ctrl->setConnectionTimeout(5);
         $ctrl->setResponseTimeout(10);
-        $ctrl->setFrequency(1);
-        $ctrl->setScenario($om->getRepository('FFN\MonBundle\Entity\scenario')->find(1));
+        
+        $ctrl->setScenario($om->merge($this->getReference('sc')));
         
         $om->persist($ctrl);
         $om->flush();
+        
+        $this->addReference('ctrl', $ctrl);
+        
     }
     
     public function getOrder() {
-        return(3);
+        return(4);
     }
 }
