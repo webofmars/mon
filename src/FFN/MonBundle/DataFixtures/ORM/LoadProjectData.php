@@ -16,16 +16,25 @@ use FFN\MonBundle\Entity\Project;
 class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface {
     
     public function load(ObjectManager $om) {
-        $proj = new Project();
-        $proj->setName('ffn_fixture_project_1');
-        $proj->setDateCreation(new DateTime());
-        $proj->setEnabled(true);
-        $proj->setUser($om->merge($this->getReference('user')));
+
+        // Creation of several projects
+        for ($i = 1; $i <= 3; $i++) {
+
+          $proj = new Project();
+
+          $proj->setName('ffn_fixture_project_'.$i);
+          $proj->setDateCreation(new DateTime());
+          $proj->setEnabled(true);
+          $proj->setDescription('Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.');
+          $proj->setUser($om->merge($this->getReference('user')));
+
+          $om->persist($proj);
+          $om->flush();
+
+          $this->addReference('proj'.$i, $proj);
         
-        $om->persist($proj);
-        $om->flush();
-        
-        $this->addReference('proj', $proj);
+        }
+
     }
     
     public function getOrder() {

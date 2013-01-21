@@ -33,6 +33,13 @@ class Project
     private $name;
 
     /**
+     * @var text
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    private $description;
+
+    /**
      * @var boolean
      *
      * @ORM\Column(name="enabled", type="boolean")
@@ -197,5 +204,28 @@ class Project
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Project
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

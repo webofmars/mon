@@ -18,18 +18,26 @@ class LoadScenarioData  extends AbstractFixture implements OrderedFixtureInterfa
     
     public function load(ObjectManager $om) {
         
-        $sc = new scenario();
-        $sc->setDateCreation(new DateTime());
-        $sc->setEnabled(true);
-        $sc->setName('FFN_fixtures_scenarios_1');
-        $sc->setFrequency(1);
-        $sc->setProject($om->merge($this->getReference('proj')));
-        
-        $om->persist($sc);
-        $om->flush();
-        
-        $this->setReference('sc', $sc);
-        
+        // Creation of several scenarii
+        for ($i = 1; $i <= 3; $i++) {
+          for ($j = 1; $j <= $i; $j++) {
+
+            $sc = new scenario();
+
+            $sc->setDateCreation(new DateTime());
+            $sc->setEnabled(true);
+            $sc->setName('FFN_fixtures_scenarios_'.$i.$j);
+            $sc->setFrequency(1);
+            $sc->setProject($om->merge($this->getReference('proj'.$i)));
+
+            $om->persist($sc);
+            $om->flush();
+
+            $this->setReference('sc'.$i.$j, $sc);
+
+          }
+        }
+
     }
     
     public function getOrder() {

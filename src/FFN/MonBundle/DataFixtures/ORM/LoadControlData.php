@@ -17,21 +17,27 @@ use FFN\MonBundle\Entity\Control;
 class LoadControlData  extends AbstractFixture implements OrderedFixtureInterface {
     
     public function load(ObjectManager $om) {
-        
-        $ctrl = new Control();
-       
-        $ctrl->setName('FFN_fixtures_ctrl_1');
-        $ctrl->setUrl('http://www.couchsurfing.org/');
-        $ctrl->setMimeType('text/html');
-        $ctrl->setConnectionTimeout(5);
-        $ctrl->setResponseTimeout(10);
-        
-        $ctrl->setScenario($om->merge($this->getReference('sc')));
-        
-        $om->persist($ctrl);
-        $om->flush();
-        
-        $this->addReference('ctrl', $ctrl);
+
+        // Creation of several scenarii
+        for ($i = 1; $i <= 3; $i++) {
+          for ($j = 1; $j <= $i; $j++) {
+
+            $ctrl = new Control();
+
+            $ctrl->setName('FFN_fixtures_ctrl_'.$i.$j);
+            $ctrl->setUrl('http://www.couchsurfing.org/');
+            $ctrl->setMimeType('text/html');
+            $ctrl->setConnectionTimeout(5);
+            $ctrl->setResponseTimeout(10);
+            $ctrl->setScenario($om->merge($this->getReference('sc'.$i.$j)));
+
+            $om->persist($ctrl);
+            $om->flush();
+
+            $this->addReference('ctrl'.$i.$j, $ctrl);
+          
+          }
+        }
         
     }
     
