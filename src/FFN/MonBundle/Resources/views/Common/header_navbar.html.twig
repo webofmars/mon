@@ -22,8 +22,8 @@
             <li><a href="{{ path("fos_user_security_login")}}">{{ 'mon_login' | trans({}, 'messages') | raw }}</a></li>
             <li><a href="{{ path('fos_user_registration_register')}}">{{ 'mon_register' | trans({}, 'messages') | raw }}</a></li>
           {% endif %}
-          <li><a href="about">About</a></li>
-          <li><a href="contact">Contact</a></li>
+          <li><a href="{{ path('mon_about') }}">{{ 'mon_about' | trans({}, 'messages') | raw() }}</a></li>
+          <li><a href="{{ path('mon_contact') }}">{{ 'mon_contact' | trans({}, 'messages') | raw() }}</a></li>
         </ul>
       </div><!--/.nav-collapse -->
     </div>
