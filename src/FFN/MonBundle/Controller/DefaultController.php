@@ -19,19 +19,19 @@ use Doctrine\ORM\EntityManager;
 
 class DefaultController extends Controller
 {
-  
+
   public function adminUserAction(){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     $users = $em->getRepository('FFN\MonBundle\Entity\User')->findAll();
-    
+
     return $this->render('FFNMonBundle:Page:admin_user.html.twig', array(
       'users' => $users,
     ));
   }
-  
+
   public function adminUserActivationAction($id, $statut){
     $isActive = false;
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     //Control if parameters already exist
     $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneById($id);
     if($is_exist instanceof User){
@@ -43,21 +43,20 @@ class DefaultController extends Controller
       }
       $em->persist($is_exist);
       $em->flush();
-    } 
+    }
     return $this->render('FFNMonBundle:Page:is_user_active.html.twig',array(
         'isActive' => $isActive
     ));
   }
-  
+
   public function adminUserAddAction(){
-    
-    $em = $this->get('doctrine')->getEntityManager();
+
+    $em = $this->get('doctrine')->getManager();
     $user = new User();
     $form = $this->createForm(new UserType($this->get('translator')), $user);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
         $form->bindRequest($request);
-
         if ($form->isValid()) {
           $user_request_params = $request->get('user');
           $username = $user_request_params['username'];
@@ -89,20 +88,20 @@ class DefaultController extends Controller
           }
         }
     }
-    
+
     return $this->render('FFNMonBundle:Page:admin_user_add.html.twig', array(
         'form' => $form->createView(),
     ));
   }
-  
+
   public function adminUserDeleteAction($id){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     //Control if parameters already exist
     $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneById($id);
     if($is_exist instanceof User){
       $em->remove($is_exist);
       $em->flush();
-    } 
+    }
     $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneById($id);
     if($is_exist instanceof User){
       $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_user_delete_failed'));
@@ -111,26 +110,25 @@ class DefaultController extends Controller
     }
     return $this->adminUserAction();
   }
-    
+
   public function adminUserEditAction($id){
     echo 'TODO';
     return $this->render('FFNMonBundle:Page:home.html.twig', array(
     ));
   }
-  
+
   public function controlAddAction($id){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     $project = $scenario->getProject();
     $control = New Control();
     $form = $this->createForm(new ControlType($this->get('translator')), $control);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      
+
       $form->bindRequest($request);
       if ($form->isValid()) {
-        
-        $em = $this->get('doctrine')->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $control->setConnectionTimeout(0);
         $control->setMimeType('html');
         $control->setResponseTimeout(0);
@@ -142,7 +140,7 @@ class DefaultController extends Controller
       } else {
         $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
       }
-      
+
     }
     return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
         'form' => $form->createView(),
@@ -150,9 +148,9 @@ class DefaultController extends Controller
         'scenario' => $scenario,
     ));
   }
-  
+
   public function homeAction(){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
     $projects = $em->getRepository('FFN\MonBundle\Entity\Project')->findBy(array(
         'user' => $user
@@ -161,9 +159,9 @@ class DefaultController extends Controller
         'projects' => $projects,
     ));
   }
-  
+
   public function projectAction($id){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     //Récupération de tous les scénarios associés au projet
@@ -173,7 +171,7 @@ class DefaultController extends Controller
         'scenarios' => $scenarios,
     ));
   }
-  
+
   public function projectAddAction(){
     $user = $this->get('security.context')->getToken()->getUser();
     $project = New Project();
@@ -182,8 +180,7 @@ class DefaultController extends Controller
     if ($request->getMethod() == 'POST') {
       $form->bindRequest($request);
       if ($form->isValid()) {
-        
-        $em = $this->get('doctrine')->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         //$project->setName($form->get('name'));
         $project->setDateCreation(new \DateTime());
         $project->setEnabled(false);
@@ -199,9 +196,9 @@ class DefaultController extends Controller
         'form' => $form->createView(),
     ));
   }
-  
+
   public function scenarioAddAction($id){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     $scenario = New Scenario();
     $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
@@ -209,8 +206,7 @@ class DefaultController extends Controller
     if ($request->getMethod() == 'POST') {
       $form->bindRequest($request);
       if ($form->isValid()) {
-        
-        $em = $this->get('doctrine')->getEntityManager();
+        $em = $this->get('doctrine')->getManager();
         $scenario->setDateCreation(new \DateTime());
         $scenario->setEnabled(false);
         $scenario->setFrequency(0);
@@ -227,9 +223,9 @@ class DefaultController extends Controller
         'project' => $project,
     ));
   }
-  
+
   public function scenarioEditAction($id){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
     if($scenario instanceof scenario){
       $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
@@ -253,11 +249,11 @@ class DefaultController extends Controller
     } else {
       return $this->redirect($this->generateUrl('mon_home'));
     }
-    
+
   }
-  
+
   public function scenarioDeleteAction($id){
-    $em = $this->get('doctrine')->getEntityManager();
+    $em = $this->get('doctrine')->getManager();
     $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
     if($scenario instanceof scenario){
       $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());

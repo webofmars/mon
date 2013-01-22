@@ -54,7 +54,8 @@ class Project
     private $dateCreation;
 
     /**
-     * @ORM\OneToMany(targetEntity="scenario", mappedBy="id", cascade={"persist"})
+     * @var ArrayCollection scenarios
+     * @ORM\OneToMany(targetEntity="scenario", mappedBy="project", cascade={"persist"})
      */
     protected $scenarios;
 
@@ -62,12 +63,12 @@ class Project
      * @ORM\ManyToOne(targetEntity="User", inversedBy="projects", cascade={"persist"})
      */
     protected $user;
-    
-    
+
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -83,14 +84,14 @@ class Project
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -106,14 +107,14 @@ class Project
     public function setDateCreation($dateCreation)
     {
         $this->dateCreation = $dateCreation;
-    
+
         return $this;
     }
 
     /**
      * Get dateCreation
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreation()
     {
@@ -129,14 +130,14 @@ class Project
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    
+
         return $this;
     }
 
     /**
      * Get enabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -149,7 +150,7 @@ class Project
     {
         $this->scenarios = new ArrayCollection();
     }
-    
+
     /**
      * Add scenarios
      *
@@ -159,7 +160,7 @@ class Project
     public function addScenario(scenario $scenarios)
     {
         $this->scenarios[] = $scenarios;
-    
+
         return $this;
     }
 
@@ -176,7 +177,7 @@ class Project
     /**
      * Get scenarios
      *
-     * @return Collection 
+     * @return Collection
      */
     public function getScenarios()
     {
@@ -192,14 +193,14 @@ class Project
     public function setUser(\FFN\MonBundle\Entity\User $user = null)
     {
         $this->user = $user;
-    
+
         return $this;
     }
 
     /**
      * Get user
      *
-     * @return \FFN\MonBundle\Entity\User 
+     * @return \FFN\MonBundle\Entity\User
      */
     public function getUser()
     {
@@ -215,14 +216,14 @@ class Project
     public function setDescription($description)
     {
         $this->description = $description;
-    
+
         return $this;
     }
 
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {

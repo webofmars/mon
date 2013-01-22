@@ -21,7 +21,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="Project", mappedBy="id", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Project", mappedBy="user", cascade={"persist"})
      */
     protected $projects;
 
@@ -35,7 +35,7 @@ class User extends BaseUser
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -51,7 +51,7 @@ class User extends BaseUser
     public function addProject(Project $projects)
     {
         $this->projects[] = $projects;
-    
+
         return $this;
     }
 

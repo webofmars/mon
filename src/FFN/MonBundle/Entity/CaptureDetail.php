@@ -19,19 +19,19 @@ class CaptureDetail
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      *
-     * 
+     *
      */
     private $id;
 
     /**
      *
      * @var type capture;
-     * @ORM\OneToMany(targetEntity="capture", mappedBy="capture_detail_id", cascade={"persist"})
-     * 
+     * @ORM\OneToMany(targetEntity="capture", mappedBy="capture", cascade={"persist"})
+     *
      */
     private $capture = null;
-    
-    
+
+
     /**
      * @var string
      *
@@ -64,7 +64,7 @@ class CaptureDetail
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,14 +80,14 @@ class CaptureDetail
     public function setContent($content)
     {
         $this->content = $content;
-    
+
         return $this;
     }
 
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -103,14 +103,14 @@ class CaptureDetail
     public function setIsConnectionTimeout($isConnectionTimeout)
     {
         $this->isConnectionTimeout = $isConnectionTimeout;
-    
+
         return $this;
     }
 
     /**
      * Get isConnectionTimeout
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsConnectionTimeout()
     {
@@ -126,14 +126,14 @@ class CaptureDetail
     public function setIsResponseTimeout($isResponseTimeout)
     {
         $this->isResponseTimeout = $isResponseTimeout;
-    
+
         return $this;
     }
 
     /**
      * Get isResponseTimeout
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getIsResponseTimeout()
     {
@@ -149,14 +149,14 @@ class CaptureDetail
     public function setValidators($validators)
     {
         $this->validators = $validators;
-    
+
         return $this;
     }
 
     /**
      * Get validators
      *
-     * @return string 
+     * @return string
      */
     public function getValidators()
     {
@@ -172,14 +172,14 @@ class CaptureDetail
     public function setCapture(\FFN\MonBundle\Entity\capture $capture = null)
     {
         $this->capture = $capture;
-    
+
         return $this;
     }
 
     /**
      * Get capture
      *
-     * @return \FFN\MonBundle\Entity\capture 
+     * @return \FFN\MonBundle\Entity\capture
      */
     public function getCapture()
     {
@@ -192,7 +192,7 @@ class CaptureDetail
     {
         $this->capture = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add capture
      *
@@ -202,7 +202,7 @@ class CaptureDetail
     public function addCapture(\FFN\MonBundle\Entity\capture $capture)
     {
         $this->capture[] = $capture;
-    
+
         return $this;
     }
 

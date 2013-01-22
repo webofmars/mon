@@ -8,19 +8,38 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use DateTime;
 use FFN\MonBundle\Entity\scenario;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of LoadScenarioData
  *
  * @author frederic
  */
-class LoadScenarioData  extends AbstractFixture implements OrderedFixtureInterface {
-    
+class LoadScenarioData  extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+
+	  /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+		/**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     public function load(ObjectManager $om) {
-        
+
+				// Get how many projects & scenarii to create
+			  $nbProjects = $this->container->getParameter('nb_projects');
+			  $nbScenarii = $this->container->getParameter('nb_scenarii');
+
         // Creation of several scenarii
-        for ($i = 1; $i <= 3; $i++) {
-          for ($j = 1; $j <= $i; $j++) {
+        for ($i = 1; $i <= $nbProjects; $i++) {
+          for ($j = 1; $j <= $nbScenarii; $j++) {
 
             $sc = new scenario();
 
@@ -39,7 +58,7 @@ class LoadScenarioData  extends AbstractFixture implements OrderedFixtureInterfa
         }
 
     }
-    
+
     public function getOrder() {
         return(3);
     }

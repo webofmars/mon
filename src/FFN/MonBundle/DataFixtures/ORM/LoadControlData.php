@@ -8,19 +8,38 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use DateTime;
 use FFN\MonBundle\Entity\Control;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Description of LoadControlData
  *
  * @author frederic
  */
-class LoadControlData  extends AbstractFixture implements OrderedFixtureInterface {
-    
+class LoadControlData  extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
+
+	  /**
+     * @var ContainerInterface
+     */
+    private $container;
+
+		/**
+     * {@inheritDoc}
+     */
+    public function setContainer(ContainerInterface $container = null)
+    {
+        $this->container = $container;
+    }
+
     public function load(ObjectManager $om) {
 
-        // Creation of several scenarii
-        for ($i = 1; $i <= 3; $i++) {
-          for ($j = 1; $j <= $i; $j++) {
+				// Get how many projects & controls to create
+			  $nbProjects = $this->container->getParameter('nb_projects');
+			  $nbControls = $this->container->getParameter('nb_scenarii');
+
+        // Creation of several controls (= 1 per existing scenario)
+        for ($i = 1; $i <= $nbProjects; $i++) {
+          for ($j = 1; $j <= $nbControls; $j++) {
 
             $ctrl = new Control();
 
@@ -35,12 +54,12 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
             $om->flush();
 
             $this->addReference('ctrl'.$i.$j, $ctrl);
-          
+
           }
         }
-        
+
     }
-    
+
     public function getOrder() {
         return(4);
     }
