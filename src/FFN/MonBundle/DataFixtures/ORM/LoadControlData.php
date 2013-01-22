@@ -33,9 +33,9 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
 
     public function load(ObjectManager $om) {
 
-				// Get how many projects & controls to create
-			  $nbProjects = $this->container->getParameter('nb_projects');
-			  $nbControls = $this->container->getParameter('nb_scenarii');
+        // Get how many projects & controls to create
+        $nbProjects = $this->container->getParameter('nb_projects', 4);
+        $nbControls = $this->container->getParameter('nb_scenarii', 5);
 
         // Creation of several controls (= 1 per existing scenario)
         for ($i = 1; $i <= $nbProjects; $i++) {

@@ -19,9 +19,9 @@
         <td>{{scenario.id}}</td>
         <td>{{scenario.name}}</td>
         <td>
-          <a href="{{path('mon_control_add', {'id': scenario.id})}}">creer control</a>
-          <a href="{{path('mon_scenario_edit', {'id': scenario.id})}}">edit</a>
-          <a href="{{path('mon_scenario_delete', {'id': scenario.id})}}">supprimé</a>
+          <a href="{{path('mon_control_add', {'id': scenario.id})}}">{{ 'mon_control_create' | trans() | raw()}}</a>
+          <a href="{{path('mon_scenario_edit', {'id': scenario.id})}}">{{ 'mon_control_edit' | trans() | raw()}}</a>
+          <a href="{{path('mon_scenario_delete', {'id': scenario.id})}}">{{ 'mon_control_delete' | trans() | raw()}}</a>
         </td>
       </tr>
       {% endfor %}
