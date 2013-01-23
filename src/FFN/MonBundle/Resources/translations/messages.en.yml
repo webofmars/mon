@@ -1,0 +1,60 @@
+mon_about: About Mon
+mon_contact: How to contact Mon ?
+mon_control_create: Créer un contrôle
+mon_control_edit: Modifier le contrôle
+mon_control_delete: Supprimer le contrôle
+mon_control_creation_failed: Création du contrôle échouée
+mon_control_creation_validated: Création du contrôle efféctuée
+mon_control_form_name_placeholder: Nom de votre contrôle
+mon_control_name: Nom
+
+mon_menu_admin: Administration
+mon_menu_admin_create_user: Cr&eacute;er un utilisateur
+mon_menu_admin_manage_users: G&eacute;rer les utilisateurs
+mon_home: Accueil
+mon_login: Connexion
+mon_logout: D&eacute;connexion
+mon_mail: Email
+mon_mail_already_used: Mail déjà utilisé
+mon_password: Mot de passe
+mon_photo_date_activation: Date Activation
+mon_photo_date_ingestion: Date Ingestion
+mon_photo_display_order: Ordre
+mon_photo_is_active: Active
+mon_photo_filename: Nom du fichier
+mon_project_create: Créer un projet
+mon_project_creation_failed: Création du projet échouée
+mon_project_creation_validated: Création du projet avec succès
+mon_project_my_projects: Mes Projets
+mon_project_name: Nom
+mon_project_projects: Projets
+mon_register: S'inscrire
+mon_scenario_create: Créer un scénario
+mon_scenario_creation_failed: Création du scénario echouée
+mon_scenario_creation_validated: Création du scénario avec succès
+mon_scenario_edit: Modifier un scénario
+mon_scenario_edit_failed: Modification du scénario echouée
+mon_scenario_edit_validated: Modification du scénario avec succès
+mon_scenario_enabled: Actif
+mon_scenario_frequency: Fréquence (en min)
+mon_scenario_form_name_placeholder: Nom de votre scénario
+mon_scenario_name: Nom
+mon_title: gallery title
+mon_user_already_exist: Utilisateur déjà existant
+mon_user_active: Actif
+mon_user_administration: Administration
+mon_user_confirm_delete: Etes-vous certain de vouloir supprimer l\'utilisateur &quot;%username%&quot;?
+mon_user_created: Utilisateur créé
+mon_user_delete: Suppression
+mon_user_delete_user: Suppression de l'utilisateur 
+mon_user_delete_user_confirmed: Suppression de l'utilisateur confirmé
+mon_user_delete_failed: Suppression de l'utilisateur echouée
+mon_user_edit: Edition
+mon_user_folder: Dossier
+mon_user_last_login: Dernière Connexion
+mon_user_list: Liste des utilisateurs
+mon_user_photo_manage: Manage Photos
+mon_user_no_created: Utilisateur non créé
+mon_username: Nom d'utilisateur
+mon_validate: Valider
+mon_view_details: Plus de détails &raquo;
