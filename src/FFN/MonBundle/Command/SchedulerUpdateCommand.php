@@ -26,7 +26,7 @@ use \DateTime;
             $this->addArgument('round', InputArgument::OPTIONAL,'Round values in increment of', 10);
         }
         
-        protected function execute(InputInterface $input, OutputInterface $output)
+        public function execute(InputInterface $input, OutputInterface $output)
         {
          
             $startTS  = $this->minutes_round( time(), $input->getArgument('round'), 'Y-m-d H:i:s');
