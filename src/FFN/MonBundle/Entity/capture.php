@@ -97,7 +97,7 @@ class capture {
   /**
    * @var ArrayCollection
    * 
-   * @ORM\ManyToOne(targetEntity="captureDetail", inversedBy="capture", cascade={"persist"})
+   * @ORM\OneToMany(targetEntity="captureDetail", mappedBy="capture", cascade={"persist"})
    * @ORM\JoinColumn(name="capture_detail_id", referencedColumnName="id")
    * 
    */
@@ -106,7 +106,7 @@ class capture {
     /**
      * @var int
      * 
-     * @ORM\ManyToOne(targetEntity="control", inversedBy="capture")
+     * @ORM\ManyToOne(targetEntity="control", inversedBy="captures")
      * @ORM\JoinColumn(name="control_id", referencedColumnName="id", nullable=false)
      * 
      */

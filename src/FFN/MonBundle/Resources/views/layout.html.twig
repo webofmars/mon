@@ -1,48 +1,46 @@
- <!DOCTYPE html>
- <html lang="fr">
-  <head>
-    
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>{% block pagetitle %}{{ 'mon_title' | trans({}, 'messages') | raw }}{% endblock %}</title>
-    <!-- Bootstrap -->
-    {% stylesheets 
-      '@FFNMonBundle/Resources/public/css/bootstrap.css' 
-      '@FFNMonBundle/Resources/public/css/style.css' 
-      output='css/all.css'
-      filter='yui_css' %}
-      <link rel="stylesheet" href="{{ asset_url }}"type="text/css" />
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>{% block pagetitle %}{{ 'mon_title' | trans({}, 'messages') | raw }}{% endblock %}</title>
+        <!-- Bootstrap -->
+    {% stylesheets
+      'bundles/ffnmon/css/bootstrap.css'
+      'bundles/ffnmon/css/style.css'
+      filter="cssrewrite, yui_css" output="css/all.css"
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
+        
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
-  </head>
-  <body>
+    </head>
+    <body>
     {% block header %}
       {% include 'FFNMonBundle:Common:header_navbar.html.twig' %}
     {% endblock %} 
-    <div class="container">
-    {% block body %}
-    {% endblock %}
-    {% block fos_user_content %}
-    {% endblock %}
-    {% block footer %}
-      {% include 'FFNMonBundle:Common:footer.html.twig' %}
-    {% endblock %} 
-    </div> <!-- /container -->
-    {% javascripts 
-      '@FFNMonBundle/Resources/public/js/jquery-1.8.3.js' 
-      '@FFNMonBundle/Resources/public/js/jquery.tablesorter.js' 
-      '@FFNMonBundle/Resources/public/js/bootstrap.js' 
-      '@FFNMonBundle/Resources/public/js/app.js' 
-      output='js/app.js'
-      filter='yui_js' %}
-      <script src="{{ asset_url}}"></script>
-    {% endjavascripts %}
-    
-  </body>
-</html>
+            <div class="container">
+                {% block body %}
+                {% endblock %}
+                {% block fos_user_content %}
+                {% endblock %}
+                {% block footer %}
+                  {% include 'FFNMonBundle:Common:footer.html.twig' %}
+                {% endblock %} 
+             </div>
+            {% javascripts 
+              '@FFNMonBundle/Resources/public/js/jquery-1.8.3.js' 
+              '@FFNMonBundle/Resources/public/js/jquery.tablesorter.js' 
+              '@FFNMonBundle/Resources/public/js/bootstrap.js' 
+              '@FFNMonBundle/Resources/public/js/app.js' 
+              output='js/app.js'
+              filter='yui_js' %}
+                        <script src="{{ asset_url}}"></script>
+            {% endjavascripts %}
+            </body>
+        </html>

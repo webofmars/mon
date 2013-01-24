@@ -26,7 +26,7 @@ class CaptureDetail
     /**
      *
      * @var type capture;
-     * @ORM\OneToMany(targetEntity="capture", mappedBy="capture", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="capture", inversedBy="capture")
      *
      */
     private $capture = null;
