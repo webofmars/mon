@@ -2,6 +2,7 @@ imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
     - { resource: "@FFNMonBundle/Resources/config/config.yml" }
+    - { resource: "@FFNMonBundle/Resources/config/parameters.yml" }
 
 framework:
     #esi:             ~

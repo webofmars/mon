@@ -3,7 +3,7 @@ body {
   /*padding-bottom: 40px;*/
 }
 
-
+/* forms */
 .form-signin {
   max-width: 300px;
   padding: 19px 29px 29px;
@@ -21,7 +21,6 @@ body {
 .form-signin .checkbox {
   margin-bottom: 10px;
 }
-
 .form-signin input[type="text"],
 .form-signin input[type="password"] {
   font-size: 16px;
@@ -102,4 +101,40 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     display: block;
     height: 30px;
     width: 60px;
+}
+
+.picSun {
+    background: url("/bundles/ffnmon/images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    width: 43.6px;
+    background-position: -4px 0px;
+}
+
+.picCloud {
+    background: url("/bundles/ffnmon/images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    width: 43.6px;
+    background-position: -44px -80px;
+}
+
+.picRain {
+    background: url("/bundles/ffnmon/images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    width: 43.6px;
+    background-position: -171px -80px;
+}
+
+.picStorm {
+    background: url("/bundles/ffnmon/images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    width: 43.6px;
+    background-position: -129px -120px;
 }

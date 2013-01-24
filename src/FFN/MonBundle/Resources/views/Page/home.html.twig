@@ -20,7 +20,7 @@
           {% for scenario in project.scenarios %}
             <div class="row">
               <div class="span2">{{scenario.name}}</div>
-              <div class="span1 offset1 pagination-right"><img src="http://lorempixel.com/50/40/?var={{ random() }}" alt="lorem" /></div>
+              <div class="span1 offset1 pagination-right"><span class="{{ random(['picSun', 'picCloud', 'picRain', 'picStorm']) }}"></span></div>
             </div>
           {% endfor %}
         {% endif %}
