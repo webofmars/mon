@@ -19,7 +19,7 @@ mon_about:
     private: false
   requirements:
     culture: en|fr
- 
+
 mon_contact:
   pattern: /{culture}/contact
   defaults:
@@ -43,14 +43,14 @@ mon_admin_user_activation:
     requirements:
         _method: GET|POST
         statut: true|false
-        
+
 mon_admin_user_delete:
     pattern:  /admin/user/delete/{id}
     defaults: { _controller: FFNMonBundle:Default:adminUserDelete}
     requirements:
         _method: GET
         id: \d+
-        
+
 mon_admin_user_edit:
     pattern:  /admin/user/{id}
     defaults: { _controller: FFNMonBundle:Default:adminUserEdit}
@@ -64,22 +64,35 @@ mon_admin_user:
     requirements:
         _method: GET
 
-mon_project_add: 
+mon_project_add:
     pattern: /project/add
     defaults: { _controller: FFNMonBundle:Default:projectAdd}
     requirements:
         _method: GET|POST
-        
-mon_project_home: 
+
+mon_project_home:
     pattern: /project/{id}
     defaults: { _controller: FFNMonBundle:Default:project}
     requirements:
         _method: GET|POST
         id: \d+
 
+mon_project_edit:
+    pattern: /project/edit/{id}
+    defaults: { _controller: FFNMonBundle:Default:projectEdit}
+    requirements:
+        _method: GET|POST
+
 mon_scenario_add:
     pattern: /scenario/add/{id}
     defaults: { _controller: FFNMonBundle:Default:scenarioAdd}
+    requirements:
+        _method: GET|POST
+        id: \d+
+
+mon_scenario_home:
+    pattern: /scenario/{id}
+    defaults: { _controller: FFNMonBundle:Default:scenario}
     requirements:
         _method: GET|POST
         id: \d+
@@ -97,20 +110,20 @@ mon_scenario_delete:
     requirements:
         _method: GET
         id: \d+
-        
+
 mon_control_add:
     pattern: /control/add/{id}
     defaults: { _controller: FFNMonBundle:Default:controlAdd}
     requirements:
         _method: GET|POST
         id: \d+
-        
+
 mon_home:
     pattern:  /
     defaults: { _controller: FFNMonBundle:Default:home}
     requirements:
         _method: GET
-        
+
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
 

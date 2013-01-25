@@ -33,7 +33,7 @@
             {% set is_active = 'off' %}
             {% set statut_to_change = 'true' %}
           {% endif %}
-          
+
           <tr>
             <td>{{user.id}}</td>
             <td>{{user.username}}</td>
@@ -63,8 +63,8 @@
     <p id="p_username_to_delete"></p>
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn" onclick="$('#myModal').modal('hide');">Cancel</a>
-    <a href="{{path("mon_home")}}" id="button_submit_cancel_user" class="btn btn-primary">Submit</a>
+    <a href="#" class="btn" onclick="$('#myModal').modal('hide');">{{ 'mon_cancel' | trans({}, 'messages') | raw }}</a>
+    <a href="{{path("mon_home")}}" id="button_submit_cancel_user" class="btn btn-primary">{{ 'mon_validate' | trans({}, 'messages') | raw }}</a>
   </div>
 </div>
 {% endblock %}

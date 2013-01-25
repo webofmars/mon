@@ -1,11 +1,11 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
-{% set nb_scenarii = scenarii|length %}
+{% set nb_controls = controls|length %}
 {% block body %}
 <div class="container">
   {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
-  {% if nb_scenarii > 0 %}
+  {% if nb_scenarios > 0 %}
   <table class="table table-striped">
-    <caption>{{ 'mon_scenario_list' | trans() | raw()}}</caption>
+    <caption>{{ 'mon_control_list' | trans() | raw()}}</caption>
     <thead>
       <tr>
         <th>{{'mon_identifier'| trans({}, 'messages') | raw }}</th>
@@ -14,14 +14,14 @@
       </tr>
     </thead>
     <tbody>
-      {% for scenario in scenarii %}
+      {% for control in controls %}
       <tr>
-        <td>{{scenario.id}}</td>
-        <td>{{scenario.name}}</td>
+        <td>{{control.id}}</td>
+        <td>{{control.name}}</td>
         <td>
           <a href="{{path('mon_control_add', {'id': scenario.id})}}">{{ 'mon_control_create' | trans() | raw()}}</a>
-          <a href="{{path('mon_scenario_edit', {'id': scenario.id})}}">{{ 'mon_scenario_edit' | trans() | raw()}}</a>
-          <a href="{{path('mon_scenario_delete', {'id': scenario.id})}}">{{ 'mon_scenario_delete' | trans() | raw()}}</a>
+          <a href="{{path('mon_control_edit', {'id': control.id})}}">{{ 'mon_control_edit' | trans() | raw()}}</a>
+          <a href="{{path('mon_control_delete', {'id': control.id})}}">{{ 'mon_control_delete' | trans() | raw()}}</a>
         </td>
       </tr>
       {% endfor %}

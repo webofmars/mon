@@ -16,15 +16,15 @@
     {% endif %}
     <form class="form-signin" action="{{ path("mon_control_add", {'id': scenario.id}) }}" method="post">
       <h2 class="form-signin-heading">{{ 'mon_control_create'|trans({}, 'messages') }}</h2>
-      {{ form_row(form.name) }} 
+      {{ form_row(form.name) }}
       <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
       {{ form_rest(form) }}
-      
-      
+
+
     {# Ajout d'un lien pour ajouter un champ catégorie supplémentaire. #}
-    <a href="#" id="add_control_header" class="btn">Ajouter un header</a><br /><br />
-    <a href="#" id="add_validator" class="btn">Ajouter un validator</a><br /><br />
-    
+    <a href="#" id="add_control_header" class="btn">{{ 'mon_control_add_header'|trans({}, 'messages') }}</a><br /><br />
+    <a href="#" id="add_validator" class="btn">{{ 'mon_control_add_validator'|trans({}, 'messages') }}</a><br /><br />
+
     </form>
   </div>
 </div>
