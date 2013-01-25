@@ -48,7 +48,11 @@ mon_project_creation_failed: Project creation failed
 mon_project_creation_validated: Project creation succeeded
 mon_project_my_projects: My Projects
 mon_project_name: Name
+mon_project_description: Description
 mon_project_projects: Projects
+mon_project_edit: Edit project
+mon_project_edition_failed: Project modification failed
+mon_project_creation_validated: Project modification succeeded
 
 # Scenario wordings
 mon_scenario_list: List of scenarii

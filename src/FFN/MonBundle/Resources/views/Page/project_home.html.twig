@@ -1,34 +1,58 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
+
+{% set section = 'project' %}
 {% set nb_scenarii = scenarii|length %}
+
 {% block body %}
-<div class="container">
-  {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
-  {% if nb_scenarii > 0 %}
-  <table class="table table-striped">
-    <caption>{{ 'mon_scenario_list' | trans() | raw()}}</caption>
-    <thead>
-      <tr>
-        <th>{{'mon_identifier'| trans({}, 'messages') | raw }}</th>
-        <th>{{'mon_name'| trans({}, 'messages') | raw }}</th>
-        <th>{{'mon_actions'| trans({}, 'messages') | raw }}</th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="container">
+
+    {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
+
+    {% if app.session.hasFlash('success_msg') %}
+      <div class="alert alert-success">
+      {{ app.session.flash('success_msg') }}
+      </div>
+    {% endif %}
+    {% if app.session.hasFlash('error_msg') %}
+      <div class="alert alert-error">
+      {{ app.session.flash('error_msg') }}
+      </div>
+    {% endif %}
+
+    <div class="page-header">
+      <h1><small>{{ 'mon_scenario_list' | trans({}, 'messages') | raw }}</small></h1>
+    </div>
+
+    {% if nb_scenarii > 0 %}
       {% for scenario in scenarii %}
-      <tr>
-        <td>{{scenario.id}}</td>
-        <td>{{scenario.name}}</td>
-        <td>
-          <a href="{{path('mon_control_add', {'id': scenario.id})}}">{{ 'mon_control_create' | trans() | raw()}}</a>
-          <a href="{{path('mon_scenario_edit', {'id': scenario.id})}}">{{ 'mon_scenario_edit' | trans() | raw()}}</a>
-          <a href="{{path('mon_scenario_delete', {'id': scenario.id})}}">{{ 'mon_scenario_delete' | trans() | raw()}}</a>
-        </td>
-      </tr>
+        {% set nb_control = scenario.controls|length %}
+        <div class="span4">
+          <h2>{{scenario.name}}</h2>
+          <p><img src="http://lorempixel.com/400/100/?var={{ random() }}" alt="lorem" /></p>
+          <p>
+            <div class="btn-toolbar pagination-centered" style="margin: 0;">
+              <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+              <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">Options <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="{{path('mon_control_add', { 'id': scenario.id })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
+                  <li><a href="{{path('mon_scenario_edit', { 'id': scenario.id })}}">{{ 'mon_scenario_edit' | trans({}, 'messages') | raw }}</a></li>
+                  <li><a href="{{path('mon_scenario_delete', { 'id': scenario.id })}}">{{ 'mon_scenario_delete' | trans({}, 'messages') | raw }}</a></li>
+                </ul>
+              </div><!-- /btn-group -->
+            </div>
+          </p>
+          {% if nb_control > 0 %}
+            {% for control in scenario.controls %}
+              <div class="row">
+                <div class="span2">{{control.name}}</div>
+                <div class="span1 offset1 pagination-right"><span class="{{ random(['picSun', 'picCloud', 'picRain', 'picStorm']) }}"></span></div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        </div>
       {% endfor %}
-    </tbody>
-  </table>
-  {% endif %}
+    {% endif %}
 
-
-</div> <!-- /container -->
+  </div> <!-- /container -->
 {% endblock %}

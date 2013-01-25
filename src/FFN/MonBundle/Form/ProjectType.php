@@ -11,23 +11,29 @@ use Symfony\Component\Translation\Translator;
  *
  * @author nsias
  */
-class ProjectType extends AbstractType{
-  
+class ProjectType extends AbstractType {
+
   private $translator;
-  
+
   public function __construct(Translator $translator) {
     $this->setTranslator($translator);
   }
-  
+
   public function buildForm(FormBuilderInterface $builder, array $options) {
     //parent::buildForm($builder, $options);
-    $builder->add('name', 'text', array('label' => $this->getTranslator()->trans('mon_project_name')));
+    $builder
+            ->add('name', 'text', array(
+                'label' => $this->getTranslator()->trans('mon_project_name')
+            ))
+            ->add('description', 'textarea', array(
+                'label' => $this->getTranslator()->trans('mon_project_description')
+            ));
   }
-  
-  public function getName(){
+
+  public function getName() {
     return 'project';
   }
-  
+
   public function getTranslator() {
     return $this->translator;
   }
@@ -36,6 +42,4 @@ class ProjectType extends AbstractType{
     $this->translator = $translator;
   }
 
-
-  
 }

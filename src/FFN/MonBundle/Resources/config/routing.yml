@@ -118,6 +118,20 @@ mon_control_add:
         _method: GET|POST
         id: \d+
 
+mon_control_edit:
+    pattern: /control/edit/{id}
+    defaults: { _controller: FFNMonBundle:Default:controlEdit}
+    requirements:
+        _method: GET|POST
+        id: \d+
+
+mon_control_delete:
+    pattern: /control/delete/{id}
+    defaults: { _controller: FFNMonBundle:Default:controlDelete}
+    requirements:
+        _method: GET|POST
+        id: \d+
+
 mon_home:
     pattern:  /
     defaults: { _controller: FFNMonBundle:Default:home}

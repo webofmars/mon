@@ -48,15 +48,19 @@ mon_project_creation_failed: Création du projet échouée
 mon_project_creation_validated: Création du projet avec succès
 mon_project_my_projects: Mes Projets
 mon_project_name: Nom
+mon_project_description: Description
 mon_project_projects: Projets
+mon_project_edit: Modifier le projet
+mon_project_edition_failed: Modification du projet échouée
+mon_project_edition_validated: Modification du projet effectuée
 
 # Scenario wordings
 mon_scenario_list: Liste des scenarii
 mon_scenario_create: Créer un scénario
-mon_scenario_delete: Supprimer un scénario
+mon_scenario_delete: Supprimer le scénario
 mon_scenario_creation_failed: Création du scénario echouée
 mon_scenario_creation_validated: Création du scénario avec succès
-mon_scenario_edit: Modifier un scénario
+mon_scenario_edit: Modifier le scénario
 mon_scenario_edit_failed: Modification du scénario echouée
 mon_scenario_edit_validated: Modification du scénario avec succès
 mon_scenario_enabled: Actif
@@ -70,7 +74,7 @@ mon_control_create: Créer un contrôle
 mon_control_edit: Modifier le contrôle
 mon_control_delete: Supprimer le contrôle
 mon_control_creation_failed: Création du contrôle échouée
-mon_control_creation_validated: Création du contrôle efféctuée
+mon_control_creation_validated: Création du contrôle effectuée
 mon_control_form_name_placeholder: Nom de votre contrôle
 mon_control_name: Nom
 mon_control_add_header: Ajouter un header

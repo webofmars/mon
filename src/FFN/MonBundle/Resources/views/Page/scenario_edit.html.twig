@@ -1,5 +1,7 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
+{% set section = 'scenario_edit' %}
+
 {% block body %}
 <div class="container">
   {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
@@ -16,7 +18,10 @@
     {% endif %}
     <form class="form-signin" action="{{ path("mon_scenario_edit", {'id': scenario.id}) }}" method="post">
       <h2 class="form-signin-heading">{{ 'mon_scenario_edit'|trans({}, 'messages') }}</h2>
-      {{ form_row(form.name) }} 
+      {{ form_row(form.name) }}
+      {{ form_row(form.frequency) }}
+      {{ form_row(form.enabled) }}
+      <br/>
       <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
       {{ form_rest(form) }}
     </form>

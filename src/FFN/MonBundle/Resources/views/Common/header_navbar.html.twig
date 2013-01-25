@@ -2,7 +2,7 @@
   <div class="navbar-inner">
     <div class="container">
       <a class="brand" href="{{ path("mon_home") }}">
-        Mon
+        {{ 'mon_title'|trans({}, 'messages') }}
       </a>
       <div class="nav-collapse collapse">
         <ul class="nav">
@@ -16,8 +16,12 @@
             </li>
           {% endif %}
           {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-            <li><a href="{{ path("fos_user_security_logout")}}">{{ 'mon_logout' | trans({}, 'messages') | raw }}</a></li>
             <li><a href="{{ path("mon_project_add")}}">{{ 'mon_project_create' | trans({}, 'messages') | raw }}</a></li>
+          {% endif %}
+        </ul>
+        <ul class="nav pull-right">
+          {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <li><a href="{{ path("fos_user_security_logout")}}">{{ 'mon_logout' | trans({}, 'messages') | raw }}</a></li>
           {% else %}
             <li><a href="{{ path("fos_user_security_login")}}">{{ 'mon_login' | trans({}, 'messages') | raw }}</a></li>
             <li><a href="{{ path('fos_user_registration_register')}}">{{ 'mon_register' | trans({}, 'messages') | raw }}</a></li>

@@ -1,33 +1,36 @@
 <div class="navbar">
   <div class="navbar-inner">
     <div class="container">
-      <a data-target=".navbar-responsive-collapse" data-toggle="collapse" class="btn btn-navbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </a>
-      <a href="{{path('mon_project_home', { 'id': project.id })}}" class="brand">{{project.name}}</a>
+      <div>
+      {% if section != 'project_add' %}
+        <a href="{{path('mon_project_home', { 'id': project.id })}}" class="brand">{{project.name}}</a>
+        {% if section == 'scenario' or section == 'control' %}
+        <!--a href="{{path('mon_scenario_home', { 'id': scenario.id })}}" class="brand">{{scenario.name}}</a-->
+        {% endif %}
+      {% endif %}
+      </div>
       <div class="nav-collapse collapse navbar-responsive-collapse">
-        <ul class="nav">
-          <li><a href="{{path('mon_scenario_add', {'id': project.id})}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
-          <li><a href="#">Link</a></li>
-          <li class="dropdown">
-            <a data-toggle="dropdown" class="dropdown-toggle" href="#">Dropdown <b class="caret"></b></a>
-            <ul class="dropdown-menu">
-              <li><a href="#">Action</a></li>
-              <li><a href="#">Another action</a></li>
-              <li><a href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li class="nav-header">Nav header</li>
-              <li><a href="#">Separated link</a></li>
-              <li><a href="#">One more separated link</a></li>
-            </ul>
-          </li>
-        </ul>
-        <form action="" class="navbar-search pull-left">
-          <input type="text" placeholder="Search" class="search-query span2">
-        </form>
+        {% if section != 'project_add' %}
+          <ul class="nav">
+            <li class="dropdown">
+              <a data-toggle="dropdown" class="dropdown-toggle" href="#">Options<b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="{{path('mon_project_edit', {'id': project.id})}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
+                <li class="divider"></li>
+                <li><a href="{{path('mon_scenario_add', {'id': project.id})}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
+                {% if section == 'scenario' or section == 'control' %}
+                  <li><a href="{{path('mon_scenario_edit', {'id': scenario.id})}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
+                  <li class="divider"></li>
+                  <li><a href="{{path('mon_control_add', {'id': scenario.id})}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>
+                {% endif %}
+              </ul>
+            </li>
+          </ul>
+        {% endif %}
         <ul class="nav pull-right">
+          <form action="" class="navbar-search pull-left">
+            <input type="text" placeholder="Search" class="search-query span2">
+          </form>
           <li><a href="#">Link</a></li>
           <li class="divider-vertical"></li>
           <li class="dropdown">

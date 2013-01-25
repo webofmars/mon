@@ -132,6 +132,7 @@ class DefaultController extends Controller {
         $em->flush();
         $data = $form->getData();
         $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_control_creation_validated'));
+        return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $id)));
       } else {
         $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
       }
@@ -176,12 +177,15 @@ class DefaultController extends Controller {
       if ($form->isValid()) {
         $em = $this->get('doctrine')->getManager();
         //$project->setName($form->get('name'));
+        $project->setDescription('');
         $project->setDateCreation(new \DateTime());
         $project->setEnabled(false);
         $project->setUser($user);
         $em->persist($project);
         $em->flush();
+        $id = $project->getId();
         $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_project_creation_validated'));
+        return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
       } else {
         $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_project_creation_failed'));
       }
@@ -205,6 +209,7 @@ class DefaultController extends Controller {
         $em->persist($project);
         $em->flush();
         $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_project_edition_validated'));
+        return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
       } else {
         $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_project_edition_failed'));
       }
@@ -223,9 +228,10 @@ class DefaultController extends Controller {
       // Recuperation du projet associe
       $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
       // Récupération de tous les controles associés au scenario
+      $controls = $em->getRepository('FFN\MonBundle\Entity\Control')->findByScenario($scenario);
     }
-    $controls = $em->getRepository('FFN\MonBundle\Entity\Control')->findByScenario($scenario);
     return $this->render('FFNMonBundle:Page:scenario_home.html.twig', array(
+                'project' => $project,
                 'scenario' => $scenario,
                 'controls' => $controls,
             ));
@@ -248,6 +254,7 @@ class DefaultController extends Controller {
         $em->persist($scenario);
         $em->flush();
         $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_creation_validated'));
+        return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
       } else {
         $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
       }
