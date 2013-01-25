@@ -13,31 +13,16 @@ use \DateTime;
  */
 class GraphController extends Controller {
 
-    public function showAction( $control_id ) {
-
-       /* if (is_null($start)) {
-           $start = new DateTime(); // now
-       }
-       
-       if (is_null($end)) {
-           $end = new DateTime(); // now
-       }*/
-        
-        // get the data from the DB
-        $em = $this->getDoctrine()->getEntityManager();
-        $captures_data = $em->getRepository('FFNMonBundle:Capture')->findBy(
-                array('control' => $control_id),
-                array('dateExecuted' => 'DESC'),
-                100
-        );
-        
-        if (is_null($captures_data)) {
-            throw new Exception("No data found");
-        }
+    public function showAction($control_id, $startTs, $stopTs ) {
         
         $graphdata = array(
             array('Time', 'DNS', 'TCP conn.', '1st packet', 'Total time'),
         );
+        
+        // get the data from the DB
+        $em = $this->getDoctrine()->getEntityManager();
+        $captures_data = $em->getRepository('FFNMonBundle:Capture')
+            ->findByIdAndTimeRange($control_id, $startTs, $stopTs);
         
         foreach ($captures_data as $cap) {
             array_push($graphdata, array(

@@ -12,4 +12,24 @@ use Doctrine\ORM\EntityRepository;
  */
 class captureRepository extends EntityRepository
 {
+    public function findByIdAndTimeRange($ctrl_id, $start, $stop) {
+        
+        $em = $this->getEntityManager();
+        
+        $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
+            WHERE c.dateExecuted > :start
+            AND c.dateExecuted < :stop
+            AND c.control = :control_id
+            ORDER BY c.dateExecuted DESC');
+        
+        $query->setParameter('control_id', $ctrl_id);
+        $query->setParameter('start', $start);
+        $query->setParameter('stop', $stop);
+        $query->setMaxResults('10');
+        try {
+            return $query->getResult();
+        } catch (\Doctrine\ORM\NoResultException $e) {
+            return null;
+        }
+    }
 }

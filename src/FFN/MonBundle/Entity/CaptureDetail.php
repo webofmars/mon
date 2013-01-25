@@ -26,7 +26,7 @@ class CaptureDetail
     /**
      *
      * @var type Capture;
-     * @ORM\ManyToOne(targetEntity="Capture", inversedBy="capture")
+     * @ORM\ManyToOne(targetEntity="Capture", inversedBy="captureDetail")
      *
      */
     private $capture = null;
