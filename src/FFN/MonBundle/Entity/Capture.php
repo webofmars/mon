@@ -9,18 +9,18 @@ use FFN\MonBundle\Entity\CaptureDetail;
 
 
 /**
- * capture
+ * Capture
  *
  * @ORM\Table(
  *  uniqueConstraints={
  *      @ORM\UniqueConstraint(name="const_dateSched_ctrl_idx", columns={"date_scheduled", "control_id"})
  *  })
- * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\captureRepository")
+ * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\CaptureRepository")
  * @UniqueEntity({ "dateScheduled", "control" })
  * 
  * 
  */
-class capture {
+class Capture {
 
   /**
    * @var integer
@@ -97,7 +97,7 @@ class capture {
   /**
    * @var ArrayCollection
    * 
-   * @ORM\OneToMany(targetEntity="captureDetail", mappedBy="capture", cascade={"persist"})
+   * @ORM\OneToMany(targetEntity="CaptureDetail", mappedBy="capture", cascade={"persist"})
    * @ORM\JoinColumn(name="capture_detail_id", referencedColumnName="id")
    * 
    */
@@ -106,17 +106,16 @@ class capture {
     /**
      * @var int
      * 
-     * @ORM\ManyToOne(targetEntity="control", inversedBy="captures")
+     * @ORM\ManyToOne(targetEntity="Control", inversedBy="captures")
      * @ORM\JoinColumn(name="control_id", referencedColumnName="id", nullable=false)
      * 
      */
     protected $control;
   
-  
     public function __construct()
- {
-    $this->captureDetail = new ArrayCollection();
- }
+    {
+        $this->captureDetail = new ArrayCollection();
+    }
   
   /**
    * Get id
@@ -131,7 +130,7 @@ class capture {
    * Set dateScheduled
    *
    * @param \DateTime $dateScheduled
-   * @return capture
+   * @return Capture
    */
   public function setDateScheduled($date) {
     $this->dateScheduled = $date;
@@ -152,7 +151,7 @@ class capture {
    * Set dateExecuted
    *
    * @param \DateTime $dateExecuted
-   * @return capture
+   * @return Capture
    */
   public function setDateExecuted($date) {
     $this->dateExecuted = $date;
@@ -173,7 +172,7 @@ class capture {
    * Set dns
    *
    * @param integer $dns
-   * @return capture
+   * @return Capture
    */
   public function setDns($dns) {
     $this->dns = $dns;
@@ -194,7 +193,7 @@ class capture {
    * Set tcp
    *
    * @param integer $tcp
-   * @return capture
+   * @return Capture
    */
   public function setTcp($tcp) {
     $this->tcp = $tcp;
@@ -215,7 +214,7 @@ class capture {
    * Set firstPacket
    *
    * @param integer $firstPacket
-   * @return capture
+   * @return Capture
    */
   public function setFirstPacket($firstPacket) {
     $this->firstPacket = $firstPacket;
@@ -236,7 +235,7 @@ class capture {
    * Set total
    *
    * @param integer $total
-   * @return capture
+   * @return Capture
    */
   public function setTotal($total) {
     $this->total = $total;
@@ -257,7 +256,7 @@ class capture {
    * Set responseCode
    *
    * @param integer $responseCode
-   * @return capture
+   * @return Capture
    */
   public function setResponseCode($responseCode) {
     $this->responseCode = $responseCode;
@@ -278,7 +277,7 @@ class capture {
    * Set isValid
    *
    * @param boolean $isValid
-   * @return capture
+   * @return Capture
    */
   public function setIsValid($isValid) {
     $this->isValid = $isValid;
@@ -299,7 +298,7 @@ class capture {
    * Set isTimeout
    *
    * @param boolean $isTimeout
-   * @return capture
+   * @return Capture
    */
   public function setIsTimeout($isTimeout) {
     $this->isTimeout = $isTimeout;
@@ -321,55 +320,20 @@ class capture {
      * Set capture_detail
      *
      * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
-     * @return capture
+     * @return Capture
      */
     public function setCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail = null)
     {
-        $this->captureDetail = $captureDetail;
+        $this->captureDetail = new ArrayCollection($captureDetail);
     
         return $this;
-    }
-
-    /**
-     * Get capture_detail
-     *
-     * @return \FFN\MonBundle\Entity\capture_detail 
-     */
-    public function getCaptureDetail()
-    {
-        return $this->captureDetail;
-    }
-
-
-
-    /**
-     * Add captureDetail
-     *
-     * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
-     * @return capture
-     */
-    public function addCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail)
-    {
-        $this->captureDetail[] = $captureDetail;
-    
-        return $this;
-    }
-
-    /**
-     * Remove captureDetail
-     *
-     * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
-     */
-    public function removeCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail)
-    {
-        $this->captureDetail->removeElement($captureDetail);
     }
 
     /**
      * Set control
      *
      * @param \FFN\MonBundle\Entity\control $control
-     * @return capture
+     * @return Capture
      */
     public function setControl(\FFN\MonBundle\Entity\control $control = null)
     {
@@ -386,5 +350,38 @@ class capture {
     public function getControl()
     {
         return $this->control;
+    }
+
+    /**
+     * Add CaptureDetail
+     *
+     * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
+     * @return Capture
+     */
+    public function addCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail)
+    {
+        $this->captureDetail[] = $captureDetail;
+    
+        return $this;
+    }
+
+    /**
+     * Remove CaptureDetail
+     *
+     * @param \FFN\MonBundle\Entity\CaptureDetail $captureDetail
+     */
+    public function removeCaptureDetail(\FFN\MonBundle\Entity\CaptureDetail $captureDetail)
+    {
+        $this->captureDetail->removeElement($captureDetail);
+    }
+
+    /**
+     * Get CaptureDetail
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCaptureDetail()
+    {
+        return $this->captureDetail;
     }
 }

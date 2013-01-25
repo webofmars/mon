@@ -25,8 +25,8 @@ class CaptureDetail
 
     /**
      *
-     * @var type capture;
-     * @ORM\ManyToOne(targetEntity="capture", inversedBy="capture")
+     * @var type Capture;
+     * @ORM\ManyToOne(targetEntity="Capture", inversedBy="capture")
      *
      */
     private $capture = null;
@@ -164,12 +164,12 @@ class CaptureDetail
     }
 
     /**
-     * Set capture
+     * Set Capture
      *
-     * @param \FFN\MonBundle\Entity\capture $capture
+     * @param \FFN\MonBundle\Entity\Capture $capture
      * @return CaptureDetail
      */
-    public function setCapture(\FFN\MonBundle\Entity\capture $capture = null)
+    public function setCapture(\FFN\MonBundle\Entity\Capture $capture = null)
     {
         $this->capture = $capture;
 
@@ -177,29 +177,22 @@ class CaptureDetail
     }
 
     /**
-     * Get capture
+     * Get Capture
      *
-     * @return \FFN\MonBundle\Entity\capture
+     * @return \FFN\MonBundle\Entity\Capture
      */
     public function getCapture()
     {
         return $this->capture;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->capture = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
+    
     /**
      * Add capture
      *
-     * @param \FFN\MonBundle\Entity\capture $capture
+     * @param \FFN\MonBundle\Entity\Capture $capture
      * @return CaptureDetail
      */
-    public function addCapture(\FFN\MonBundle\Entity\capture $capture)
+    public function addCapture(\FFN\MonBundle\Entity\Capture $capture)
     {
         $this->capture[] = $capture;
 
@@ -209,9 +202,9 @@ class CaptureDetail
     /**
      * Remove capture
      *
-     * @param \FFN\MonBundle\Entity\capture $capture
+     * @param \FFN\MonBundle\Entity\Capture $capture
      */
-    public function removeCapture(\FFN\MonBundle\Entity\capture $capture)
+    public function removeCapture(\FFN\MonBundle\Entity\Capture $capture)
     {
         $this->capture->removeElement($capture);
     }

@@ -1,16 +1,14 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
-<div id="chart_div" style="width: 900px; height: 500px;"></div>
+{% block body %}
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
   function drawChart() {
-    var data = google.visualization.arrayToDataTable([
-        {% block chart-data %}    
-    ]);
+    var data = google.visualization.arrayToDataTable({{ graphdata | raw() }});
 
     var options = {
-      title: 'URL response time',
+      //title: 'URL response time',
       hAxis: {title: 'Time',  titleTextStyle: {color: 'red'}},
       isStacked: true
     };
@@ -19,3 +17,6 @@
     chart.draw(data, options);
   }
 </script>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+Graph for control &quot;{{ title }}&quot;
+{% endblock %}

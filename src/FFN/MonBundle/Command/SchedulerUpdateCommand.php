@@ -68,7 +68,7 @@ use \DateTime;
             
             $cap->setDateScheduled(new DateTime($dateTime));
             $cap->setControl($control);
-            $cap->setCaptureDetail($capDetails);
+            $cap->addCaptureDetail($capDetails);
             
             $em->persist($capDetails);
             $em->persist($cap);

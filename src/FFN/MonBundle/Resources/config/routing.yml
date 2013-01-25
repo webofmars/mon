@@ -1,3 +1,12 @@
+mon_graph:
+  pattern: /{culture}/graph/{control_id}
+  defaults:
+    _controller: FFNMonBundle:Graph:show
+    culture: en
+  requirements:
+    culture: en|fr
+    control_id: \d+
+
 mon_about:
   pattern: /{culture}/about
   defaults:

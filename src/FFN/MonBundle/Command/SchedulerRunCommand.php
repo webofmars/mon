@@ -29,7 +29,8 @@ class SchedulerRunCommand extends ContainerAwareCommand {
         $captures = $em->getRepository("FFNMonBundle:capture")->findAll();
         
         foreach($captures as $capture) {
-            if ( ($capture->getDateExecuted() < time()) and is_null($capture->getDateExecuted()) ) {
+            $now = new DateTime();
+            if ( ($capture->getDateScheduled() < $now) and is_null($capture->getDateExecuted()) ) {
                 $output->writeln("- running control #".$capture->getControl()->getId());
                 FFNDaemon::run($capture);
                 
