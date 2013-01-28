@@ -11,7 +11,7 @@ use FFN\MonBundle\Entity\Scenario;
 /**
  * Project
  *
- * @ORM\Table()
+ * @ORM\Table(name="=project")
  * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\ProjectRepository")
  */
 class Project

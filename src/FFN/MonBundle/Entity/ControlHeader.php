@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * ControlHeader
  *
- * @ORM\Table()
+ * @ORM\Table(name="control_header")
  * @ORM\Entity
  */
 class ControlHeader

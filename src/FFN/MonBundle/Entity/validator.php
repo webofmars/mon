@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * validator
  *
- * @ORM\Table()
+ * @ORM\Table(name="validator")
  * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\validatorRepository")
  */
 class validator

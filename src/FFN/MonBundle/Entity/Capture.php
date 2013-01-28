@@ -11,7 +11,7 @@ use FFN\MonBundle\Entity\CaptureDetail;
 /**
  * Capture
  *
- * @ORM\Table(
+ * @ORM\Table(name="capture",
  *  uniqueConstraints={
  *      @ORM\UniqueConstraint(name="const_dateSched_ctrl_idx", columns={"date_scheduled", "control_id"})
  *  })

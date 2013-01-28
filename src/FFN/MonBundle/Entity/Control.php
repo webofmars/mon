@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 /**
  * Control
  *
- * @ORM\Table()
+ * @ORM\Table(name="control")
  * @ORM\Entity
  */
 class Control
