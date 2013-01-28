@@ -85,7 +85,7 @@ class Control
      *
      * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\capture", mappedBy="control", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Capture", mappedBy="control", cascade={"persist"})
      * 
      */
     protected $captures;
