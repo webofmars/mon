@@ -281,10 +281,10 @@ class Control
     /**
      * Set scenario
      *
-     * @param \FFN\MonBundle\Entity\scenario $scenario
+     * @param \FFN\MonBundle\Entity\Scenario $scenario
      * @return Control
      */
-    public function setScenario(\FFN\MonBundle\Entity\scenario $scenario = null)
+    public function setScenario(\FFN\MonBundle\Entity\Scenario $scenario = null)
     {
         $this->scenario = $scenario;
     
@@ -294,7 +294,7 @@ class Control
     /**
      * Get scenario
      *
-     * @return \FFN\MonBundle\Entity\scenario 
+     * @return \FFN\MonBundle\Entity\Scenario 
      */
     public function getScenario()
     {

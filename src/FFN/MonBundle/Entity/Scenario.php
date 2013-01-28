@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
- * scenario
+ * Scenario
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\scenarioRepository")
+ * @ORM\Table("scenario")
+ * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\ScenarioRepository")
  */
-class scenario
+class Scenario
 {
     /**
      * @var integer
@@ -86,7 +86,7 @@ class scenario
      * Set name
      *
      * @param string $name
-     * @return scenario
+     * @return Scenario
      */
     public function setName($name)
     {
@@ -109,7 +109,7 @@ class scenario
      * Set frequency
      *
      * @param integer $frequency
-     * @return scenario
+     * @return Scenario
      */
     public function setFrequency($frequency)
     {
@@ -132,7 +132,7 @@ class scenario
      * Set dateCreation
      *
      * @param \DateTime $dateCreation
-     * @return scenario
+     * @return Scenario
      */
     public function setDateCreation($dateCreation)
     {
@@ -155,7 +155,7 @@ class scenario
      * Set enabled
      *
      * @param boolean $enabled
-     * @return scenario
+     * @return Scenario
      */
     public function setEnabled($enabled)
     {
@@ -179,7 +179,7 @@ class scenario
      * Set project
      *
      * @param \FFN\MonBundle\Entity\Project $project
-     * @return scenario
+     * @return Scenario
      */
     public function setProject(\FFN\MonBundle\Entity\Project $project = null)
     {
@@ -202,7 +202,7 @@ class scenario
      * Add controls
      *
      * @param \FFN\MonBundle\Entity\Control $controls
-     * @return scenario
+     * @return Scenario
      */
     public function addControl(\FFN\MonBundle\Entity\Control $controls)
     {

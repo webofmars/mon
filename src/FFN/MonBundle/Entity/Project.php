@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use FFN\MonBundle\Entity\User;
-use FFN\MonBundle\Entity\scenario;
+use FFN\MonBundle\Entity\Scenario;
 
 /**
  * Project

@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FFN\MonBundle\Entity\Control;
 use FFN\MonBundle\Entity\ControlHeader;
 use FFN\MonBundle\Entity\Project;
-use FFN\MonBundle\Entity\scenario;
+use FFN\MonBundle\Entity\Scenario;
 use FFN\MonBundle\Entity\User;
 use FFN\MonBundle\Form\ControlType;
 use FFN\MonBundle\Form\ProjectType;
@@ -160,7 +160,7 @@ class DefaultController extends Controller {
     $user = $this->get('security.context')->getToken()->getUser();
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     //Récupération de tous les scénarios associés au projet
-    $scenarii = $em->getRepository('FFN\MonBundle\Entity\scenario')->findByProject($project);
+    $scenarii = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findByProject($project);
     return $this->render('FFNMonBundle:Page:project_home.html.twig', array(
                 'project' => $project,
                 'scenarii' => $scenarii,
@@ -223,11 +223,11 @@ class DefaultController extends Controller {
   public function scenarioAction($id) {
     $em = $this->get('doctrine')->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
-    $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
+    $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if ($scenario instanceof scenario) {
       // Recuperation du projet associe
       $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
-      // Récupération de tous les controles associés au scenario
+      // Récupération de tous les controles associés au Scenario
       $controls = $em->getRepository('FFN\MonBundle\Entity\Control')->findByScenario($scenario);
     }
     return $this->render('FFNMonBundle:Page:scenario_home.html.twig', array(
@@ -259,7 +259,7 @@ class DefaultController extends Controller {
         $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
       }
     }
-    return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Scenario_add.html.twig', array(
                 'form' => $form->createView(),
                 'project' => $project,
             ));
@@ -267,7 +267,7 @@ class DefaultController extends Controller {
 
   public function scenarioEditAction($id) {
     $em = $this->get('doctrine')->getManager();
-    $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
+    $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if ($scenario instanceof scenario) {
       $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
       $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
@@ -294,7 +294,7 @@ class DefaultController extends Controller {
 
   public function scenarioDeleteAction($id) {
     $em = $this->get('doctrine')->getManager();
-    $scenario = $em->getRepository('FFN\MonBundle\Entity\scenario')->findOneById($id);
+    $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if ($scenario instanceof scenario) {
       $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
       $em->remove($scenario);
