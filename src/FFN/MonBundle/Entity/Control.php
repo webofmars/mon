@@ -76,7 +76,7 @@ class Control
     /**
      * @var integer
      * 
-     * @ORM\ManyToOne(targetEntity="scenario", inversedBy="controls", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Scenario", inversedBy="controls", cascade={"persist"})
      * @ORM\JoinColumn(name="scenario_id", referencedColumnName="id")
      */
     protected $scenario;
