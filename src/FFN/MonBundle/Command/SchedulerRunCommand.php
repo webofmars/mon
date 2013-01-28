@@ -26,7 +26,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
     protected function execute(InputInterface $input, OutputInterface $output) {
         
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
-        $captures = $em->getRepository("FFNMonBundle:capture")->findAll();
+        $captures = $em->getRepository("FFNMonBundle:Capture")->findAll();
         
         foreach($captures as $capture) {
             $now = new DateTime();
