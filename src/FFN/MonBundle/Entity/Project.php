@@ -55,7 +55,7 @@ class Project
 
     /**
      * @var ArrayCollection scenarios
-     * @ORM\OneToMany(targetEntity="scenario", mappedBy="project", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Scenario", mappedBy="project", cascade={"persist"})
      */
     protected $scenarios;
 
