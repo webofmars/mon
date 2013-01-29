@@ -24,15 +24,6 @@ class CaptureDetail
     private $id;
 
     /**
-     *
-     * @var type Capture;
-     * @ORM\ManyToOne(targetEntity="Capture", inversedBy="captureDetail")
-     *
-     */
-    private $capture = null;
-
-
-    /**
      * @var string
      *
      * @ORM\Column(name="content", type="string", length=255, nullable=true)
@@ -59,7 +50,7 @@ class CaptureDetail
      * @ORM\Column(name="validators", type="string", length=255, nullable=true)
      */
     private $validators = "";
-
+ 
 
     /**
      * Get id
@@ -161,51 +152,5 @@ class CaptureDetail
     public function getValidators()
     {
         return $this->validators;
-    }
-
-    /**
-     * Set Capture
-     *
-     * @param \FFN\MonBundle\Entity\Capture $capture
-     * @return CaptureDetail
-     */
-    public function setCapture(\FFN\MonBundle\Entity\Capture $capture = null)
-    {
-        $this->capture = $capture;
-
-        return $this;
-    }
-
-    /**
-     * Get Capture
-     *
-     * @return \FFN\MonBundle\Entity\Capture
-     */
-    public function getCapture()
-    {
-        return $this->capture;
-    }
-    
-    /**
-     * Add capture
-     *
-     * @param \FFN\MonBundle\Entity\Capture $capture
-     * @return CaptureDetail
-     */
-    public function addCapture(\FFN\MonBundle\Entity\Capture $capture)
-    {
-        $this->capture[] = $capture;
-
-        return $this;
-    }
-
-    /**
-     * Remove capture
-     *
-     * @param \FFN\MonBundle\Entity\Capture $capture
-     */
-    public function removeCapture(\FFN\MonBundle\Entity\Capture $capture)
-    {
-        $this->capture->removeElement($capture);
-    }
+    }    
 }

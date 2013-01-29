@@ -36,6 +36,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                 
                 $capture->setDateExecuted(new DateTime());
                 $em->persist($capture);
+                $em->persist($capture->getCaptureDetail());
                 $em->flush();
             }
         }

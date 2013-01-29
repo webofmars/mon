@@ -8,9 +8,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
-use FFN\MonBundle\Entity\capture;
+use FFN\MonBundle\Entity\Capture;
 use FFN\MonBundle\Entity\CaptureDetail;
-use \DateTime;
+use DateTime;
 
 
     /**
@@ -48,9 +48,9 @@ use \DateTime;
                     $output->write("--- updating schedule for control #". $control->getId());
                     $output->writeln(" (".$control->getName().").");
                     
-                    // create schedules in DB                    
+                    /** TOFIX: bad time gestion **/
+                    // create schedules in DB
                     while ($startTS < $stopTS) {
-                        
                         $output->writeln("---- added capture at $startTS");
                         $this->scheduleCapture($startTS, $control);
                         $startTS += $scenario->getFrequency();
@@ -60,17 +60,15 @@ use \DateTime;
         }
         
         // TODO: a externaliser
-        protected function scheduleCapture($dateTime, \FFN\MonBundle\Entity\Control $control) {
+        protected function scheduleCapture($dateTime, $control) {
                         
             $em = $this->getContainer()->get('doctrine')->getEntityManager();
-            $capDetails = new CaptureDetail();
+            $capDetail = new CaptureDetail();
             $cap = new capture();
             
             $cap->setDateScheduled(new DateTime($dateTime));
             $cap->setControl($control);
-            $cap->addCaptureDetail($capDetails);
             
-            $em->persist($capDetails);
             $em->persist($cap);
             $em->flush();
         }

@@ -2,13 +2,20 @@
 
 namespace FFN\MonBundle\Common;
 
-use FFN\MonBundle\Entity\capture as Capture;
+use FFN\MonBundle\Entity\Capture;
+use \FFN\MonBundle\Entity\CaptureDetail;
 
 class Daemon {
 
     public static function run(Capture $capture) {
-        // TODO: try-catch
-        $res = Daemon::curl_wrapper($capture->getControl()->getUrl());
+        
+        try {
+            $res = Daemon::curl_wrapper($capture->getControl()->getUrl());
+        }
+        catch (Excetion $e) {
+            echo("daemon: $e->toString()\n");
+        }
+        
         if ($res != false) {
             $capture->setResponseCode($res[1]);        
             $capture->setTcp($res[2]);
@@ -17,8 +24,15 @@ class Daemon {
             $capture->setTotal($res[5]);
             $capture->setIsTimeout(false);
             
+            $cd = new CaptureDetail();
+            $cd->setContent($res[0]);
+            $cd->setIsConnectionTimeout(false);
+            $cd->setIsResponseTimeout(false);
+            
             // TODO: add callback for validator
+            $cd->setValidators("tuti va bene!");
             $capture->setIsValid(true);
+            $capture->setCaptureDetail($cd);
         }
         else {
             $capture->setIsTimeout(true);
@@ -67,11 +81,12 @@ class Daemon {
                 $info['starttransfer_time'],
                 $info['total_time']
             );
+            curl_close($ch);
         }
-        // TODO : gestion des erreurs
-        
-        // Fermeture du gestionnaire
-        curl_close($ch);
+        else {
+            curl_close($ch);
+            throw new Exception("curl_wrapper: ".curl_errno($ch));
+        }
         
         return($results);
     }
