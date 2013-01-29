@@ -13,6 +13,8 @@ use FFN\MonBundle\Form\ProjectType;
 use FFN\MonBundle\Form\ScenarioType;
 use FFN\MonBundle\Form\UserType;
 use Doctrine\ORM\EntityManager;
+use DateTime;
+use DateInterval;
 
 class DefaultController extends Controller {
 
@@ -224,16 +226,24 @@ class DefaultController extends Controller {
     $em = $this->get('doctrine')->getManager();
     $user = $this->get('security.context')->getToken()->getUser();
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
+    $startTs = new DateTime();
+    $stopTs = new DateTime();
+    $startTs->sub(new DateInterval('PT12H'));
+    $stopTs->add(new DateInterval('PT12H'));
+    
     if ($scenario instanceof scenario) {
       // Recuperation du projet associe
       $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
       // Récupération de tous les controles associés au Scenario
       $controls = $em->getRepository('FFN\MonBundle\Entity\Control')->findByScenario($scenario);
     }
+    
     return $this->render('FFNMonBundle:Page:scenario_home.html.twig', array(
-                'project' => $project,
-                'scenario' => $scenario,
-                'controls' => $controls,
+                'project'   => $project,
+                'scenario'  => $scenario,
+                'controls'  => $controls,
+                'startTs'   => $startTs->format('Y-m-d H:i:s'),
+                'stopTs'    => $stopTs->format('Y-m-d H:i:s'),
             ));
   }
 

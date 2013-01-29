@@ -40,7 +40,10 @@
         {% for control in controls %}
         <tr>
           <td>{{control.id}}</td>
-          <td>{{control.name}}</td>
+          <td><a href="{{ path( 'mon_graph', {control_id: control.id, 
+                                                startTs: startTs, 
+                                                stopTs:  stopTs }) 
+                }}">{{ control.name}}</a></td>
           <td>
             <a class="btn" href="{{path('mon_control_edit', {'id': control.id})}}">{{ 'mon_control_edit' | trans() | raw()}}</a>
             <a class="btn" href="{{path('mon_control_delete', {'id': control.id})}}">{{ 'mon_control_delete' | trans() | raw()}}</a>
