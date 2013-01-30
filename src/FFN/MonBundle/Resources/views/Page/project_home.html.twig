@@ -28,12 +28,12 @@
         {% set nb_control = scenario.controls|length %}
         <div class="span4">
           <h2>{{scenario.name}}</h2>
-          <p><img src="http://lorempixel.com/400/100/?var={{ random() }}" alt="lorem" /></p>
+          <p class="pagination-centered"><span class="{{ random(['imgSun', 'imgCloud', 'imgRain', 'imgStorm']) }}"></span></p>
           <p>
             <div class="btn-toolbar pagination-centered" style="margin: 0;">
               <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
               <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">Options <span class="caret"></span></button>
+                <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li><a href="{{path('mon_control_add', { 'id': scenario.id })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
                   <li><a href="{{path('mon_scenario_edit', { 'id': scenario.id })}}">{{ 'mon_scenario_edit' | trans({}, 'messages') | raw }}</a></li>

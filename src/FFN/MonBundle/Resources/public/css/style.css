@@ -11,11 +11,11 @@ body {
   background-color: #fff;
   border: 1px solid #e5e5e5;
   -webkit-border-radius: 5px;
-     -moz-border-radius: 5px;
-          border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
   -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-     -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
-          box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+  box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
@@ -31,43 +31,43 @@ body {
 
 /* tables */
 table.tablesorter {
-	font-family:arial;
-	background-color: #CDCDCD;
-	margin:10px 0pt 15px;
-	font-size: 8pt;
-	width: 100%;
-	text-align: left;
+  font-family:arial;
+  background-color: #CDCDCD;
+  margin:10px 0pt 15px;
+  font-size: 8pt;
+  width: 100%;
+  text-align: left;
 }
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
-	background-color: #e6EEEE;
-	border: 1px solid #FFF;
-	font-size: 8pt;
-	padding: 4px;
+  background-color: #e6EEEE;
+  border: 1px solid #FFF;
+  font-size: 8pt;
+  padding: 4px;
 }
 table.tablesorter thead tr .header {
-	background-image: url('../images/bg.gif');
-	background-repeat: no-repeat;
-	background-position: center right;
-	cursor: pointer;
+  background-image: url('../images/bg.gif');
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer;
 }
 table.tablesorter tbody td {
-	color: #3D3D3D;
-	padding: 4px;
-	background-color: #FFF;
-	vertical-align: top;
+  color: #3D3D3D;
+  padding: 4px;
+  background-color: #FFF;
+  vertical-align: top;
   line-height: 31px;
 }
 table.tablesorter tbody td p{
   margin: 0px;
 }
 table.tablesorter tbody tr.odd td {
-	background-color:#F0F0F6;
+  background-color:#F0F0F6;
 }
 table.tablesorter thead tr .headerSortUp {
-	background-image: url('../images/asc.gif');
+  background-image: url('../images/asc.gif');
 }
 table.tablesorter thead tr .headerSortDown {
-	background-image: url('../images/desc.gif');
+  background-image: url('../images/desc.gif');
 }
 table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
   background-color: #8dbdd8;
@@ -88,53 +88,90 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 
 .alertRight.on {
-    background-position: 0 -30px;
+  background-position: 0 -30px;
 }
 
 .alertRight.off {
-    background-position: 0 0;
+  background-position: 0 0;
 }
 
 .alertRight {
-    background: url("../images/btn_switch.jpg") no-repeat scroll 0 0 transparent;
-    cursor: pointer;
-    display: block;
-    height: 30px;
-    width: 60px;
+  background: url("../images/btn_switch.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 30px;
+  width: 60px;
 }
 
-.picSun {
-    background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
-    cursor: pointer;
-    display: block;
-    height: 40px;
-    width: 43.6px;
-    background-position: -4px 0px;
+.icoSun {
+  background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 43.6px;
+  background-position: -4px 0px;
 }
 
-.picCloud {
-    background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
-    cursor: pointer;
-    display: block;
-    height: 40px;
-    width: 43.6px;
-    background-position: -44px -80px;
+.icoCloud {
+  background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 43.6px;
+  background-position: -44px -80px;
 }
 
-.picRain {
-    background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
-    cursor: pointer;
-    display: block;
-    height: 40px;
-    width: 43.6px;
-    background-position: -171px -80px;
+.icoRain {
+  background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 43.6px;
+  background-position: -171px -80px;
 }
 
-.picStorm {
-    background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
-    cursor: pointer;
-    display: block;
-    height: 40px;
-    width: 43.6px;
-    background-position: -129px -120px;
+.icoStorm {
+  background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 43.6px;
+  background-position: -129px -120px;
 }
+
+.icmgSun {
+  background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 100px;
+  width: 280px;
+  background-position: -320px -75px;
+}
+
+.imgCloud {
+  background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 100px;
+  width: 370px;
+  background-position: 0px -75px;
+}
+
+.imgRain {
+  background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 100px;
+  width: 370px;
+  background-position: 0px -350px;
+}
+
+.imgStorm {
+  background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 100px;
+  width: 370px;
+  background-position: -300px -350px;
+}
+
