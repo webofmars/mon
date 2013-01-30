@@ -139,7 +139,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   background-position: -129px -120px;
 }
 
-.icmgSun {
+.imgSun {
   background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
   cursor: pointer;
   display: block;
