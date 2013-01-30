@@ -6,7 +6,7 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      { fallback: %locale% }
+    translator:      { fallback: en }
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -53,9 +53,3 @@ doctrine:
         #auto_generate_proxy_classes: %kernel.debug%
         auto_generate_proxy_classes: true
         auto_mapping: true
-
-swiftmailer:
-    transport: gmail
-    username:  %your_gmail_username%
-    password:  %your_gmail_password%
-    spool:     { type: memory }
