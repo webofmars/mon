@@ -20,12 +20,12 @@ class captureRepository extends EntityRepository
             WHERE c.dateExecuted > :start
             AND c.dateExecuted < :stop
             AND c.control = :control_id
-            ORDER BY c.dateExecuted DESC');
+            ORDER BY c.dateExecuted ASC');
         
         $query->setParameter('control_id', $ctrl_id);
         $query->setParameter('start', $start);
         $query->setParameter('stop', $stop);
-        $query->setMaxResults('10');
+        
         try {
             return $query->getResult();
         } catch (\Doctrine\ORM\NoResultException $e) {
