@@ -6,8 +6,8 @@ mon_graph:
   requirements:
     _locale: en|fr
     control_id: \d+
-    #startTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
-    #stopTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
+    startTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
+    stopTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
 
 mon_about:
   pattern: /{_locale}/about
