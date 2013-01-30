@@ -16,6 +16,7 @@ mon_view_details: More details
 mon_identifier: Id
 mon_name: Name
 mon_actions: Actions
+mon_options: Options
 
 # Admin wordings
 mon_menu_admin: Administration

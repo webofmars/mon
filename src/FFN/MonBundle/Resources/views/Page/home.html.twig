@@ -18,8 +18,8 @@
           <p>{{project.description}}</p>
           <p class="pagination-centered"><span class="{{ random(['imgSun', 'imgCloud', 'imgRain', 'imgStorm']) }}"></span></p>
           <p class="pagination-centered">
-            <a class="btn" href="{{path('mon_project_edit', { 'id': project.id })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a>
             <a class="btn" href="{{path('mon_project_home', { 'id': project.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+            <a class="btn" href="{{path('mon_project_edit', { 'id': project.id })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a>
           </p>
           {% if nb_scenario > 0 %}
             {% for scenario in project.scenarios %}
