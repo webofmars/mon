@@ -108,8 +108,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: block;
   height: 40px;
-  width: 43.6px;
-  background-position: -4px 0px;
+  width: 40px;
+  background-position: -44px 1px;
 }
 
 .icoCloud {
@@ -117,8 +117,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: block;
   height: 40px;
-  width: 43.6px;
-  background-position: -44px -80px;
+  width: 40px;
+  background-position: 0px -88px;
 }
 
 .icoRain {
@@ -126,8 +126,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: block;
   height: 40px;
-  width: 43.6px;
-  background-position: -171px -80px;
+  width: 40px;
+  background-position: 0px -131px;
 }
 
 .icoStorm {
@@ -135,10 +135,45 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: block;
   height: 40px;
+  width: 40px;
+  background-position: -44px -88px;
+}
+
+.icoSun-old {
+  background: url("../images/weather_icons_old.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 43.6px;
+  background-position: -4px 0px;
+}
+
+.icoCloud-old {
+  background: url("../images/weather_icons_old.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 43.6px;
+  background-position: -44px -80px;
+}
+
+.icoRain-old {
+  background: url("../images/weather_icons_old.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  width: 43.6px;
+  background-position: -171px -80px;
+}
+
+.icoStorm-old {
+  background: url("../images/weather_icons_old.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 40px;
   width: 43.6px;
   background-position: -129px -120px;
 }
-
 .imgSun {
   background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
   cursor: pointer;
