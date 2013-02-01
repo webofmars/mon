@@ -210,3 +210,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   background-position: -300px -350px;
 }
 
+.outline-bottom {
+    border-bottom-style:solid;
+    border-bottom-color: red;
+    border-bottom-width: 5px;
+}

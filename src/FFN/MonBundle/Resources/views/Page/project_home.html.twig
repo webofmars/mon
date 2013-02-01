@@ -4,55 +4,74 @@
 {% set nb_scenarii = scenarii|length %}
 
 {% block body %}
-  <div class="container">
 
+<div class="container-fluid">
     {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
 
-    {% if app.session.hasFlash('success_msg') %}
-      <div class="alert alert-success">
-      {{ app.session.flash('success_msg') }}
-      </div>
-    {% endif %}
-    {% if app.session.hasFlash('error_msg') %}
-      <div class="alert alert-error">
-      {{ app.session.flash('error_msg') }}
-      </div>
-    {% endif %}
-
-    <div class="page-header">
-      <h1><small>{{ 'mon_scenario_list' | trans({}, 'messages') | raw }}</small></h1>
-    </div>
-
-    {% if nb_scenarii > 0 %}
-      {% for scenario in scenarii %}
-        {% set nb_control = scenario.controls|length %}
-        <div class="span4">
-          <h2>{{scenario.name}}</h2>
-          <p class="pagination-centered"><span class="{{ random(['imgSun', 'imgCloud', 'imgRain', 'imgStorm']) }}"></span></p>
-          <p>
-            <div class="btn-toolbar pagination-centered" style="margin: 0;">
-              <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
-              <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a href="{{path('mon_control_add', { 'id': scenario.id })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
-                  <li><a href="{{path('mon_scenario_edit', { 'id': scenario.id })}}">{{ 'mon_scenario_edit' | trans({}, 'messages') | raw }}</a></li>
-                  <li><a href="{{path('mon_scenario_delete', { 'id': scenario.id })}}">{{ 'mon_scenario_delete' | trans({}, 'messages') | raw }}</a></li>
-                </ul>
-              </div><!-- /btn-group -->
+    <div class="row-fluid">
+        {% if app.session.hasFlash('success_msg') %}
+            <div class="alert alert-success">
+                {{ app.session.flash('success_msg') }}
             </div>
-          </p>
-          {% if nb_control > 0 %}
-            {% for control in scenario.controls %}
-              <div class="row">
-                <div class="span2">{{control.name}}</div>
-                <div class="span1 offset1 pagination-right"><span class="{{ random(['picSun', 'picCloud', 'picRain', 'picStorm']) }}"></span></div>
-              </div>
-            {% endfor %}
-          {% endif %}
-        </div>
-      {% endfor %}
-    {% endif %}
+        {% endif %}
+        {% if app.session.hasFlash('error_msg') %}
+            <div class="alert alert-error">
+                {{ app.session.flash('error_msg') }}
+            </div>
+         {% endif %}
+    </div>
+</div>
 
-  </div> <!-- /container -->
+<div class="container-fluid">
+    <div class="page-header">
+        <h1><small>{{ 'mon_scenario_list' | trans({}, 'messages') | raw }}</small></h1>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        {% if nb_scenarii > 0 %}
+            {% for scenario in scenarii %}
+                {% set nb_control = scenario.controls|length %}
+                            <div class="span4"> <!-- bloc project -->
+                                <div class="row-fluid">
+                                    <h3>{{scenario.name}}</h3>
+                                </div>
+                                <div class="row-fluid"> <!-- meteo globale -->
+                                    <p class="pagination-centered"><span class="{{ random(['imgSun', 'imgCloud', 'imgRain', 'imgStorm']) }}"></span></p>
+                                </div>
+                                <div class="row-fluid"> <!-- boutons -->
+                                    <div class="btn-toolbar" style="margin: 0;">
+                                        <div class="span5">
+                                            <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+                                        </div>    
+                                        <div class="span5 offset2 btn-group">
+                                            <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="{{path('mon_control_add', { 'id': scenario.id })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
+                                                <li><a href="{{path('mon_scenario_edit', { 'id': scenario.id })}}">{{ 'mon_scenario_edit' | trans({}, 'messages') | raw }}</a></li>
+                                                <li><a href="{{path('mon_scenario_delete', { 'id': scenario.id })}}">{{ 'mon_scenario_delete' | trans({}, 'messages') | raw }}</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>    
+                    {% if nb_control > 0 %} <!-- affichage des controles -->
+                        {% for control in scenario.controls %}
+                                <p></p>
+                                <div class="row-fluid outline-bottom">
+                                    <div class="span9">
+                                    {{control.name}}
+                                        </div>
+                                        <div class="span2 offset1 pagination-right">
+                                            <span class="{{ random(['picSun', 'picCloud', 'picRain', 'picStorm']) }}"></span>
+                                        </div>
+                                    </div>
+                        {% endfor %}
+                    {% endif %}
+                                </div> <!-- /bloc projet -->            
+            {% endfor %}
+        {% endif %}
+                            </div> <!-- /ligne 3 projets -->
+                        </div> <!-- /container -->
+
 {% endblock %}
