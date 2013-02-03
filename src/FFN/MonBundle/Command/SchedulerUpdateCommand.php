@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use FFN\MonBundle\Entity\Capture;
 use FFN\MonBundle\Entity\CaptureDetail;
 use DateTime;
-
+use DateInterval;
 
     /**
      * Command that fill up the capture scheduled dates based on the scenario frequencies
@@ -29,10 +29,19 @@ use DateTime;
         public function execute(InputInterface $input, OutputInterface $output)
         {
          
-            $startTS  = $this->minutes_round( time(), $input->getArgument('round'), 'Y-m-d H:i:s');
-            $stopTS   = $this->minutes_round( time() + $input->getArgument('interval')*60, $input->getArgument('round'), 'Y-m-d H:i:s');
+            if (is_null($input->getArgument('interval'))) {
+                $output->writeln('error: missing argument interval');
+            }
             
-            $output->writeln("- Updating capture table beetween $startTS and $stopTS ...");
+            if (is_null($input->getArgument('round'))) {
+                $output->writeln('error: missing argument interval');
+            }
+            
+            $start = new DateTime('@'.$this->minutes_round(time(), $input->getArgument('round')));
+            $stop  = new DateTime('@'.$this->minutes_round(time(), $input->getArgument('round')));
+            $stop->add(new DateInterval('PT'.$input->getArgument('interval').'M'));
+                    
+            $output->writeln('- Updating capture table beetween '.$start->format('Y-m-d H:i:s').' and '.$stop->format('Y-m-d H:i:s').' ...');
             
             // get all the scenarii
             $em = $this->getContainer()->get('doctrine')->getEntityManager();
@@ -48,12 +57,13 @@ use DateTime;
                     $output->write("--- updating schedule for control #". $control->getId());
                     $output->writeln(" (".$control->getName().").");
                     
-                    /** TOFIX: bad time gestion **/
                     // create schedules in DB
-                    while ($startTS < $stopTS) {
-                        $output->writeln("---- added capture at $startTS");
-                        $this->scheduleCapture($startTS, $control);
-                        $startTS += $scenario->getFrequency();
+                    $ctrlStart = clone $start;
+                    $ctrlStop = clone $stop;
+                    while ($ctrlStart < $ctrlStop) {
+                        $this->scheduleCapture($ctrlStart, $control);
+                        $output->writeln('---- added capture at '.$ctrlStart->format('Y-m-d H:i:s'));
+                        $ctrlStart->add(new DateInterval('PT'.$scenario->getFrequency().'M'));
                     }
                 }                
             }
@@ -63,21 +73,22 @@ use DateTime;
         protected function scheduleCapture($dateTime, $control) {
                         
             $em = $this->getContainer()->get('doctrine')->getEntityManager();
+            
             $capDetail = new CaptureDetail();
             $cap = new capture();
             
-            $cap->setDateScheduled(new DateTime($dateTime));
+            $cap->setDateScheduled($dateTime);
             $cap->setControl($control);
             
             $em->persist($cap);
-            $em->flush();
+            $em->flush();            
         }
         
         // TODO: a externaliser
-        protected function minutes_round($epoch, $minutes = '10', $format = "H:i")
+        protected function minutes_round($epoch, $minutes = '10')
         {
             $rounded = round($epoch / ($minutes * 60)) * ($minutes * 60);
-            return date($format, $rounded);
+            return $rounded;
         }
         
     }
