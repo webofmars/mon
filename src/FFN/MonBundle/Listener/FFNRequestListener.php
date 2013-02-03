@@ -35,10 +35,12 @@ class FFNRequestListener {
         }
 
         // accept-language dans la requete
-        $userLocale = $event->getRequest()->getPreferredLanguage(array('fr', 'en'));
+        $userLocale = $event->getRequest()->getPreferredLanguage(array('en', 'fr', 'en_US', 'fr_FR'));
+        $userLocale = substr($userLocale, 0, 2);
         
         // si pas de locale definie
         if ( !$this->container->get('session')->has('_locale') or $this->container->get('session')->get('_locale') != $userLocale) {
+            $this->container->get('logger')->info('- setting the session locale to '.$userLocale);
             $event->getRequest()->setLocale($userLocale);
             $this->container->get('session')->set('_locale', $userLocale);
         }
