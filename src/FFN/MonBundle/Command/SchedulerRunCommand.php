@@ -12,6 +12,7 @@ use FFN\MonBundle\Entity\capture as Capture;
 use FFN\MonBundle\Entity\CaptureDetail;
 use FFN\MonBundle\Common\Daemon as FFNDaemon;
 use DateTime;
+use DateTimeZone;
 
 /**
  * Command that runs the scheduled captures
@@ -29,7 +30,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
         $captures = $em->getRepository("FFNMonBundle:Capture")->findAll();
         
         foreach($captures as $capture) {
-            $now = new DateTime();
+            $now = new DateTime('now', new DateTimeZone('UTC'));
             if ( ($capture->getDateScheduled() < $now) and is_null($capture->getDateExecuted()) ) {
                 $output->writeln("- running control #".$capture->getControl()->getId());
                 FFNDaemon::run($capture);
