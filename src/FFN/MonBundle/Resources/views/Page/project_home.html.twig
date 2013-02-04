@@ -33,7 +33,7 @@
         {% if nb_scenarii > 0 %}
             {% for scenario in scenarii %}
                 {% set nb_control = scenario.controls|length %}
-                            <div class="span4"> <!-- bloc project -->
+                            <div class="span4 blue-outline"> <!-- bloc project -->
                                 <div class="row-fluid">
                                     <h3>{{scenario.name}}</h3>
                                 </div>
@@ -58,7 +58,7 @@
                     {% if nb_control > 0 %} <!-- affichage des controles -->
                         {% for control in scenario.controls %}
                                 <p></p>
-                                <div class="row-fluid outline-bottom">
+                                <div class="row-fluid">
                                     <div class="span9">
                                         {{control.name}}
                                         </div>

@@ -5,6 +5,7 @@ namespace FFN\MonBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FFN\MonBundle\Entity\Control;
 use \DateTime;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Description of GraphController
@@ -25,14 +26,22 @@ class GraphController extends Controller {
             ->findByIdAndTimeRange($control_id, $startTs, $stopTs);
         
         foreach ($captures_data as $cap) {
-            array_push($graphdata, array(
-                        $cap->getDateExecuted()->format('H:i:s'), 
-                        (float) $cap->getDns(),
-                        (float) $cap->getTcp(),
-                        (float) $cap->getFirstPacket(),
-                        (float) $cap->getTotal()
-                    )
-            );
+            
+            $user = $this->get('security.context')->getToken()->getUser();
+            
+            if ($user === $cap->getControl()->getScenario()->getProject()->getUser()) {
+                array_push($graphdata, array(
+                            $cap->getDateExecuted()->format('H:i:s'), 
+                            (float) $cap->getDns(),
+                            (float) $cap->getTcp(),
+                            (float) $cap->getFirstPacket(),
+                            (float) $cap->getTotal()
+                        )
+                );  
+            } else {
+                // TODO: trans
+                throw new AccessDeniedException("Not allowed to see this graph");
+            }
         }
 
         return $this->render('FFNMonBundle:Page:graph.html.twig', array(
