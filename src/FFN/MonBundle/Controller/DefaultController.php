@@ -269,7 +269,7 @@ class DefaultController extends Controller {
                 $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
             }
         }
-        return $this->render('FFNMonBundle:Page:Scenario_add.html.twig', array(
+        return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(
                     'form' => $form->createView(),
                     'project' => $project,
                 ));
