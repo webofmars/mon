@@ -84,10 +84,10 @@ class Daemon {
             curl_close($ch);
         }
         else {
-            curl_close($ch);
             throw new \Exception("curl_wrapper: ".curl_errno($ch));
+            curl_close($ch);
         }
-        
+                
         return($results);
     }
 
