@@ -46,7 +46,7 @@ class LoadScenarioData  extends AbstractFixture implements OrderedFixtureInterfa
             $sc->setDateCreation(new DateTime());
             $sc->setEnabled(true);
             $sc->setName('FFN_fixtures_scenarios_'.$i.$j);
-            $sc->setFrequency(1);
+            $sc->setFrequency(int(rand(5,30)));
             $sc->setProject($om->merge($this->getReference('proj'.$i)));
 
             $om->persist($sc);
