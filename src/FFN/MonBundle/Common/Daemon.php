@@ -84,7 +84,7 @@ class Daemon {
             curl_close($ch);
         }
         else {
-            throw new \Exception("curl_wrapper: ".curl_errno($ch));
+            throw new \Exception("curl_wrapper: ".curl_error($ch));
             curl_close($ch);
         }
                 
