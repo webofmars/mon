@@ -42,6 +42,7 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
                     'http://www.allocine.fr',
                     'http://www.microsoft.com',
                     'http://www.rueducommerce.fr',
+                    'http://jesuissurquecedomainenexistepas.com'
                 );
         
 
@@ -52,7 +53,7 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
             $ctrl = new Control();
 
             $ctrl->setName('FFN_fixtures_ctrl_'.$i.$j);
-            $ctrl->setUrl($urls[rand(0, count($urls))]);
+            $ctrl->setUrl($urls[rand(0, count($urls)-1)]);
             $ctrl->setMimeType('text/html');
             $ctrl->setConnectionTimeout(5);
             $ctrl->setResponseTimeout(10);

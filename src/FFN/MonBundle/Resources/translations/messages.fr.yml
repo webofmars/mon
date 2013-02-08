@@ -78,5 +78,9 @@ mon_control_creation_failed: Création du contrôle échouée
 mon_control_creation_validated: Création du contrôle effectuée
 mon_control_form_name_placeholder: Nom de votre contrôle
 mon_control_name: Nom
+mon_control_url: Url
 mon_control_add_header: Ajouter un header
 mon_control_add_validator: Ajouter un validateur
+
+# graph wordings
+mon_graph_label: Graphique pour

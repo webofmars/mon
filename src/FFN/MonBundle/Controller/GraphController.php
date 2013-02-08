@@ -14,11 +14,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class GraphController extends Controller {
 
-    public function showAction($control_id, $startTs, $stopTs ) {
+    public function showAction($control_id, $startTs = null , $stopTs = null) {
         
-        $graphdata = array(
-            array('Time', 'DNS', 'TCP conn.', '1st packet', 'Total time'),
-        );
+        $graphdata = array();
         
         // get the data from the DB
         $em = $this->getDoctrine()->getEntityManager();
@@ -29,15 +27,8 @@ class GraphController extends Controller {
             
             $user = $this->get('security.context')->getToken()->getUser();
             
-            if ($user === $cap->getControl()->getScenario()->getProject()->getUser()) {
-                array_push($graphdata, array(
-                            $cap->getDateExecuted()->format('H:i:s'), 
-                            (float) $cap->getDns(),
-                            (float) $cap->getTcp(),
-                            (float) $cap->getFirstPacket(),
-                            (float) $cap->getTotal()
-                        )
-                );  
+            if ($user === $cap->getControl()->getScenario()->getProject()->getUser()) {                
+                array_push( $graphdata, $cap );
             } else {
                 // TODO: trans
                 throw new AccessDeniedException("Not allowed to see this graph");
@@ -45,7 +36,7 @@ class GraphController extends Controller {
         }
 
         return $this->render('FFNMonBundle:Page:graph.html.twig', array(
-                    'graphdata' => json_encode($graphdata, ENT_QUOTES),
+                    'graphdata' => $graphdata,
                     'title' => "Control no $control_id"
         ));
     }

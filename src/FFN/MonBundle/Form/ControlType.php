@@ -23,18 +23,19 @@ class ControlType extends AbstractType{
     //parent::buildForm($builder, $options);
     $builder
       ->add('name', 'text', array('label' => $this->getTranslator()->trans('mon_control_name')))
-      ->add('controlHeaders', 'collection', array(
-          'type' => new ControlHeaderType(),
-          'allow_add'    => true,
-          'allow_delete' => true,
-          'by_reference' => false
-      ))
-      ->add('validators', 'collection', array(
-          'type' => new validatorType(),
-          'allow_add'    => true,
-          'allow_delete' => true,
-          'by_reference' => false
-      ))
+      ->add('url', 'text', array('label' => $this->getTranslator()->trans('mon_control_url')))
+//      ->add('controlHeaders', 'collection', array(
+//          'type' => new ControlHeaderType(),
+//          'allow_add'    => true,
+//          'allow_delete' => true,
+//          'by_reference' => false
+//      ))
+//      ->add('validators', 'collection', array(
+//          'type' => new validatorType(),
+//          'allow_add'    => true,
+//          'allow_delete' => true,
+//          'by_reference' => false
+//      ))
             
     ;
   }

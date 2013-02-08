@@ -97,7 +97,7 @@ class Capture {
      * @var CaptureDetail
      * 
      * @ORM\OneToOne(targetEntity="CaptureDetail", cascade={"persist", "merge", "remove"})
-     * @ORM\JoinColumn(name="capture_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="capture_details_id", referencedColumnName="id")
      * 
      */
     protected $captureDetail;

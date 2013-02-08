@@ -78,5 +78,9 @@ mon_control_creation_failed: Control creation failed
 mon_control_creation_validated: Control creation succeeded
 mon_control_form_name_placeholder: Control name
 mon_control_name: Name
+mon_control_url: Url
 mon_control_add_header: Add header
 mon_control_add_validator: Add validator
+
+# graph wordings
+mon_graph_label: Graph for

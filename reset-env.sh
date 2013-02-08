@@ -9,3 +9,4 @@ php app/console doctrine:fixtures:load -n
 php app/console assets:install
 php app/console assetic:dump web
 php app/console mon:scheduler:update 5 1
+rm app/logs/*.log

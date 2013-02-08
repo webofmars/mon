@@ -118,23 +118,32 @@ class DefaultController extends Controller {
     public function controlAddAction($id) {
         $em = $this->get('doctrine')->getManager();
         $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
+        
         $project = $scenario->getProject();
+        
         $control = New Control();
+        
         $form = $this->createForm(new ControlType($this->get('translator')), $control);
         $request = $this->getRequest();
+        
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
+            
             if ($form->isValid()) {
                 $em = $this->get('doctrine')->getManager();
                 $control->setConnectionTimeout(0);
                 $control->setMimeType('html');
                 $control->setResponseTimeout(0);
-                $control->setUrl('http://google.fr');
+                $control->setScenario($scenario);
+                
                 $em->persist($control);
                 $em->flush();
+                
                 $data = $form->getData();
+               
                 $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_control_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $id)));
+                
             } else {
                 $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
             }
@@ -250,9 +259,12 @@ class DefaultController extends Controller {
     public function scenarioAddAction($id) {
         $em = $this->get('doctrine')->getManager();
         $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
+        
         $scenario = New Scenario();
         $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
+        
         $request = $this->getRequest();
+        
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
             if ($form->isValid()) {

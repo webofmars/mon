@@ -9,6 +9,15 @@ mon_graph:
     startTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
     stopTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
 
+mon_graph_simple:
+  pattern: /{_locale}/graph/{control_id}
+  defaults:
+    _controller: FFNMonBundle:Graph:show
+    _locale: en
+  requirements:
+    _locale: en|fr
+    control_id: \d+  
+
 mon_about:
   pattern: /{_locale}/about
   defaults:

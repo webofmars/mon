@@ -33,9 +33,22 @@ class SchedulerRunCommand extends ContainerAwareCommand {
             $now = new DateTime('now', new DateTimeZone('UTC'));
             if ( ($capture->getDateScheduled() < $now) and is_null($capture->getDateExecuted()) ) {
                 $output->writeln("- running control #".$capture->getControl()->getId());
-                FFNDaemon::run($capture);
                 
                 $capture->setDateExecuted(new DateTime());
+                
+                try {
+                    FFNDaemon::run($capture);
+                }
+                catch (\Exception $e) {
+                    $this->getContainer()->get('logger')->err("Daemon: Error when getting the capture for control id="
+                            .$capture->getControl()->getId());
+                    $this->getContainer()->get('logger')->err("curl_wrapper: ".$e->getMessage());
+                    $output->writeln("curl_wrapper: ".$e->getMessage());
+                    $em->persist($capture);
+                    $em->flush();
+                    continue;
+                }
+                
                 $em->persist($capture);
                 $em->persist($capture->getCaptureDetail());
                 $em->flush();

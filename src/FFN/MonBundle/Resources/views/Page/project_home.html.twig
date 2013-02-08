@@ -5,10 +5,10 @@
 
 {% block body %}
 
-<div class="container-fluid">
+<div class="container">
     {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
 
-    <div class="row-fluid">
+    <div class="row">
         {% if app.session.hasFlash('success_msg') %}
             <div class="alert alert-success">
                 {{ app.session.flash('success_msg') }}
@@ -22,30 +22,28 @@
     </div>
 </div>
 
-<div class="container-fluid">
+<div class="container">
     <div class="page-header">
         <h1><small>{{ 'mon_scenario_list' | trans({}, 'messages') | raw }}</small></h1>
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row-fluid">
+<div class="container">
+    <div class="row">
         {% if nb_scenarii > 0 %}
             {% for scenario in scenarii %}
                 {% set nb_control = scenario.controls|length %}
                             <div class="span4 blue-outline"> <!-- bloc project -->
-                                <div class="row-fluid">
+                                <div class="pagination-centered row">
                                     <h3>{{scenario.name}}</h3>
                                 </div>
-                                <div class="row-fluid"> <!-- meteo globale -->
+                                <div class="row"> <!-- meteo globale -->
                                     <p class="pagination-centered"><span class="{{ random(['imgSun', 'imgCloud', 'imgRain', 'imgStorm']) }}"></span></p>
                                 </div>
-                                <div class="row-fluid"> <!-- boutons -->
+                                <div class="row pagination-centered"> <!-- boutons -->
                                     <div class="btn-toolbar" style="margin: 0;">
-                                        <div class="span5">
-                                            <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
-                                        </div>    
-                                        <div class="span5 offset2 btn-group">
+                                        <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+                                        <div class="btn-group">
                                             <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
                                             <ul class="dropdown-menu">
                                                 <li><a href="{{path('mon_control_add', { 'id': scenario.id })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
@@ -54,24 +52,21 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>    
+                                </div>
                     {% if nb_control > 0 %} <!-- affichage des controles -->
                         {% for control in scenario.controls %}
-                                <p></p>
-                                <div class="row-fluid">
-                                    <div class="span9">
-                                        {{control.name}}
-                                        </div>
-                                        <div class="span2 offset1 pagination-right">
-                                            <span class="{{ random(['icoSun', 'icoCloud', 'icoRain', 'icoStorm']) }}"></span>
-                                        </div>
+                                <br/>
+                                <a href="{{ path( 'mon_graph_simple', { control_id: control.id } ) }}" >
+                                    <div class="row">
+                                        <div>{{control.name}}</div>
+                                        <div class="pagination-right"><span class="{{ random(['icoSun', 'icoCloud', 'icoRain', 'icoStorm']) }}"></span></div>
                                     </div>
+                                </a>
                         {% endfor %}
                     {% endif %}
-                                </div> <!-- /bloc projet -->            
+                            </div> <!-- /bloc projet -->            
             {% endfor %}
         {% endif %}
-                            </div> <!-- /ligne 3 projets -->
-                        </div> <!-- /container -->
-
+    </div> <!-- /ligne 3 projets -->
+</div> <!-- /container -->
 {% endblock %}
