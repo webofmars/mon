@@ -12,9 +12,12 @@ web/.htaccess
 # Configuration files
 app/config/parameters.ini
 app/config/parameters.yml
+app/config/config.yml
 
 # misc
 *nbproject*
 *~
+*.bat
 *.dia.autosave
 composer.phar
+*.old
