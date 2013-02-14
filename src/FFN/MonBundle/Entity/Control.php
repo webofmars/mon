@@ -6,15 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-
 /**
  * Control
  *
  * @ORM\Table(name="control")
  * @ORM\Entity
  */
-class Control
-{
+class Control {
+
     /**
      * @var integer
      *
@@ -30,7 +29,7 @@ class Control
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
-    
+
     /**
      * @var string
      *
@@ -58,7 +57,7 @@ class Control
      * @ORM\Column(name="response_timeout", type="integer")
      */
     private $responseTimeout;
-    
+
     /**
      * @var array
      * 
@@ -80,7 +79,7 @@ class Control
      * @ORM\JoinColumn(name="scenario_id", referencedColumnName="id")
      */
     protected $scenario;
-    
+
     /**
      *
      * @var ArrayCollection
@@ -89,24 +88,51 @@ class Control
      * 
      */
     protected $captures;
+    // @TODO: externalisser dans la conf
+    /**
+     *
+     * @var type float
+     * @ORM\Column(name="dns_threshold", type="float", nullable=true)
+     * 
+     */
+    private $dnsThreshold = 1.0;
 
+    /**
+     *
+     * @var type float
+     * @ORM\Column(name="tcp_threshold", type="float", nullable=true)
+     */
+    private $tcpThreshold = 1.5;
 
+    /**
+     *
+     * @var type float
+     * @ORM\Column(name="first_packet_threshold", type="float", nullable=true)
+     * 
+     */
+    private $firstPacketThreshold = 2.0;
+
+    /**
+     *
+     * @var type float
+     * @ORM\Column(name="total_time_threshold", type="float", nullable=true)
+     */
+    private $totalTimeThreshold = 5.0;
+    
     /**
      * Constructor
      */
-    public function __construct()
-    {
-      $this->captures = new \Doctrine\Common\Collections\ArrayCollection();
-      $this->controlHeaders = new \Doctrine\Common\Collections\ArrayCollection();
+    public function __construct() {
+        $this->captures = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->controlHeaders = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -116,10 +142,9 @@ class Control
      * @param string $name
      * @return control
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
+
         return $this;
     }
 
@@ -128,8 +153,7 @@ class Control
      *
      * @return string 
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
 
@@ -139,10 +163,9 @@ class Control
      * @param string $url
      * @return control
      */
-    public function setUrl($url)
-    {
+    public function setUrl($url) {
         $this->url = $url;
-    
+
         return $this;
     }
 
@@ -151,8 +174,7 @@ class Control
      *
      * @return string 
      */
-    public function getUrl()
-    {
+    public function getUrl() {
         return $this->url;
     }
 
@@ -162,10 +184,9 @@ class Control
      * @param string $mimeType
      * @return control
      */
-    public function setMimeType($mimeType)
-    {
+    public function setMimeType($mimeType) {
         $this->mimeType = $mimeType;
-    
+
         return $this;
     }
 
@@ -174,8 +195,7 @@ class Control
      *
      * @return string 
      */
-    public function getMimeType()
-    {
+    public function getMimeType() {
         return $this->mimeType;
     }
 
@@ -185,10 +205,9 @@ class Control
      * @param integer $connectionTimeout
      * @return control
      */
-    public function setConnectionTimeout($connectionTimeout)
-    {
+    public function setConnectionTimeout($connectionTimeout) {
         $this->connectionTimeout = $connectionTimeout;
-    
+
         return $this;
     }
 
@@ -197,8 +216,7 @@ class Control
      *
      * @return integer 
      */
-    public function getConnectionTimeout()
-    {
+    public function getConnectionTimeout() {
         return $this->connectionTimeout;
     }
 
@@ -208,10 +226,9 @@ class Control
      * @param integer $responseTimeout
      * @return control
      */
-    public function setResponseTimeout($responseTimeout)
-    {
+    public function setResponseTimeout($responseTimeout) {
         $this->responseTimeout = $responseTimeout;
-    
+
         return $this;
     }
 
@@ -220,63 +237,57 @@ class Control
      *
      * @return integer 
      */
-    public function getResponseTimeout()
-    {
+    public function getResponseTimeout() {
         return $this->responseTimeout;
     }
-    
-    /**
-    * @param FFN\MonBundle\Entity\ControlHeader $controlHeader
-    * @return this
-    */
-    public function addControlHeader(ControlHeader $controlHeader){
-      $controlHeader->setControl($this);
-      $this->controlHeaders[] = $controlHeader;
-      return $this;
-    }
 
     /**
-    * @param FFN\MonBundle\Entity\ControlHeader $controlHeader
-    */
-    public function removeControlHeader(ControlHeader $controlHeader)
-    {
-      $this->controlHeaders->removeElement($controlHeader);
-    }
-
-    /**
-    * @return Doctrine\Common\Collections\Collection
-    */
-    public function getControlHeaders()
-    {
-      return $this->controlHeaders;
-    }
-    
-    /**
-     * @param FFN\MonBundle\Entity\validator $validator
+     * @param FFN\MonBundle\Entity\ControlHeader $controlHeader
      * @return this
      */
-    public function addValidator(validator $validator){
-      $validator->setControl($this);
-      $this->validators[] = $validator;
-      return $this;
+    public function addControlHeader(ControlHeader $controlHeader) {
+        $controlHeader->setControl($this);
+        $this->controlHeaders[] = $controlHeader;
+        return $this;
     }
 
     /**
-     * @param FFN\MonBundle\Entity\validator $validator
+     * @param FFN\MonBundle\Entity\ControlHeader $controlHeader
      */
-    public function removeValidator(validator $validator)
-    {
-      $this->validators->removeElement($validator);
+    public function removeControlHeader(ControlHeader $controlHeader) {
+        $this->controlHeaders->removeElement($controlHeader);
     }
 
     /**
      * @return Doctrine\Common\Collections\Collection
      */
-    public function getValidators()
-    {
-      return $this->validators;
+    public function getControlHeaders() {
+        return $this->controlHeaders;
     }
 
+    /**
+     * @param FFN\MonBundle\Entity\validator $validator
+     * @return this
+     */
+    public function addValidator(validator $validator) {
+        $validator->setControl($this);
+        $this->validators[] = $validator;
+        return $this;
+    }
+
+    /**
+     * @param FFN\MonBundle\Entity\validator $validator
+     */
+    public function removeValidator(validator $validator) {
+        $this->validators->removeElement($validator);
+    }
+
+    /**
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getValidators() {
+        return $this->validators;
+    }
 
     /**
      * Set scenario
@@ -284,10 +295,9 @@ class Control
      * @param \FFN\MonBundle\Entity\Scenario $scenario
      * @return Control
      */
-    public function setScenario(\FFN\MonBundle\Entity\Scenario $scenario = null)
-    {
+    public function setScenario(\FFN\MonBundle\Entity\Scenario $scenario = null) {
         $this->scenario = $scenario;
-    
+
         return $this;
     }
 
@@ -296,8 +306,7 @@ class Control
      *
      * @return \FFN\MonBundle\Entity\Scenario 
      */
-    public function getScenario()
-    {
+    public function getScenario() {
         return $this->scenario;
     }
 
@@ -307,10 +316,9 @@ class Control
      * @param integer $frequency
      * @return Control
      */
-    public function setFrequency($frequency)
-    {
+    public function setFrequency($frequency) {
         $this->frequency = $frequency;
-    
+
         return $this;
     }
 
@@ -319,8 +327,7 @@ class Control
      *
      * @return integer 
      */
-    public function getFrequency()
-    {
+    public function getFrequency() {
         return $this->frequency;
     }
 
@@ -330,10 +337,9 @@ class Control
      * @param \FFN\MonBundle\Entity\capture $captures
      * @return Control
      */
-    public function addCapture(\FFN\MonBundle\Entity\capture $captures)
-    {
+    public function addCapture(\FFN\MonBundle\Entity\capture $captures) {
         $this->captures[] = $captures;
-    
+
         return $this;
     }
 
@@ -342,8 +348,7 @@ class Control
      *
      * @param \FFN\MonBundle\Entity\capture $captures
      */
-    public function removeCapture(\FFN\MonBundle\Entity\capture $captures)
-    {
+    public function removeCapture(\FFN\MonBundle\Entity\capture $captures) {
         $this->captures->removeElement($captures);
     }
 
@@ -352,8 +357,39 @@ class Control
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getCaptures()
-    {
+    public function getCaptures() {
         return $this->captures;
+    }
+
+    public function getDnsThreshold() {
+        return $this->dnsThreshold;
+    }
+
+    public function setDnsThreshold($dnsThreshold) {
+        $this->dnsThreshold = $dnsThreshold;
+    }
+
+    public function getTcpThreshold() {
+        return $this->tcpThreshold;
+    }
+
+    public function setTcpThreshold($tcpThreshold) {
+        $this->tcpThreshold = $tcpThreshold;
+    }
+
+    public function getFirstPacketThreshold() {
+        return $this->firstPacketThreshold;
+    }
+
+    public function setFirstPacketThreshold($firstPacketThreshold) {
+        $this->firstPacketThreshold = $firstPacketThreshold;
+    }
+
+    public function getTotalTimeThreshold() {
+        return $this->totalTimeThreshold;
+    }
+
+    public function setTotalTimeThreshold($totalTimeThreshold) {
+        $this->totalTimeThreshold = $totalTimeThreshold;
     }
 }

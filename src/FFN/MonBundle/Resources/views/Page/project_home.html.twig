@@ -29,19 +29,31 @@
 </div>
 
 <div class="container">
-    <div class="row">
+    <div class="row-fluid">
         {% if nb_scenarii > 0 %}
             {% for scenario in scenarii %}
                 {% set nb_control = scenario.controls|length %}
                             <div class="span4 blue-outline"> <!-- bloc project -->
-                                <div class="pagination-centered row">
+                                <div class="pagination-centered">
                                     <h3>{{scenario.name}}</h3>
                                 </div>
-                                <div class="row"> <!-- meteo globale -->
-                                    <p class="pagination-centered"><span class="{{ random(['imgSun', 'imgCloud', 'imgRain', 'imgStorm']) }}"></span></p>
+                                <div> <!-- meteo globale -->
+                                    <p class="pagination-centered">
+                                        {% if scenarii_weather[scenario.id][0].weatherState == 1 %}
+                                            <span class="imgStorm"></span>
+                                        {% elseif scenarii_weather[scenario.id][0].weatherState == 2 %}
+                                            <span class="imgRain"></span>
+                                        {% elseif scenarii_weather[scenario.id][0].weatherState == 3 %}
+                                            <span class="imgCloud"></span>
+                                        {% elseif scenarii_weather[scenario.id][0].weatherState == 4 %}
+                                            <span class="imgSun"></span>
+                                        {% elseif scenarii_weather[scenario.id][0].weatherState == 5 %}
+                                            <span class="imgUnknown">?</span>
+                                        {% endif %}
+                                    </p>
                                 </div>
-                                <div class="row pagination-centered"> <!-- boutons -->
-                                    <div class="btn-toolbar" style="margin: 0;">
+                                <div class="pagination-centered"> <!-- boutons -->
+                                    <div class="btn-toolbar">
                                         <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
                                         <div class="btn-group">
                                             <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
@@ -53,17 +65,25 @@
                                         </div>
                                     </div>
                                 </div>
-                    {% if nb_control > 0 %} <!-- affichage des controles -->
-                        {% for control in scenario.controls %}
-                                <br/>
-                                <a href="{{ path( 'mon_graph_simple', { control_id: control.id } ) }}" >
-                                    <div class="row">
-                                        <div>{{control.name}}</div>
-                                        <div class="pagination-right"><span class="{{ random(['icoSun', 'icoCloud', 'icoRain', 'icoStorm']) }}"></span></div>
-                                    </div>
-                                </a>
-                        {% endfor %}
-                    {% endif %}
+                                    {% if nb_control > 0 %} <!-- affichage des controles -->
+                                        {% for control in scenario.controls %}
+                                            <div class="inline">
+                                                <a href="{{ path( 'mon_graph_simple', { control_id: control.id } ) }}" >{{ control.name | e}}&nbsp;
+                                                {% if scenarii_weather[scenario.id][1][control.id].weatherState == 1 %}
+                                                    <span class="icoStorm"></span>
+                                                {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 2 %}
+                                                    <span class="icoRain"></span>
+                                                {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 3 %}
+                                                    <span class="icoCloud"></span>
+                                                {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 4 %}
+                                                    <span class="icoSun"></span>
+                                                {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 5 %}
+                                                    <span class="icoUnknown">?</span>
+                                                {% endif %}
+                                                </a>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
                             </div> <!-- /bloc projet -->            
             {% endfor %}
         {% endif %}

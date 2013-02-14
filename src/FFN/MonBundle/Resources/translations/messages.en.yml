@@ -84,3 +84,7 @@ mon_control_add_validator: Add validator
 
 # graph wordings
 mon_graph_label: Graph for
+
+
+# Weather wordings
+mon_weather: Weather

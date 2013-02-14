@@ -1,3 +1,13 @@
 parameters:
   nb_projects: 6
   nb_scenarii: 3
+  weather_default_dns_threshold: 1.0
+  weather_default_tcp_threshold: 1.5
+  weather_default_first_packet_threshold: 3.0
+  weather_default_total_time_threshold: 5.0
+  weather_default_window_size: 5
+  weather_default_valid_codes: [200, 301, 302]
+  weather_very_good_score: 1150
+  weather_average_score: 1100
+  weather_poor_score: 1050
+  weather_bad_score: 0150
