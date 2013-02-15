@@ -57,8 +57,9 @@
       {% endfor %}
     {% endif %}
 
-    <div class="span4 pagination-centered" style="vertical-align:middle;display: table-cell;">
-      <a class="btn" href="{{ path("mon_project_add")}}">{{ 'mon_project_create' | trans({}, 'messages') | raw }}</a>
+    <div class="span4 pagination-centered blue-outline" >
+        <b>&plus;</b>
+        <a class="btn" href="{{ path("mon_project_add")}}">{{ 'mon_project_create' | trans({}, 'messages') | raw }}</a>
     </div>
 
   </div>
