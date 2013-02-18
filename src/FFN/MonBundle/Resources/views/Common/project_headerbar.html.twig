@@ -2,15 +2,17 @@
   <div class="navbar-inner">
     <div class="container">
       <div>
-      {% if section != 'project_add' %}
+      {% if project is defined %}
         <a href="{{path('mon_project_home', { 'id': project.id })}}" class="brand">{{project.name}}</a>
-        {% if section == 'scenario' or section == 'control' %}
+      {% block content %}
+        {% if scenario is defined %}
         <!--a href="{{path('mon_scenario_home', { 'id': scenario.id })}}" class="brand">{{scenario.name}}</a-->
         {% endif %}
+      {% endblock %}
       {% endif %}
       </div>
       <div class="nav-collapse collapse navbar-responsive-collapse">
-        {% if section != 'project_add' %}
+        {% if project is defined %}
           <ul class="nav">
             <li class="dropdown">
               <a data-toggle="dropdown" class="dropdown-toggle" href="#">Options<b class="caret"></b></a>
@@ -18,7 +20,7 @@
                 <li><a href="{{ path('mon_project_edit', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
                 <li class="divider"></li>
                 <li><a href="{{path('mon_scenario_add', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
-                {% if section == 'scenario' or section == 'control' %}
+                {% if scenario is defined %}
                   <li><a href="{{path('mon_scenario_edit', {'id': scenario.id,'_locale': app.request.get('_locale') })}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
                   <li class="divider"></li>
                   <li><a href="{{path('mon_control_add', {'id': scenario.id, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>

@@ -36,22 +36,20 @@
           <div class="pagination-centered">
             <h3>{{scenario.name}}</h3>
           </div>
-          <div> <!-- meteo globale -->
-            <p class="pagination-centered">
-              {% if scenarii_weather[scenario.id][0] is null %}
-                <span class="imgUnknown"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 1 %}
-                <span class="imgStorm"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 2 %}
-                <span class="imgRain"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 3 %}
-                <span class="imgCloud"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 4 %}
-                <span class="imgSun"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 5 %}
-                <span class="imgUnknown"></span>
-              {% endif %}
-            </p>
+          <div class="pagination-centered"><!-- meteo globale -->
+            {% if scenarii_weather[scenario.id][0] is null %}
+              <span class="imgUnknown"></span>
+            {% elseif scenarii_weather[scenario.id][0].weatherState == 1 %}
+              <span class="imgStorm"></span>
+            {% elseif scenarii_weather[scenario.id][0].weatherState == 2 %}
+              <span class="imgRain"></span>
+            {% elseif scenarii_weather[scenario.id][0].weatherState == 3 %}
+              <span class="imgCloud"></span>
+            {% elseif scenarii_weather[scenario.id][0].weatherState == 4 %}
+              <span class="imgSun"></span>
+            {% elseif scenarii_weather[scenario.id][0].weatherState == 5 %}
+              <span class="imgUnknown"></span>
+            {% endif %}
           </div>
           <div class="pagination-centered"> <!-- boutons -->
             <div class="btn-toolbar">

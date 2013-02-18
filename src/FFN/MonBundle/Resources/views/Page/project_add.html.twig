@@ -4,7 +4,6 @@
 
 {% block body %}
 <div class="container main_page top_50">
-  {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
   {% if app.session.hasFlash('success_msg') %}
       <div class="alert alert-success">
         {{ app.session.flash('success_msg') }}
