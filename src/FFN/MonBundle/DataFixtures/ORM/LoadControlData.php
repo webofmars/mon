@@ -23,7 +23,7 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
      */
     private $container;
 
-		/**
+    /**
      * {@inheritDoc}
      */
     public function setContainer(ContainerInterface $container = null)
