@@ -18,7 +18,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class LoadControlData  extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
-	  /**
+	/**
      * @var ContainerInterface
      */
     private $container;

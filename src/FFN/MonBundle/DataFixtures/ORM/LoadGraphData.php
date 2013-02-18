@@ -43,6 +43,7 @@ class LoadGraphData extends AbstractFixture implements OrderedFixtureInterface, 
         
             $cap->setDateExecuted(new DateTime('now'));
             $cap->setDateScheduled(new DateTime('now'));
+            
             $time = (float) rand(0, 999)/1000;
             $cap->setDns($time);
             $time += (float) rand(0, 999)/1000;
@@ -51,6 +52,7 @@ class LoadGraphData extends AbstractFixture implements OrderedFixtureInterface, 
             $cap->setTcp($cap->getFirstPacket() + (float) rand(0, 999)/1000);
             $time += (float) rand(0, 999)/1000;
             $cap->setTotal($time);
+            
             $cap->setIsTimeout(false);
             $cap->setIsValid(true);
             $cap->setResponseCode(200);
