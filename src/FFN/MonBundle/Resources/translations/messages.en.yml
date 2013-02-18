@@ -68,6 +68,9 @@ mon_scenario_enabled: Activated
 mon_scenario_frequency: Frequency (min)
 mon_scenario_form_name_placeholder: Scenario name
 mon_scenario_name: Name
+mon_scenario_number: existing scenarii
+mon_scenario_alone: 1 scenario only
+mon_scenario_none: None configured scenario
 
 # Control wordings
 mon_control_list: List of controls
@@ -81,6 +84,9 @@ mon_control_name: Name
 mon_control_url: Url
 mon_control_add_header: Add header
 mon_control_add_validator: Add validator
+mon_control_number: existing controls
+mon_control_alone: 1 control only
+mon_control_none: None configured control
 
 # graph wordings
 mon_graph_label: Graph for

@@ -105,16 +105,6 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   width: 60px;
 }
 
-.icoSun {
-  background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-  height: 40px;
-  width: 40px;
-  background-position: -44px 1px;
-}
-
 .icoCloud {
   background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -145,14 +135,14 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   background-position: -44px -88px;
 }
 
-.icoStorm {
+.icoSun {
   background: url("../images/weather_icons.jpg") no-repeat scroll 0 0 transparent;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
   height: 40px;
   width: 40px;
-  background-position: -44px -88px;
+  background-position: -44px 1px;
 }
 
 .icoUnknown {
@@ -192,6 +182,15 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   background-position: -300px -350px;
 }
 
+.imgSun {
+  background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 100px;
+  width: 280px;
+  background-position: -320px -75px;
+}
+
 .imgUnknown {
   background: url("../images/weather_image_unknown.jpg") no-repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -214,4 +213,12 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 
 .blue-outline:hover {
     border-color: lightblue;
+}
+
+.projectdiv {
+  height: 430px
+}
+
+.scenariodiv {
+  height: 400px
 }

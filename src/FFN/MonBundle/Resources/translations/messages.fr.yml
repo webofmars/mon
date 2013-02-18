@@ -68,6 +68,9 @@ mon_scenario_enabled: Actif
 mon_scenario_frequency: Fréquence (en min)
 mon_scenario_form_name_placeholder: Nom de votre scénario
 mon_scenario_name: Nom
+mon_scenario_number: scénarii existants
+mon_scenario_alone: 1 seul scénario actuellement
+mon_scenario_none: Aucun scénario configuré
 
 # Control wordings
 mon_control_list: Liste des contrôles
@@ -81,6 +84,9 @@ mon_control_name: Nom
 mon_control_url: Url
 mon_control_add_header: Ajouter un header
 mon_control_add_validator: Ajouter un validateur
+mon_control_number: contrôles existants
+mon_control_alone: 1 seul contrôle actuellement
+mon_control_none: Aucun contrôle configuré
 
 # graph wordings
 mon_graph_label: Graphique pour
