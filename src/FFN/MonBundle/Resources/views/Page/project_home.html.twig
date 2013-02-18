@@ -48,7 +48,7 @@
                                         {% elseif scenarii_weather[scenario.id][0].weatherState == 4 %}
                                             <span class="imgSun"></span>
                                         {% elseif scenarii_weather[scenario.id][0].weatherState == 5 %}
-                                            <span class="imgUnknown">?</span>
+                                            <span class="imgUnknown"></span>
                                         {% endif %}
                                     </p>
                                 </div>
@@ -78,13 +78,13 @@
                                                 {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 4 %}
                                                     <span class="icoSun"></span>
                                                 {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 5 %}
-                                                    <span class="icoUnknown">?</span>
+                                                    <span class="icoUnknown"></span>
                                                 {% endif %}
                                                 </a>
                                             </div>
                                         {% endfor %}
                                     {% endif %}
-                            </div> <!-- /bloc projet -->            
+                            </div> <!-- /bloc projet -->
             {% endfor %}
         {% endif %}
     </div> <!-- /ligne 3 projets -->

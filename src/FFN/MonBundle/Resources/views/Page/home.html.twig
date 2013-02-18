@@ -26,7 +26,7 @@
             {% elseif projects_weather[project.id][0].weatherState == 4 %}
                 <span class="imgSun"></span>
             {% elseif projects_weather[project.id][0].weatherState == 5 %}
-                <span class="imgUnknown">?</span>
+                <span class="imgUnknown"></span>
             {% endif %}
           </p>
           <p class="pagination-centered">
@@ -47,7 +47,7 @@
                     {% elseif projects_weather[project.id][1][scenario.id].weatherState == 4 %}
                         <span class="icoSun"></span>
                     {% elseif projects_weather[project.id][1][scenario.id].weatherState == 5 %}
-                        <span class="icoUnknown">?</span>
+                        <span class="icoUnknown"></span>
                     {% endif %}
                 </div>
               </div>
