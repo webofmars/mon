@@ -3,7 +3,7 @@
 {% block metarefresh %}
 <meta http-equiv="refresh" content="30">
 {% endblock %}
-    
+
 {% block body %}
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 {% autoescape('js') %}
@@ -12,17 +12,23 @@
   google.setOnLoadCallback(drawChart);
   function drawChart() {
     var data = google.visualization.arrayToDataTable([
-            ['Time', 'DNS',  'TCP conn.',  '1st packet', 'Total time'],
+            [
+              '{{ 'mon_graph_date' | trans({}, 'messages') | raw }}',
+              '{{ 'mon_graph_dns_resolution' | trans({}, 'messages') | raw }}',
+              '{{ 'mon_graph_tcp_connection' | trans({}, 'messages') | raw }}',
+              '{{ 'mon_graph_first_packet' | trans({}, 'messages') | raw }}',
+              '{{ 'mon_graph_total_time' | trans({}, 'messages') | raw }}'
+            ],
             {% for row in graphdata %}
-                [ 
-                    {{ row.dateExecuted | date('H:i:s') | json_encode() | replace( {'"': '\''} ) | raw() }}, 
-                    {{ row.dns | json_encode() | replace( {'"': ''} ) | raw() }}, 
+                [
+                    {{ row.dateExecuted | date('H:i:s') | json_encode() | replace( {'"': '\''} ) | raw() }},
+                    {{ row.dns | json_encode() | replace( {'"': ''} ) | raw() }},
                     {{ row.tcp | json_encode() | replace( {'"': ''} ) | raw() }},
                     {{ row.firstPacket | json_encode() | replace( {'"': ''} ) | raw() }},
                     {{ row.total | json_encode() | replace( {'"': ''} ) | raw() }}
                 ],
             {% endfor %}
-        ]   
+        ]
     );
 
     var options = {
@@ -45,25 +51,34 @@
 
 {# Data table #}
 <div class="container">
-    <i class="icon-hdd"></i> <h2>{{ 'Table' | trans() | raw() }}</h2>
+    <i class="icon-hdd"></i> <h2>{{ 'mon_graph_detail' | trans({}, 'messages') | raw() }}</h2>
 <div class="row">
-    <table class="table-striped table-hover table-bordered">
+    <table class="table table-striped table-hover table-bordered">
         <thead>
             <tr>
-                <th>{{ 'Execution Time' | trans() | raw() }}</th>
-                <th>{{ 'DNS' | trans() | raw() }}</th>
-                <th>{{ 'Tcp Connexion' | trans() | raw() }}</th>
-                <th>{{ '1st Packet' | trans() | raw() }}</th>
-                <th>{{ 'Total Time' | trans() | raw() }}</th>
+                <th>{{ 'mon_graph_execution_date' | trans({}, 'messages') | raw }}</th>
+                <th>{{ 'mon_graph_dns_resolution' | trans({}, 'messages') | raw }}</th>
+                <th>{{ 'mon_graph_tcp_connection' | trans({}, 'messages') | raw }}</th>
+                <th>{{ 'mon_graph_first_packet' | trans({}, 'messages') | raw }}</th>
+                <th>{{ 'mon_graph_total_time' | trans({}, 'messages') | raw }}</th>
+                <th>{{ 'mon_graph_valid' | trans({}, 'messages') | raw }}</th>
+                <th>{{ 'mon_graph_timeout' | trans({}, 'messages') | raw }}</th>
             </tr>
         </thead>
         {% for row in graphdata %}
-            <tr>
-                <td>{{ row.dateExecuted.format('H:i:s') }}</td>
+            {% if ((row.isValid == true) and (row.isTimeout == false)) %}
+                {% set classType = 'success' %}
+            {% else %}
+                {% set classType = 'error' %}
+            {% endif %}
+            <tr class="{{ classType }}">
+                <td>{{ row.dateExecuted.format('d/m/Y H:i:s') }}</td>
                 <td>{{ row.dns }}</td>
                 <td>{{ row.tcp }}</td>
                 <td>{{ row.firstPacket }}</td>
                 <td>{{ row.total }}</td>
+                <td>{% if (row.isValid == true) %}Yes{% else %}No{% endif %}</td>
+                <td>{% if (row.isTimeout == true) %}Yes{% else %}No{% endif %}</td>
             </tr>
         {% endfor %}
     </table>

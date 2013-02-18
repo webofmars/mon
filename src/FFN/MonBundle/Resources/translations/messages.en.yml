@@ -84,7 +84,15 @@ mon_control_add_validator: Add validator
 
 # graph wordings
 mon_graph_label: Graph for
-
+mon_graph_detail: Details
+mon_graph_date: Date
+mon_graph_execution_date: Execution date
+mon_graph_total_time: Total time
+mon_graph_first_packet: 1st packet
+mon_graph_tcp_connection: TCP connection
+mon_graph_dns_resolution: DNS
+mon_graph_valid: Valid
+mon_graph_timeout: Timeout
 
 # Weather wordings
 mon_weather: Weather
