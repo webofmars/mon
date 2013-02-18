@@ -119,32 +119,32 @@ class DefaultController extends Controller {
     public function controlAddAction($id) {
         $em = $this->get('doctrine')->getManager();
         $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
-        
+
         $project = $scenario->getProject();
-        
+
         $control = New Control();
-        
+
         $form = $this->createForm(new ControlType($this->get('translator')), $control);
         $request = $this->getRequest();
-        
+
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
-            
+
             if ($form->isValid()) {
                 $em = $this->get('doctrine')->getManager();
                 $control->setConnectionTimeout(0);
                 $control->setMimeType('html');
                 $control->setResponseTimeout(0);
                 $control->setScenario($scenario);
-                
+
                 $em->persist($control);
                 $em->flush();
-                
+
                 $data = $form->getData();
-               
+
                 $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_control_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $id)));
-                
+
             } else {
                 $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
             }
@@ -160,7 +160,7 @@ class DefaultController extends Controller {
         $em = $this->get('doctrine')->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
         $projects = $em->getRepository('FFN\MonBundle\Entity\Project')->findBy(array('user' => $user));
-        
+
         $projects_weather = array();
         foreach ($projects as $project) {
             $project_weather  = $em->getRepository('FFN\MonBundle\Entity\Weather')->findOneBy(array('objectType'    => Weather::OBJECT_TYPE_PROJECT,
@@ -169,12 +169,12 @@ class DefaultController extends Controller {
             foreach ($project->getScenarios() as $scenario) {
                 $scenario_weather  = $em->getRepository('FFN\MonBundle\Entity\Weather')->findOneBy(array('objectType'    => Weather::OBJECT_TYPE_SCENARIO,
                                                                                                          'refIdObject'   => $scenario->getId()));
-            
+
                 $scenarii_weather[$scenario->getId()] = $scenario_weather;
             }
             $projects_weather[$project->getId()] = array($project_weather, $scenarii_weather);
         }
-        
+
         return $this->render('FFNMonBundle:Page:home.html.twig', array(
                     'projects' => $projects,
                     'projects_weather'  => $projects_weather));
@@ -184,7 +184,7 @@ class DefaultController extends Controller {
         $em = $this->get('doctrine')->getManager();
         $user = $this->get('security.context')->getToken()->getUser();
         $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
-        
+
         // Récupération de tous les scénarios associés au projet
         $scenarii = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findByProject($project);
         // Récupération de la météo des scénarii puis des contrôles
@@ -200,7 +200,7 @@ class DefaultController extends Controller {
             }
             $scenarii_weather[$scenario->getId()] = array( $scenario_weather, $controls_weather);
         }
-                
+
         return $this->render('FFNMonBundle:Page:project_home.html.twig', array(
                     'project'           => $project,
                     'scenarii'          => $scenarii,
@@ -217,8 +217,6 @@ class DefaultController extends Controller {
             $form->bindRequest($request);
             if ($form->isValid()) {
                 $em = $this->get('doctrine')->getManager();
-                //$project->setName($form->get('name'));
-                $project->setDescription('');
                 $project->setDateCreation(new \DateTime());
                 $project->setEnabled(false);
                 $project->setUser($user);
@@ -278,7 +276,7 @@ class DefaultController extends Controller {
             $weather  = $em->getRepository('FFN\MonBundle\Entity\Weather')->findOneBy(array('objectType'    => Weather::OBJECT_TYPE_SCENARIO,
                                                                                             'refIdObject'   => $scenario->getId()));
         }
-        
+
         return $this->render('FFNMonBundle:Page:scenario_home.html.twig', array(
                     'project'   => $project,
                     'scenario'  => $scenario,
@@ -292,12 +290,12 @@ class DefaultController extends Controller {
     public function scenarioAddAction($id) {
         $em = $this->get('doctrine')->getManager();
         $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
-        
+
         $scenario = New Scenario();
         $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
-        
+
         $request = $this->getRequest();
-        
+
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
             if ($form->isValid()) {

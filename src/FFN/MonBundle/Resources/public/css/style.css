@@ -150,9 +150,9 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
-  height: 37px;
-  width: 51px;
-  background-position: 4px -6px;
+  height: 40px;
+  width: 40px;
+  background-position: -8px -7px;
 }
 
 .imgCloud {
@@ -160,8 +160,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: block;
   height: 100px;
-  width: 370px;
-  background-position: 0px -75px;
+  width: 340px;
+  background-position: -40px -70px;
 }
 
 .imgRain {
@@ -169,7 +169,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: block;
   height: 100px;
-  width: 370px;
+  width: 340px;
   background-position: 0px -350px;
 }
 
@@ -178,7 +178,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   cursor: pointer;
   display: block;
   height: 100px;
-  width: 370px;
+  width: 340px;
   background-position: -300px -350px;
 }
 
@@ -216,7 +216,7 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 
 .projectdiv {
-  height: 430px
+  height: 450px
 }
 
 .scenariodiv {

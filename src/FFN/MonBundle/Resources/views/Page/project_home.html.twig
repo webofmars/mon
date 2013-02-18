@@ -6,102 +6,115 @@
 {% block body %}
 
 <div class="container">
-    {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
-
-    <div class="row">
-        {% if app.session.hasFlash('success_msg') %}
-            <div class="alert alert-success">
-                {{ app.session.flash('success_msg') }}
-            </div>
-        {% endif %}
-        {% if app.session.hasFlash('error_msg') %}
-            <div class="alert alert-error">
-                {{ app.session.flash('error_msg') }}
-            </div>
-         {% endif %}
-    </div>
+  {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
+  <div class="row">
+    {% if app.session.hasFlash('success_msg') %}
+      <div class="alert alert-success">
+        {{ app.session.flash('success_msg') }}
+      </div>
+    {% endif %}
+    {% if app.session.hasFlash('error_msg') %}
+      <div class="alert alert-error">
+        {{ app.session.flash('error_msg') }}
+      </div>
+     {% endif %}
+  </div>
 </div>
 
 <div class="container">
-    <div class="page-header">
-        <h1><small>{{ 'mon_scenario_list' | trans({}, 'messages') | raw }}</small></h1>
-    </div>
+  <div class="page-header">
+    <h1><small>{{ 'mon_scenario_list' | trans({}, 'messages') | raw }}</small></h1>
+  </div>
 </div>
 
 <div class="container">
-    <div class="row-fluid">
-        {% if nb_scenarii > 0 %}
-            {% for scenario in scenarii %}
-                {% set nb_control = scenario.controls|length %}
-                <div class="span4 blue-outline scenariodiv"> <!-- bloc project -->
-                  <div class="pagination-centered">
-                      <h3>{{scenario.name}}</h3>
-                  </div>
-                  <div> <!-- meteo globale -->
-                      <p class="pagination-centered">
-                          {% if scenarii_weather[scenario.id][0].weatherState == 1 %}
-                              <span class="imgStorm"></span>
-                          {% elseif scenarii_weather[scenario.id][0].weatherState == 2 %}
-                              <span class="imgRain"></span>
-                          {% elseif scenarii_weather[scenario.id][0].weatherState == 3 %}
-                              <span class="imgCloud"></span>
-                          {% elseif scenarii_weather[scenario.id][0].weatherState == 4 %}
-                              <span class="imgSun"></span>
-                          {% elseif scenarii_weather[scenario.id][0].weatherState == 5 %}
-                              <span class="imgUnknown"></span>
+  <div class="row-fluid">
+    {% if nb_scenarii > 0 %}
+      {% for scenario in scenarii %}
+        {% set nb_control = scenario.controls|length %}
+        <div class="span4 blue-outline scenariodiv"> <!-- bloc project -->
+          <div class="pagination-centered">
+            <h3>{{scenario.name}}</h3>
+          </div>
+          <div> <!-- meteo globale -->
+            <p class="pagination-centered">
+              {% if scenarii_weather[scenario.id][0] is null %}
+                <span class="imgUnknown"></span>
+              {% elseif scenarii_weather[scenario.id][0].weatherState == 1 %}
+                <span class="imgStorm"></span>
+              {% elseif scenarii_weather[scenario.id][0].weatherState == 2 %}
+                <span class="imgRain"></span>
+              {% elseif scenarii_weather[scenario.id][0].weatherState == 3 %}
+                <span class="imgCloud"></span>
+              {% elseif scenarii_weather[scenario.id][0].weatherState == 4 %}
+                <span class="imgSun"></span>
+              {% elseif scenarii_weather[scenario.id][0].weatherState == 5 %}
+                <span class="imgUnknown"></span>
+              {% endif %}
+            </p>
+          </div>
+          <div class="pagination-centered"> <!-- boutons -->
+            <div class="btn-toolbar">
+              <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+              <div class="btn-group">
+                <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><a href="{{path('mon_control_add', { 'id': scenario.id })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
+                  <li><a href="{{path('mon_scenario_edit', { 'id': scenario.id })}}">{{ 'mon_scenario_edit' | trans({}, 'messages') | raw }}</a></li>
+                  <li><a href="{{path('mon_scenario_delete', { 'id': scenario.id })}}">{{ 'mon_scenario_delete' | trans({}, 'messages') | raw }}</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <br/>
+          {% if nb_control > 0 %} <!-- affichage des controles -->
+            {% set count = 0 %}
+            {% for control in scenario.controls %}
+              {% if (count < nb_max_list) %}
+                {% set count = count + 1 %}
+                <div class="inline">
+
+                  <table>
+                    <tr>
+                      <td>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="{{ path( 'mon_graph_simple', { control_id: control.id } ) }}" >
+                          {% if scenarii_weather[scenario.id][1][control.id] is null %}
+                              <span class="icoUnknown"></span>
+                          {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 1 %}
+                              <span class="icoStorm"></span>
+                          {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 2 %}
+                              <span class="icoRain"></span>
+                          {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 3 %}
+                              <span class="icoCloud"></span>
+                          {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 4 %}
+                              <span class="icoSun"></span>
+                          {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 5 %}
+                              <span class="icoUnknown"></span>
                           {% endif %}
-                      </p>
-                  </div>
-                  <div class="pagination-centered"> <!-- boutons -->
-                      <div class="btn-toolbar">
-                          <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
-                          <div class="btn-group">
-                              <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
-                              <ul class="dropdown-menu">
-                                  <li><a href="{{path('mon_control_add', { 'id': scenario.id })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
-                                  <li><a href="{{path('mon_scenario_edit', { 'id': scenario.id })}}">{{ 'mon_scenario_edit' | trans({}, 'messages') | raw }}</a></li>
-                                  <li><a href="{{path('mon_scenario_delete', { 'id': scenario.id })}}">{{ 'mon_scenario_delete' | trans({}, 'messages') | raw }}</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                  </div>
-                  {% if nb_control > 0 %} <!-- affichage des controles -->
-                      {% set count = 0 %}
-                      {% for control in scenario.controls %}
-                          {% if (count < nb_max_list) %}
-                              {% set count = count + 1 %}
-                              <div class="inline">
-                                  <a href="{{ path( 'mon_graph_simple', { control_id: control.id } ) }}" >{{ control.name | e}}&nbsp;
-                                  {% if scenarii_weather[scenario.id][1][control.id].weatherState == 1 %}
-                                      <span class="icoStorm"></span>
-                                  {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 2 %}
-                                      <span class="icoRain"></span>
-                                  {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 3 %}
-                                      <span class="icoCloud"></span>
-                                  {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 4 %}
-                                      <span class="icoSun"></span>
-                                  {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 5 %}
-                                      <span class="icoUnknown"></span>
-                                  {% endif %}
-                                  </a>
-                              </div>
-                          {% endif %}
-                      {% endfor %}
-                      <p class="pagination-centered">
-                        {% if nb_control == 1 %}
-                          <em>{{ 'mon_control_alone' | trans({}, 'messages') | raw }}</em>
-                        {% else %}
-                          <em>{{ nb_control }} {{ 'mon_control_number' | trans({}, 'messages') | raw }}</em>
-                        {% endif %}
-                      </p>
-                  {% else %}
-                      <p class="pagination-centered">
-                        <em>{{ 'mon_control_none' | trans({}, 'messages') | raw }}</em>
-                      </p>
-                  {% endif %}
-                </div> <!-- /bloc projet -->
+                          {{ control.name | e}}
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+              {% endif %}
             {% endfor %}
-        {% endif %}
-    </div> <!-- /ligne 3 projets -->
+            <p class="pagination-centered">
+              {% if nb_control == 1 %}
+                <em>{{ 'mon_control_alone' | trans({}, 'messages') | raw }}</em>
+              {% else %}
+                <em>{{ nb_control }} {{ 'mon_control_number' | trans({}, 'messages') | raw }}</em>
+              {% endif %}
+            </p>
+          {% else %}
+              <p class="pagination-centered">
+                <em>{{ 'mon_control_none' | trans({}, 'messages') | raw }}</em>
+              </p>
+          {% endif %}
+        </div> <!-- /bloc projet -->
+      {% endfor %}
+    {% endif %}
+  </div> <!-- /ligne 3 projets -->
 </div> <!-- /container -->
 {% endblock %}
