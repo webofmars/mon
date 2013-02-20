@@ -102,3 +102,7 @@ mon_graph_timeout: Timeout
 
 # Weather wordings
 mon_weather: Weather
+
+# FAQ wordings
+mon_faq_long: Frequently Asked Questions
+mon_faq: FAQ

@@ -1,0 +1,35 @@
+{% extends 'FFNMonBundle::layout.html.twig' %}
+{% block body %}
+<div class="row">
+    <div class="span12 page-header">
+        <h1>{{ "mon_faq_long" | trans({}, 'messages') | raw }}</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="well">
+            Qu'est-ce que MON ?
+        </div>
+        <p>MON est un outil de monitoring externe spécialisé dans le web.</p>
+    </div>
+
+    <div class="row">
+        <div class="well">
+            MON est-il gratuit ?
+        </div>
+        <p>Oui avec quelques limitations.</p>
+    </div>
+
+    <div class="row">
+        <div class="well">
+            Quelles sont les limitations entre les comptes gratuit/premium ?
+        </div>
+            <ul>
+                <li>Free: Limité à 1 Projet, 1 Scénario, et 5 Contrôles</li>
+                <li>Premium: Aucune limite</li>
+            </ul>
+    </div>
+</div>
+{% endblock %}

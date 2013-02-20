@@ -29,6 +29,17 @@ mon_about:
   requirements:
     _locale: en|fr
 
+mon_faq:
+  pattern: /{_locale}/faq
+  defaults:
+    _controller: FFNMonBundle:FAQ:show
+    _locale: en
+    maxAge: 86400
+    sharedMaxAge: 86400
+    private: false
+  requirements:
+    _locale: en|fr
+
 mon_contact:
   pattern: /{_locale}/contact
   defaults:
