@@ -146,7 +146,8 @@ class DefaultController extends Controller {
                 return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $id)));
 
             } else {
-                $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
+                //$this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
+                $this->get('session')->setFlash('error_msg', $form->getErrorsAsString());
             }
         }
         return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
@@ -226,7 +227,8 @@ class DefaultController extends Controller {
                 $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_project_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
             } else {
-                $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_project_creation_failed'));
+                //$this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_project_creation_failed'));
+                $this->get('session')->setFlash('error_msg', $form->getErrorsAsString());
             }
         }
         return $this->render('FFNMonBundle:Page:project_add.html.twig', array(
@@ -309,7 +311,8 @@ class DefaultController extends Controller {
                 $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
             } else {
-                $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
+                //$this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
+                $this->get('session')->setFlash('error_msg', $form->getErrorsAsString());
             }
         }
         return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(

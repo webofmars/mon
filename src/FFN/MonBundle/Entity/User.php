@@ -1,4 +1,5 @@
 <?php
+
 namespace FFN\MonBundle\Entity;
 
 use FOS\UserBundle\Entity\User as BaseUser;
@@ -11,8 +12,8 @@ use FFN\MonBundle\Entity\Project;
  * @ORM\Entity
  * @ORM\Table(name="fos_user")
  */
-class User extends BaseUser
-{
+class User extends BaseUser {
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -25,8 +26,13 @@ class User extends BaseUser
      */
     protected $projects;
 
-    public function __construct()
-    {
+    /**
+     * @ORM\ManyToOne(targetEntity="Subscription")
+     * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id")
+     */
+    private $subscription;
+
+    public function __construct() {
         parent::__construct();
         // your own logic
         $this->projects = new ArrayCollection();
@@ -37,8 +43,7 @@ class User extends BaseUser
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -48,8 +53,7 @@ class User extends BaseUser
      * @param Project $projects
      * @return User
      */
-    public function addProject(Project $projects)
-    {
+    public function addProject(Project $projects) {
         $this->projects[] = $projects;
 
         return $this;
@@ -60,8 +64,7 @@ class User extends BaseUser
      *
      * @param Project $projects
      */
-    public function removeProject(Project $projects)
-    {
+    public function removeProject(Project $projects) {
         $this->projects->removeElement($projects);
     }
 
@@ -70,8 +73,15 @@ class User extends BaseUser
      *
      * @return Collection
      */
-    public function getProjects()
-    {
+    public function getProjects() {
         return $this->projects;
+    }
+
+    public function getSubscription() {
+        return $this->subscription;
+    }
+
+    public function setSubscription($subscription) {
+        $this->subscription = $subscription;
     }
 }

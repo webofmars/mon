@@ -1,0 +1,11 @@
+FFN\MonBundle\Entity\Project:
+  constraints:
+    - FFN\MonBundle\Validator\Constraints\isSubscriptionValid: ~
+ 
+FFN\MonBundle\Entity\Scenario:
+  constraints:
+    - FFN\MonBundle\Validator\Constraints\isSubscriptionValid: ~
+ 
+FFN\MonBundle\Entity\Control:
+  constraints:
+    - FFN\MonBundle\Validator\Constraints\isSubscriptionValid: ~

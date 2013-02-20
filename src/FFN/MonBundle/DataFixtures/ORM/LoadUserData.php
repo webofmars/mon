@@ -10,7 +10,7 @@ use DateTime;
 use FFN\MonBundle\Entity\User;
 
 /**
- * Description of LoadScenarioData
+ * Description of LoadUseroData
  *
  * @author frederic
  */
@@ -26,6 +26,7 @@ class LoadUserData  extends AbstractFixture implements OrderedFixtureInterface {
         $user->setPlainPassword('JABE6mA3JUw7BSvQPCfG');
         $user->setLocked(false);
         $user->setExpired(false);
+        $user->setSubscription($om->merge($this->getReference('subscription_free')));
         
         $om->persist($user);
         $om->flush();
