@@ -7,6 +7,7 @@ use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * FFNRequestListener
@@ -43,6 +44,7 @@ class FFNRequestListener {
             $this->container->get('logger')->info('- setting the session locale to '.$userLocale);
             $event->getRequest()->setLocale($userLocale);
             $this->container->get('session')->set('_locale', $userLocale);
+            $event->getRequest()->setDefaultLocale($userLocale);
         }
         return;
     }

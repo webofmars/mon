@@ -40,18 +40,20 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
             $score = 0;
             
             foreach ($captures as $capture) {
-                $output->writeln('  + calculating score for capture #' . $capture->getId());
+                $output->write('  + calculating score for capture #' . $capture->getId().': ');
                 $score = $score + WeatherCalculator::getWeatherScore($capture, 
                                                             $this->getContainer()->getParameter('weather_default_valid_codes'), 
                                                             (float) $this->getContainer()->getParameter('weather_default_dns_threshold'), 
                                                             (float) $this->getContainer()->getParameter('weather_default_tcp_threshold'), 
                                                             (float) $this->getContainer()->getParameter('weather_default_first_packet_threshold'), 
                                                             (float) $this->getContainer()->getParameter('weather_default_total_time_threshold'));
-                $output->writeln('      + score: ' . $score);
+                $output->writeln($score);
             }
             $score = $score/count($captures);
             $output->writeln('  + average score: '.$score);
-
+            
+            //$output->writeln($score." vs ".$this->getContainer()->getParameter('weather_very_good_score'));
+            
             if ($score >= $this->getContainer()->getParameter('weather_very_good_score')) {
                 $ctrl_weather = Weather::WEATHER_SUNNY;
             } elseif ($score >= $this->getContainer()->getParameter('weather_average_score')) {
@@ -62,33 +64,37 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
                 $ctrl_weather = Weather::WEATHER_STORM;
             }
             
+            // $output->writeln("    + weather: $ctrl_weather");
+            
             $this->updateWeather(Weather::OBJECT_TYPE_CONTROL, $capture->getControl()->getId(), $ctrl_weather);
         }
 
         // scenarios
         $scenarii = $em->getRepository("FFNMonBundle:Scenario")->findAll();
-        $sc_weather = Weather::WEATHER_UNKNOWN;
+        
         foreach ($scenarii as $scenario) {
-            $output->writeln('+ calculating score for scenario #' . $scenario->getId());
+            $sc_weather = Weather::WEATHER_UNKNOWN;
+            $output->write('+ calculating score for scenario #' . $scenario->getId().": ");
             foreach ($scenario->getControls() as $control) {
+                
                 $control_weather = $em->getRepository("FFNMonBundle:Weather")->findOneByControl($control->getId());
-                $sc_weather = \min($sc_weather, $control_weather->getWeatherState());
-                $output->writeln(' + weather state : ' .$sc_weather);
+                $sc_weather = min($sc_weather, $control_weather->getWeatherState());
             }
+            $output->writeln($sc_weather);
             
             $this->updateWeather(Weather::OBJECT_TYPE_SCENARIO, $scenario->getId(), $sc_weather);
         }
         
         // projects
         $projects = $em->getRepository("FFNMonBundle:Project")->findAll();
-        $pj_weather = Weather::WEATHER_UNKNOWN;
         foreach ($projects as $project) {
-            $output->writeln('+ calculating score for project #' . $project->getId());
+            $pj_weather = Weather::WEATHER_UNKNOWN;
+            $output->write('+ calculating score for project #' . $project->getId().': ');
             foreach ($project->getScenarios() as $scenario) {
                 $scenario_weather = $em->getRepository("FFNMonBundle:Weather")->findOneByScenario($scenario->getId());
                 $pj_weather = \min($pj_weather, $scenario_weather->getWeatherState());
-                $output->writeln(' + weather state : ' .$sc_weather);
             }
+            $output->writeln($pj_weather);
             
             $this->updateWeather(Weather::OBJECT_TYPE_PROJECT, $project->getId(), $pj_weather);
         }

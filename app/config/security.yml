@@ -27,6 +27,7 @@ security:
     access_control:
         - { path: ^/../about$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/../contact$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/../faq$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }

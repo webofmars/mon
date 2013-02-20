@@ -34,18 +34,18 @@ class isSubscriptionValidValidator extends ConstraintValidator {
         }
         
         if ($object instanceof Scenario) {
-            if (count($this->user->getScenarii()) >= $this->user->getSubscription()->getMaxScenarii()) {
+            if (count($this->user->getAllScenarii()) >= $this->user->getSubscription()->getMaxScenarii()) {
                                 
                 $this->context->addViolation('You have reached the maximum limit of scenarii.'.
                                              'Your current subscription is allowing you up to '                        
                                              . $this->user->getSubscription()->getMaxScenarii() . ' scenarii'
-                                            .' ('.count($this->user->getScenarii()).').');
+                                            .' ('.count($this->user->getAllScenarii()).').');
                 
             }
         }
         
         if ($object instanceof Control) {
-            if (count($this->user->getControls()) >= $this->user->getSubscription()->getMaxControls()) {
+            if (count($this->user->getAllControls()) >= $this->user->getSubscription()->getMaxControls()) {
                                 
                 $this->context->addViolation('You have reached the maximum limit of controls. you subscription is allowing you up to '                        
                         . $this->user->getSubscription()->getMaxControls() . ' controls.');

@@ -52,7 +52,7 @@ class Weather
      *
      * @ORM\Column(name="weather_state", type="integer")
      */
-    private $weatherState;
+    private $weatherState = self::WEATHER_UNKNOWN;
 
 
     /**

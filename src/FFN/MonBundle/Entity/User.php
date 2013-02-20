@@ -95,8 +95,9 @@ class User extends BaseUser {
     
     public function getAllControls() {
         $ctrlList = new ArrayCollection();
-        foreach ($this->getScenarii() as $sc) {
-            $ctrlList->add($sc->getControls());
+        foreach ($this->getAllScenarii() as $sc) {
+            // TOFIX not working on ArrayCols
+            //$ctrlList->add($sc->getControls());
         }
         return $ctrlList;
     }
