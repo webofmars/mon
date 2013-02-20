@@ -7,7 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Weather
  *
- * @ORM\Table()
+ * @ORM\Table(name="weather", uniqueConstraints={
+ *      @ORM\UniqueConstraint(name="const_type_refid_idx", columns={"object_type", "ref_id_object"})
+ *  })
  * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\WeatherRepository")
  */
 class Weather
