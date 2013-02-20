@@ -84,4 +84,20 @@ class User extends BaseUser {
     public function setSubscription($subscription) {
         $this->subscription = $subscription;
     }
+    
+    public function getAllScenarii() {
+        $scList = new ArrayCollection();
+        foreach ($this->projects as $project) {
+            $scList->add($project->getScenarios());
+        }
+        return $scList;
+    }
+    
+    public function getAllControls() {
+        $ctrlList = new ArrayCollection();
+        foreach ($this->getScenarii() as $sc) {
+            $ctrlList->add($sc->getControls());
+        }
+        return $ctrlList;
+    }
 }

@@ -27,6 +27,7 @@
         {% include 'FFNMonBundle:Common:header_navbar.html.twig' %}
     {% endblock %} 
 
+{# DEPRECATED #} 
     {% if app.session.hasFlash('success_msg') %}
       <div class="alert alert-success">
       {{ app.session.flash('success_msg') }}
@@ -37,7 +38,13 @@
       {{ app.session.flash('error_msg') }}
       </div>
     {% endif %}
-        
+{# -------------------------------------------------------------------------- #}
+    {% for flashMessage in app.session.flashbag.get('error') %}
+        <div class="alert alert-error">
+            {{ flashMessage }}
+        </div>
+    {% endfor %}
+
     {% block body %}
     {% endblock %}
 

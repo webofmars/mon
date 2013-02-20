@@ -73,17 +73,17 @@ class DefaultController extends Controller {
                         $manipulator = $this->container->get('fos_user.util.user_manipulator');
                         $res = $manipulator->create($username, $password, $email, true, false);
                         if ($res instanceof User) {
-                            $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_user_created'));
+                            $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_user_created'));
                             $em->persist($res);
                             $em->flush();
                         } else {
-                            $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_user_no_created'));
+                            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_user_no_created'));
                         }
                     } else {
-                        $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_mail_already_used'));
+                        $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_mail_already_used'));
                     }
                 } else {
-                    $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_user_already_exist'));
+                    $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_user_already_exist'));
                 }
             }
         }
@@ -103,9 +103,9 @@ class DefaultController extends Controller {
         }
         $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneById($id);
         if ($is_exist instanceof User) {
-            $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_user_delete_failed'));
+            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_user_delete_failed'));
         } else {
-            $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_user_delete_user_confirmed'));
+            $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_user_delete_user_confirmed'));
         }
         return $this->adminUserAction();
     }
@@ -142,12 +142,12 @@ class DefaultController extends Controller {
 
                 $data = $form->getData();
 
-                $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_control_creation_validated'));
+                $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_control_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $id)));
 
             } else {
-                //$this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_control_creation_failed'));
-                $this->get('session')->setFlash('error_msg', $form->getErrorsAsString());
+                //$this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_control_creation_failed'));
+                $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
             }
         }
         return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
@@ -224,11 +224,10 @@ class DefaultController extends Controller {
                 $em->persist($project);
                 $em->flush();
                 $id = $project->getId();
-                $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_project_creation_validated'));
+                $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_project_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
             } else {
-                //$this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_project_creation_failed'));
-                $this->get('session')->setFlash('error_msg', $form->getErrorsAsString());
+                $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
             }
         }
         return $this->render('FFNMonBundle:Page:project_add.html.twig', array(
@@ -249,10 +248,10 @@ class DefaultController extends Controller {
                 $em = $this->get('doctrine')->getManager();
                 $em->persist($project);
                 $em->flush();
-                $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_project_edition_validated'));
+                $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_project_edition_validated'));
                 return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
             } else {
-                $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_project_edition_failed'));
+                $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
             }
         }
         return $this->render('FFNMonBundle:Page:project_edit.html.twig', array(
@@ -308,11 +307,10 @@ class DefaultController extends Controller {
                 $scenario->setProject($project);
                 $em->persist($scenario);
                 $em->flush();
-                $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_creation_validated'));
+                $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_scenario_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
             } else {
-                //$this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_creation_failed'));
-                $this->get('session')->setFlash('error_msg', $form->getErrorsAsString());
+                $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
             }
         }
         return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(
@@ -333,9 +331,9 @@ class DefaultController extends Controller {
                 if ($form->isValid()) {
                     $em->persist($scenario);
                     $em->flush();
-                    $this->get('session')->setFlash('success_msg', $this->get('translator')->trans('mon_scenario_edit_validated'));
+                    $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_scenario_edit_validated'));
                 } else {
-                    $this->get('session')->setFlash('error_msg', $this->get('translator')->trans('mon_scenario_edit_failed'));
+                    $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_edit_failed'));
                 }
             }
             return $this->render('FFNMonBundle:Page:scenario_edit.html.twig', array(
