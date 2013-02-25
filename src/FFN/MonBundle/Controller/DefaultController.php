@@ -63,8 +63,7 @@ class DefaultController extends Controller {
                 $email = $user_request_params['email'];
                 //Control if parameters already exist
                 $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneBy(array(
-                    'username' => $username
-                        ));
+                    'username' => $username));
                 if ($is_exist == false) {
                     $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneBy(array(
                         'email' => $email
@@ -72,10 +71,13 @@ class DefaultController extends Controller {
                     if ($is_exist == false) {
                         $manipulator = $this->container->get('fos_user.util.user_manipulator');
                         $res = $manipulator->create($username, $password, $email, true, false);
+                        
                         if ($res instanceof User) {
-                            $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_user_created'));
+                            $subscription = $em->getRepository('FFN\MonBundle\Entity\Subscription')->find(1);
+                            $res->setSubscription($subscription);
                             $em->persist($res);
                             $em->flush();
+                            $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_user_created'));
                         } else {
                             $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_user_no_created'));
                         }

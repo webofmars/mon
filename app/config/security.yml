@@ -29,9 +29,9 @@ security:
         - { path: ^/../contact$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/../faq$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/../admin/user/add, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/../resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/../admin/, role: ROLE_ADMIN }
         - { path: ^/, role: IS_AUTHENTICATED_FULLY}
         
     role_hierarchy:
