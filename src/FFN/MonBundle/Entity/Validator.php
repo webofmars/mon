@@ -5,12 +5,12 @@ namespace FFN\MonBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * validator
+ * Validator
  *
  * @ORM\Table(name="validator")
  * @ORM\Entity(repositoryClass="FFN\MonBundle\Entity\validatorRepository")
  */
-class validator
+class Validator
 {
     /**
      * @var integer
