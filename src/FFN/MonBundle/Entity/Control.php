@@ -4,7 +4,6 @@ namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 
 /**
  * Control
@@ -63,14 +62,14 @@ class Control {
      * 
      * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\ControlHeader", mappedBy="control",cascade={"persist"})
      */
-    private $controlHeaders; // Ici commentaires prend un « s », car un article a plusieurs commentaires !
+    private $controlHeaders;
 
     /**
-     * @var array
+     * @var ArrayCollection
      * 
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\validator", mappedBy="control", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Validator", mappedBy="control", cascade={"persist"})
      */
-    private $validators; // Ici commentaires prend un « s », car un article a plusieurs commentaires !
+    private $validators;
 
     /**
      * @var integer
@@ -118,13 +117,14 @@ class Control {
      * @ORM\Column(name="total_time_threshold", type="float", nullable=true)
      */
     private $totalTimeThreshold = 5.0;
-    
+
     /**
      * Constructor
      */
     public function __construct() {
-        $this->captures = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->controlHeaders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->captures = new ArrayCollection();
+        $this->controlHeaders = new ArrayCollection();
+        $this->validators = new ArrayCollection();
     }
 
     /**
@@ -271,7 +271,7 @@ class Control {
      */
     public function addValidator(validator $validator) {
         $validator->setControl($this);
-        $this->validators[] = $validator;
+        $this->validators->add($validator);
         return $this;
     }
 
@@ -283,7 +283,7 @@ class Control {
     }
 
     /**
-     * @return Doctrine\Common\Collections\Collection
+     * @return ArrayCollection
      */
     public function getValidators() {
         return $this->validators;
@@ -392,4 +392,5 @@ class Control {
     public function setTotalTimeThreshold($totalTimeThreshold) {
         $this->totalTimeThreshold = $totalTimeThreshold;
     }
+
 }

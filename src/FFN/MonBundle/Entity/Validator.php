@@ -3,6 +3,9 @@
 namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use FFN\MonBundle\Common\SubValidator;
+use FFN\MonBundle\Common\RegexpSubValidator;
+use FFN\MonBundle\Entity\Control;
 
 /**
  * Validator
@@ -26,7 +29,7 @@ class Validator
      *
      * @ORM\Column(name="type", type="string", length=255)
      */
-    private $type;
+    private $type = 'Regexp';
 
     /**
      * @var string
@@ -34,15 +37,21 @@ class Validator
      * @ORM\Column(name="criteria", type="string", length=255)
      */
     private $criteria;
-
+   
     /**
-     * @var integer
+     *
+     * @var SubValidator
+     */
+    private $subValidator;
+    
+    /**
+     * @var Control
      *
      * @ORM\ManyToOne(targetEntity="FFN\MonBundle\Entity\Control", inversedBy="validators")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="control_id", referencedColumnName="id")
      */
     private $control;
-
+    
     /**
      * Get id
      *
@@ -115,5 +124,13 @@ class Validator
      public function getControl()
      {
        return $this->control;
+     }
+
+     public function getSubValidator() {
+         $class = '\FFN\MonBundle\Common\\'.$this->type.'SubValidator';
+         if (class_exists($class)) {
+            return new $class;   
+         }
+         else throw new \LogicException("Unknow validator class $class");
      }
 }

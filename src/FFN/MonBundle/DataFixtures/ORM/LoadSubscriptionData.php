@@ -41,6 +41,6 @@ class LoadSubscriptionData  extends AbstractFixture implements OrderedFixtureInt
     }
     
     public function getOrder() {
-        return(0);
+        return(1);
     }
 }

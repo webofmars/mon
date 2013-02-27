@@ -36,6 +36,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                 
                 $capture->setDateExecuted(new DateTime());
                 
+                // Actully run the sampler process
                 try {
                     FFNDaemon::run($capture);
                 }
@@ -52,6 +53,18 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                 $em->persist($capture);
                 $em->persist($capture->getCaptureDetail());
                 $em->flush();
+                
+                // Validators callback
+                if (count($capture->getControl()->getValidators())) {
+                    foreach ($capture->getControl()->getValidators() as $validator) {
+                        $res = $validator->getSubValidator()->validate(
+                                $validator->getCriteria(), 
+                                $capture->getCaptureDetail()->getContent());
+                        $output->write("  + laucnhing validator ".$validator->getSubValidator()->getName()." : ");
+                        $output->writeln($res);
+                        $capture->setIsValid($res);
+                    }
+                }
             }
         }
         $em->close();
