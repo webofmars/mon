@@ -1,7 +1,7 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
 {% set section = 'project' %}
-{% set nb_scenarii = scenarii|length %}
+{% set nb_scenarios = scenarios|length %}
 
 {% block body %}
 
@@ -33,10 +33,10 @@
   </div>
 </div>
 
-{% if nb_scenarii > 0 %}
+{% if nb_scenarios > 0 %}
   <div class="container">
     {% set nb_current_line = 0 %}
-    {% for scenario in scenarii %}
+    {% for scenario in scenarios %}
       {% if (nb_current_line % 3) == 0 %}
         <div class="row-fluid"> <!-- ligne de 3 projets -->
       {% endif %}
@@ -47,17 +47,17 @@
               <h3>{{scenario.name}}</h3>
             </div>
             <div class="pagination-centered"><!-- meteo globale -->
-              {% if scenarii_weather[scenario.id][0] is null %}
+              {% if scenarios_weather[scenario.id][0] is null %}
                 <span class="imgUnknown"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 1 %}
+              {% elseif scenarios_weather[scenario.id][0].weatherState == 1 %}
                 <span class="imgStorm"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 2 %}
+              {% elseif scenarios_weather[scenario.id][0].weatherState == 2 %}
                 <span class="imgRain"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 3 %}
+              {% elseif scenarios_weather[scenario.id][0].weatherState == 3 %}
                 <span class="imgCloud"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 4 %}
+              {% elseif scenarios_weather[scenario.id][0].weatherState == 4 %}
                 <span class="imgSun"></span>
-              {% elseif scenarii_weather[scenario.id][0].weatherState == 5 %}
+              {% elseif scenarios_weather[scenario.id][0].weatherState == 5 %}
                 <span class="imgUnknown"></span>
               {% endif %}
             </div>
@@ -86,17 +86,17 @@
                         <td>
                           &nbsp;&nbsp;&nbsp;&nbsp;
                           <a href="{{ path( 'mon_graph_simple', { control_id: control.id } ) }}" >
-                            {% if scenarii_weather[scenario.id][1][control.id] is null %}
+                            {% if scenarios_weather[scenario.id][1][control.id] is null %}
                                 <span class="icoUnknown"></span>
-                            {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 1 %}
+                            {% elseif scenarios_weather[scenario.id][1][control.id].weatherState == 1 %}
                                 <span class="icoStorm"></span>
-                            {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 2 %}
+                            {% elseif scenarios_weather[scenario.id][1][control.id].weatherState == 2 %}
                                 <span class="icoRain"></span>
-                            {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 3 %}
+                            {% elseif scenarios_weather[scenario.id][1][control.id].weatherState == 3 %}
                                 <span class="icoCloud"></span>
-                            {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 4 %}
+                            {% elseif scenarios_weather[scenario.id][1][control.id].weatherState == 4 %}
                                 <span class="icoSun"></span>
-                            {% elseif scenarii_weather[scenario.id][1][control.id].weatherState == 5 %}
+                            {% elseif scenarios_weather[scenario.id][1][control.id].weatherState == 5 %}
                                 <span class="icoUnknown"></span>
                             {% endif %}
                             {{ control.name | e}}
@@ -121,7 +121,7 @@
             {% endif %}
           </div>
       {% if (nb_current_line % 3) == 0 %}
-        </div> <!-- /ligne de 3 scenarii -->
+        </div> <!-- /ligne de 3 scenarios -->
       {% endif %}
     {% endfor %}
   </div> <!-- /container -->

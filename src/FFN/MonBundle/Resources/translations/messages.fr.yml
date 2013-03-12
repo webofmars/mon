@@ -56,7 +56,7 @@ mon_project_edition_failed: Modification du projet échouée
 mon_project_edition_validated: Modification du projet effectuée
 
 # Scenario wordings
-mon_scenario_list: Liste des scenarii
+mon_scenario_list: Liste des scenarios
 mon_scenario_create: Créer un scénario
 mon_scenario_delete: Supprimer le scénario
 mon_scenario_creation_failed: Création du scénario echouée
@@ -68,7 +68,7 @@ mon_scenario_enabled: Actif
 mon_scenario_frequency: Fréquence (en min)
 mon_scenario_form_name_placeholder: Nom de votre scénario
 mon_scenario_name: Nom
-mon_scenario_number: scénarii existants
+mon_scenario_number: scénarios existants
 mon_scenario_alone: 1 seul scénario actuellement
 mon_scenario_none: Aucun scénario configuré
 

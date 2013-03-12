@@ -166,14 +166,14 @@ class DefaultController extends Controller {
         foreach ($projects as $project) {
             $project_weather  = $em->getRepository('FFN\MonBundle\Entity\Weather')->findOneBy(array('objectType'    => Weather::OBJECT_TYPE_PROJECT,
                                                                                                      'refIdObject'   => $project->getId()));
-            $scenarii_weather = array();
+            $scenarios_weather = array();
             foreach ($project->getScenarios() as $scenario) {
                 $scenario_weather  = $em->getRepository('FFN\MonBundle\Entity\Weather')->findOneBy(array('objectType'    => Weather::OBJECT_TYPE_SCENARIO,
                                                                                                          'refIdObject'   => $scenario->getId()));
 
-                $scenarii_weather[$scenario->getId()] = $scenario_weather;
+                $scenarios_weather[$scenario->getId()] = $scenario_weather;
             }
-            $projects_weather[$project->getId()] = array($project_weather, $scenarii_weather);
+            $projects_weather[$project->getId()] = array($project_weather, $scenarios_weather);
         }
 
         return $this->render('FFNMonBundle:Page:home.html.twig', array(
@@ -187,10 +187,10 @@ class DefaultController extends Controller {
         $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
 
         // Récupération de tous les scénarios associés au projet
-        $scenarii = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findByProject($project);
-        // Récupération de la météo des scénarii puis des contrôles
-        $scenarii_weather = array();
-        foreach ($scenarii as $scenario) {
+        $scenarios = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findByProject($project);
+        // Récupération de la météo des scénarios puis des contrôles
+        $scenarios_weather = array();
+        foreach ($scenarios as $scenario) {
             $scenario_weather  = $em->getRepository('FFN\MonBundle\Entity\Weather')->findOneBy(array('objectType'    => Weather::OBJECT_TYPE_SCENARIO,
                                                                                                      'refIdObject'   => $scenario->getId()));
            $controls_weather = array();
@@ -199,13 +199,13 @@ class DefaultController extends Controller {
                                                                                                         'refIdObject'   => $control->getId()));
                 $controls_weather[$control->getId()] = $control_weather;
             }
-            $scenarii_weather[$scenario->getId()] = array( $scenario_weather, $controls_weather);
+            $scenarios_weather[$scenario->getId()] = array( $scenario_weather, $controls_weather);
         }
 
         return $this->render('FFNMonBundle:Page:project_home.html.twig', array(
                     'project'           => $project,
-                    'scenarii'          => $scenarii,
-                    'scenarii_weather'  => $scenarii_weather,
+                    'scenarios'          => $scenarios,
+                    'scenarios_weather'  => $scenarios_weather,
                 ));
     }
 

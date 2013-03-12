@@ -1,6 +1,6 @@
 parameters:
   nb_projects: 6
-  nb_scenarii: 3
+  nb_scenarios: 3
   weather_default_dns_threshold: 1.0
   weather_default_tcp_threshold: 1.5
   weather_default_first_packet_threshold: 3.0

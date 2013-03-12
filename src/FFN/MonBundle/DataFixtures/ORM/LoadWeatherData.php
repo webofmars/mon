@@ -31,7 +31,7 @@ class LoadWeatherData extends AbstractFixture implements OrderedFixtureInterface
 
     public function load(ObjectManager $om) {
         $nbProjects = $this->container->getParameter('nb_projects', 4);
-        $nbControls = $this->container->getParameter('nb_scenarii', 5);
+        $nbControls = $this->container->getParameter('nb_scenarios', 5);
 
         for ($i = 1; $i <= $nbProjects; $i++) {
 
@@ -46,7 +46,7 @@ class LoadWeatherData extends AbstractFixture implements OrderedFixtureInterface
 
             for ($j = 1; $j <= $nbControls; $j++) {
 
-                // scenarii
+                // scenarios
                 $weather = new Weather();
                 $weather->setObjectType(Weather::OBJECT_TYPE_SCENARIO);
                 $weather->setRefIdObject($this->getReference('sc' . $i . $j)->getId());

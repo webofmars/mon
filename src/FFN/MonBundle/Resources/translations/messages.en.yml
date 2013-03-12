@@ -56,7 +56,7 @@ mon_project_edition_failed: Project modification failed
 mon_project_creation_validated: Project modification succeeded
 
 # Scenario wordings
-mon_scenario_list: List of scenarii
+mon_scenario_list: List of scenarios
 mon_scenario_create: Create new scenario
 mon_scenario_delete: Delete scenario
 mon_scenario_creation_failed: Scenario creation failed
@@ -68,7 +68,7 @@ mon_scenario_enabled: Activated
 mon_scenario_frequency: Frequency (min)
 mon_scenario_form_name_placeholder: Scenario name
 mon_scenario_name: Name
-mon_scenario_number: existing scenarii
+mon_scenario_number: existing scenarios
 mon_scenario_alone: 1 scenario only
 mon_scenario_none: None configured scenario
 
