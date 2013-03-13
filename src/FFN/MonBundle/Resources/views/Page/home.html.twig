@@ -6,6 +6,7 @@
 {% block body %}
 
 <div class="container">
+  {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
   <div class="row">
     {% if app.session.hasFlash('success_msg') %}
       <div class="alert alert-success">
@@ -16,12 +17,9 @@
       <div class="alert alert-error">
         {{ app.session.flash('error_msg') }}
       </div>
-     {% endif %}
+    {% endif %}
   </div>
-</div>
-
-<div class="container">
-  <div class="page-header">
+  <div>
     <h1><small>{{ 'mon_project_my_projects' | trans({}, 'messages') | raw }}</small></h1>
   </div>
   <div class="row-fluid">
@@ -36,15 +34,22 @@
   <div class="container">
     {% set nb_current_line = 0 %}
     {% for project in projects %}
+      <!-- to reduce displayed description length if necessary -->
+      {% set project_description_length = project.description|length %}
+      {% if (project_description_length > max_project_description_length) %}
+        {% set project_description = project.description|slice(0,max_project_description_length-4)~' ...' %}
+      {% else %}
+        {% set project_description = project.description %}
+      {% endif %}
       {% if (nb_current_line % 3) == 0 %}
         <div class="row-fluid"> <!-- ligne de 3 projets -->
       {% endif %}
       {% set nb_current_line = nb_current_line + 1 %}
-      {% set nb_scenario = project.scenarios|length %}
+      {% set nb_scenarios = project.scenarios|length %}
           <div class="span4 blue-outline projectdiv">
             <div class="pagination-centered">
               <h3>{{project.name}}</h2>
-              <p>{{project.description}}</p>
+              <p title="{{ project.description }}">{{ project_description }}</p>
             </div>
             <div class="pagination-centered"><!-- meteo globale -->
               {% if projects_weather[project.id][0] is null %}
@@ -66,17 +71,24 @@
               <a class="btn" href="{{path('mon_project_edit', { 'id': project.id })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a>
             </div>
             <br/>
-            {% if nb_scenario > 0 %}
+            {% if nb_scenarios > 0 %}
               {% set count = 0 %}
               {% for scenario in project.scenarios %}
                 {% if (count < nb_max_list) %}
+                  <!-- to reduce displayed name length if necessary -->
+                  {% set scenario_name_length = scenario.name|length %}
+                  {% if (scenario_name_length > max_scenario_name_list_length) %}
+                    {% set scenario_name = scenario.name|slice(0,max_scenario_name_list_length-4)~' ...' %}
+                  {% else %}
+                    {% set scenario_name = scenario.name %}
+                  {% endif %}
                   {% set count = count + 1 %}
                   <div class="inline">
                     <table>
                       <tr>
                         <td>
                           &nbsp;&nbsp;&nbsp;&nbsp;
-                          <a href="{{ path('mon_scenario_home', { 'id': scenario.id }) }}" >
+                          <a href="{{ path('mon_scenario_home', { 'id': scenario.id }) }}" title='{{ scenario.name }}'>
                             {% if projects_weather[project.id][1][scenario.id] is null %}
                               <span class="icoUnknown"></span>
                             {% elseif projects_weather[project.id][1][scenario.id].weatherState == 1 %}
@@ -90,7 +102,7 @@
                             {% elseif projects_weather[project.id][1][scenario.id].weatherState == 5 %}
                               <span class="icoUnknown"></span>
                             {% endif %}
-                            {{scenario.name}}
+                            {{ scenario_name }}
                           </a>
                         </td>
                       </tr>
@@ -99,10 +111,10 @@
                 {% endif %}
               {% endfor %}
               <p class="pagination-centered">
-                {% if nb_scenario == 1 %}
+                {% if nb_scenarios == 1 %}
                   <em>{{ 'mon_scenario_alone' | trans({}, 'messages') | raw }}</em>
                 {% else %}
-                  <em>{{ nb_scenario }} {{ 'mon_scenario_number' | trans({}, 'messages') | raw }}</em>
+                  <em>{{ nb_scenarios }} {{ 'mon_scenario_number' | trans({}, 'messages') | raw }}</em>
                 {% endif %}
               </p>
             {% else %}

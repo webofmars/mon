@@ -51,7 +51,7 @@ class Subscription {
      *
      * @ORM\Column(name="max_sc", type="integer", nullable=true)
      */
-    private $maxScenarios = 1;
+    private $maxScenarios = 3;
 
     /**
      * @var integer

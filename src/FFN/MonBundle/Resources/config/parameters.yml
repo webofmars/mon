@@ -12,6 +12,13 @@ parameters:
   weather_poor_score: 1050
   weather_bad_score: 0150
 
+
 twig:
   globals:
     nb_max_list: 3
+    max_project_description_length: 94
+    max_scenario_name_list_length: 39
+    max_scenario_name_title_length: 27
+    max_control_name_list_length: 39
+    max_control_name_title_length: 27
+

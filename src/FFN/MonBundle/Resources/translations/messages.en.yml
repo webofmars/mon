@@ -54,6 +54,7 @@ mon_project_projects: Projects
 mon_project_edit: Edit project
 mon_project_edition_failed: Project modification failed
 mon_project_creation_validated: Project modification succeeded
+mon_project_wording: Project
 
 # Scenario wordings
 mon_scenario_list: List of scenarios
@@ -71,6 +72,7 @@ mon_scenario_name: Name
 mon_scenario_number: existing scenarios
 mon_scenario_alone: 1 scenario only
 mon_scenario_none: None configured scenario
+mon_scenario_wording: Scenario
 
 # Control wordings
 mon_control_list: List of controls
@@ -87,6 +89,7 @@ mon_control_add_validator: Add validator
 mon_control_number: existing controls
 mon_control_alone: 1 control only
 mon_control_none: None configured control
+mon_control_wording: Control
 
 # graph wordings
 mon_graph_label: Graph for
