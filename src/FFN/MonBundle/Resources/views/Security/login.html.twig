@@ -1,6 +1,11 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
 {% block body %}
+
+{% if error %}
+    <div class="alert-error">{{ error|trans({}, 'FOSUserBundle') }}</div>
+{% endif %}
+
 <div class="container main_page top_50">
   <form class="form-signin" action="{{ path("fos_user_security_check") }}" method="post">
     <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
@@ -12,11 +17,8 @@
       {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
     </label>
     <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
-  </form>
-</div> <!-- /container -->
-
-<div class="container">
     {{ locale_switcher() }}
+  </form>
 </div>
 
 {% endblock %}

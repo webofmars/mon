@@ -26,9 +26,9 @@ security:
         login_path: fos_user_security_login
         check_path: fos_user_security_check
         failure_path: null
-        #always_use_default_target_path : true
-        #default_target_path: /
-        #use_forward: false
+        always_use_default_target_path : true
+        default_target_path: mon_home
+        use_forward: true
       logout:
         path: fos_user_security_logout
         target: /

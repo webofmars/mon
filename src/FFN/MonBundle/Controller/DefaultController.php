@@ -125,10 +125,6 @@ class DefaultController extends Controller {
         $project = $scenario->getProject();
 
         $control = new Control();
-        $weather = new Weather();
-        $weather->setObjectType(Weather::OBJECT_TYPE_CONTROL);
-        $weather->setRefIdObject($control->getId());
-        $weather->setWeatherState(Weather::WEATHER_UNKNOWN);
         
         $form = $this->createForm(new ControlType($this->get('translator')), $control);
         $request = $this->getRequest();
@@ -142,8 +138,13 @@ class DefaultController extends Controller {
                 $control->setMimeType('html');
                 $control->setResponseTimeout(0);
                 $control->setScenario($scenario);
-
                 $em->persist($control);
+                $em->flush();
+                
+                $weather = new Weather();
+                $weather->setObjectType(Weather::OBJECT_TYPE_CONTROL);
+                $weather->setRefIdObject($control->getId());
+                $weather->setWeatherState(Weather::WEATHER_UNKNOWN);
                 $em->persist($weather);
                 $em->flush();
 
@@ -230,6 +231,14 @@ class DefaultController extends Controller {
                 $project->setUser($user);
                 $em->persist($project);
                 $em->flush();
+                
+                $weather = new Weather();
+                $weather->setObjectType(Weather::OBJECT_TYPE_PROJECT);
+                $weather->setRefIdObject($project->getId());
+                $weather->setWeatherState(Weather::WEATHER_UNKNOWN);
+                $em->persist($weather);
+                $em->flush();
+                
                 $id = $project->getId();
                 $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_project_creation_validated'));
                 return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
@@ -314,13 +323,21 @@ class DefaultController extends Controller {
                 $scenario->setProject($project);
                 $em->persist($scenario);
                 $em->flush();
+                
+                $weather = new Weather();
+                $weather->setObjectType(Weather::OBJECT_TYPE_SCENARIO);
+                $weather->setRefIdObject($scenario->getId());
+                $weather->setWeatherState(Weather::WEATHER_UNKNOWN);
+                $em->persist($weather);
+                $em->flush();
+                
                 $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_scenario_creation_validated'));
-                return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
+                return $this->redirect($this->generateUrl('mon_control_add', array('id' => $id)));
             } else {
                 $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
             }
         }
-        return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
+        return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(
                     'form' => $form->createView(),
                     'project' => $project,
                 ));
