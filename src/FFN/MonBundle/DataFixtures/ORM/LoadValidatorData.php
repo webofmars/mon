@@ -17,20 +17,35 @@ class LoadValidatorData  extends AbstractFixture implements OrderedFixtureInterf
     
     public function load(ObjectManager $om) {
         
+        // a validator that will suceed
         $validator = new Validator();
         
         $validator->setType('Regexp');
         $validator->setCriteria('/meta/i');
         
-        $ctrl= $om->merge($this->getReference('ctrl11'));
+        $ctrl= $om->merge($this->getReference('ctrl111'));
         $ctrl->addValidator($validator);
         
         $om->persist($ctrl);
         $om->persist($validator);
         $om->flush();
         
-        $this->setReference('validator-regexp', $validator);
+        $this->setReference('validator-regexp-ok', $validator);
         
+        // a validator that will fail
+        $validator = new Validator();
+        
+        $validator->setType('Regexp');
+        $validator->setCriteria('/napoleon/');
+        
+        $ctrl= $om->merge($this->getReference('ctrl111'));
+        $ctrl->addValidator($validator);
+        
+        $om->persist($ctrl);
+        $om->persist($validator);
+        $om->flush();
+        
+        $this->setReference('validator-regexp-ko', $validator);
     }
     
     public function getOrder() {

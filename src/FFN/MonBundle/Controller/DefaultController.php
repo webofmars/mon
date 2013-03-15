@@ -124,8 +124,12 @@ class DefaultController extends Controller {
 
         $project = $scenario->getProject();
 
-        $control = New Control();
-
+        $control = new Control();
+        $weather = new Weather();
+        $weather->setObjectType(Weather::OBJECT_TYPE_CONTROL);
+        $weather->setRefIdObject($control->getId());
+        $weather->setWeatherState(Weather::WEATHER_UNKNOWN);
+        
         $form = $this->createForm(new ControlType($this->get('translator')), $control);
         $request = $this->getRequest();
 
@@ -140,6 +144,7 @@ class DefaultController extends Controller {
                 $control->setScenario($scenario);
 
                 $em->persist($control);
+                $em->persist($weather);
                 $em->flush();
 
                 $data = $form->getData();
@@ -315,7 +320,7 @@ class DefaultController extends Controller {
                 $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
             }
         }
-        return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(
+        return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
                     'form' => $form->createView(),
                     'project' => $project,
                 ));

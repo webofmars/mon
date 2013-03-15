@@ -5,9 +5,19 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
+        
+        <!-- Validators -->
         <service id="is_subscription_valid" class="FFN\MonBundle\Validator\Constraints\isSubscriptionValidValidator">
             <argument type="service" id="security.context" />
             <tag name="validator.constraint_validator" alias="is_subscription_valid" />
         </service>
+        
+        <!-- Kernel Listener -->
+        <service id="ffn_kernel_listener_locale" class="FFN\MonBundle\Listener\FFNRequestListener">
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+            <argument type="service" id="service_container" /> 
+            <argument type="service" id="router" />
+        </service>
+        
     </services>
 </container>

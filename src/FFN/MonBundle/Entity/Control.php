@@ -392,5 +392,5 @@ class Control {
     public function setTotalTimeThreshold($totalTimeThreshold) {
         $this->totalTimeThreshold = $totalTimeThreshold;
     }
-
+    
 }

@@ -68,6 +68,4 @@ class WeatherRepository extends EntityRepository
                 return null;
         }
     }
-
-    
 }

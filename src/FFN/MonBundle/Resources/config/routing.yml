@@ -1,28 +1,14 @@
-mon_graph:
-  pattern: /{_locale}/graph/{control_id}/{startTs}/{stopTs}
-  defaults:
-    _controller: FFNMonBundle:Graph:show
-    _locale: en
-  requirements:
-    _locale: en|fr
-    control_id: \d+
-    startTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
-    stopTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
-
-mon_graph_simple:
-  pattern: /{_locale}/graph/{control_id}
-  defaults:
-    _controller: FFNMonBundle:Graph:show
-    _locale: en
-  requirements:
-    _locale: en|fr
-    control_id: \d+  
+mon_home:
+    pattern:  /
+    defaults: { _controller: FFNMonBundle:Default:home }
+    requirements:
+        _method: GET
 
 mon_about:
   pattern: /{_locale}/about
   defaults:
     _controller: FFNMonBundle:About:show
-    _locale: en
+    _locale: %locale%
     maxAge: 86400
     sharedMaxAge: 86400
     private: false
@@ -33,7 +19,7 @@ mon_faq:
   pattern: /{_locale}/faq
   defaults:
     _controller: FFNMonBundle:FAQ:show
-    _locale: en
+    _locale: %locale%
     maxAge: 86400
     sharedMaxAge: 86400
     private: false
@@ -44,23 +30,43 @@ mon_contact:
   pattern: /{_locale}/contact
   defaults:
     _controller: FFNMonBundle:Contact:show
-    _locale: en
+    _locale: %locale%
     maxAge: 86400
     sharedMaxAge: 86400
     private: false
   requirements:
     _locale: en|fr
 
+mon_graph:
+  pattern: /{_locale}/graph/{control_id}/{startTs}/{stopTs}
+  defaults:
+    _controller: FFNMonBundle:Graph:show
+  requirements:
+    _locale: en|fr
+    control_id: \d+
+    startTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
+    stopTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
+
+mon_graph_simple:
+  pattern: /{_locale}/graph/{control_id}
+  defaults:
+    _controller: FFNMonBundle:Graph:show
+  requirements:
+    _locale: en|fr
+    control_id: \d+  
+
 mon_admin_user_add:
     pattern:  /{_locale}/admin/user/add
-    defaults: { _controller: FFNMonBundle:Default:adminUserAdd , _locale: en }
+    defaults: 
+      _controller: FFNMonBundle:Default:adminUserAdd
+      _locale: %locale%
     requirements:
         _method: GET|POST
         _locale: en|fr
 
 mon_admin_user_activation:
     pattern: /{_locale}/admin/user/active/{id}/{statut}
-    defaults: { _controller: FFNMonBundle:Default:adminUserActivation, _locale: en}
+    defaults: { _controller: FFNMonBundle:Default:adminUserActivation }
     requirements:
         _method: GET|POST
         _locale: en|fr
@@ -68,14 +74,14 @@ mon_admin_user_activation:
 
 mon_admin_user_delete:
     pattern:  /{_locale}/admin/user/delete/{id}
-    defaults: { _controller: FFNMonBundle:Default:adminUserDelete, _locale: en }
+    defaults: { _controller: FFNMonBundle:Default:adminUserDelete }
     requirements:
         _method: GET
         id: \d+
 
 mon_admin_user_edit:
     pattern:  /{_locale}/admin/user/{id}
-    defaults: { _controller: FFNMonBundle:Default:adminUserEdit, _locale: en }
+    defaults: { _controller: FFNMonBundle:Default:adminUserEdit }
     requirements:
         _method: GET
         _locale: en|fr
@@ -83,101 +89,96 @@ mon_admin_user_edit:
 
 mon_admin_user:
     pattern:  /{_locale}/admin/user
-    defaults: { _controller: FFNMonBundle:Default:adminUser, _locale: en }
+    defaults: { _controller: FFNMonBundle:Default:adminUser }
     requirements:
         _method: GET
         _locale: en|fr
 
 mon_project_add:
     pattern: /project/add
-    defaults: { _controller: FFNMonBundle:Default:projectAdd}
+    defaults: { _controller: FFNMonBundle:Default:projectAdd }
     requirements:
         _method: GET|POST
         _locale: en|fr
 
 mon_project_home:
     pattern: /project/{id}
-    defaults: { _controller: FFNMonBundle:Default:project}
+    defaults: { _controller: FFNMonBundle:Default:project }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_project_edit:
     pattern: /project/edit/{id}
-    defaults: { _controller: FFNMonBundle:Default:projectEdit}
+    defaults: { _controller: FFNMonBundle:Default:projectEdit }
     requirements:
         _method: GET|POST
 
 mon_scenario_add:
     pattern: /scenario/add/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenarioAdd}
+    defaults: { _controller: FFNMonBundle:Default:scenarioAdd }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_scenario_home:
     pattern: /scenario/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenario}
+    defaults: { _controller: FFNMonBundle:Default:scenario }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_scenario_edit:
     pattern: /scenario/edit/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenarioEdit}
+    defaults: { _controller: FFNMonBundle:Default:scenarioEdit }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_scenario_delete:
     pattern: /scenario/delete/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenarioDelete}
+    defaults: { _controller: FFNMonBundle:Default:scenarioDelete }
     requirements:
         _method: GET
         id: \d+
 
 mon_control_add:
     pattern: /control/add/{id}
-    defaults: { _controller: FFNMonBundle:Default:controlAdd}
+    defaults: { _controller: FFNMonBundle:Default:controlAdd }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_control_edit:
     pattern: /control/edit/{id}
-    defaults: { _controller: FFNMonBundle:Default:controlEdit}
+    defaults: { _controller: FFNMonBundle:Default:controlEdit }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_control_delete:
     pattern: /control/delete/{id}
-    defaults: { _controller: FFNMonBundle:Default:controlDelete}
+    defaults: { _controller: FFNMonBundle:Default:controlDelete }
     requirements:
         _method: GET|POST
         id: \d+
 
-mon_home:
-    pattern:  /
-    defaults: { _controller: FFNMonBundle:Default:home}
-    requirements:
-        _method: GET
-
 fos_user_security:
     resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+    prefix: /{_locale}
 
 fos_user_profile:
     resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
-    prefix: /profile
+    prefix: /{_locale}/profile
 
 fos_user_register:
     resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
-    prefix: /register
+    prefix: /{_locale}/register
 
 fos_user_resetting:
     resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
-    prefix: /resetting
+    prefix: /{_locale}/resetting
 
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
-    prefix: /profile
+    prefix: /{_locale}/profile

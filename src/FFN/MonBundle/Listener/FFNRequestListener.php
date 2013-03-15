@@ -3,11 +3,9 @@
 namespace FFN\MonBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\HttpKernel;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Router;
 
 /**
  * FFNRequestListener
@@ -17,36 +15,36 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 class FFNRequestListener {
 
     private $container;
-
-    public function __construct(ContainerInterface $container) {
+    private $router;
+    
+    public function __construct(ContainerInterface $container, Router $router) {
         $this->container = $container;
+        $this->router = $router;
     }
 
     public function onKernelRequest(GetResponseEvent $event) {
-        // cas des sous requêtes
-        if (HttpKernel::MASTER_REQUEST !== $event->getRequestType()) {
+        
+        if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
             return;
         }
-
-        // si pas de session deja definie
-        if (!$this->container->has('session')) {
-            $session = new Session();
-            $session->start();
-            $this->container->set('session', $session);
-        }
-
-        // accept-language dans la requete
-        $userLocale = $event->getRequest()->getPreferredLanguage(array('en', 'fr', 'en_US', 'fr_FR'));
-        $userLocale = substr($userLocale, 0, 2);
+                
+        /*
+        $route  = $this->container->get('request')->get('_route');
+         
+        $home =  'mon_home';
+        $url = $this->router->generate($route, array(), true);
+        $homeUrl = $this->router->generate($home, array(), true);
+        $token =  $event->getRequest()->attributes->get('auth_token');
         
-        // si pas de locale definie
-        if ( !$this->container->get('session')->has('_locale') or $this->container->get('session')->get('_locale') != $userLocale) {
-            $this->container->get('logger')->info('- setting the session locale to '.$userLocale);
-            $event->getRequest()->setLocale($userLocale);
-            $this->container->get('session')->set('_locale', $userLocale);
-            $event->getRequest()->setDefaultLocale($userLocale);
+        // si on a demandé la home de base on fait un redirect sur la version localisée
+        if ($homeUrl == $url) {
+            $url = $this->router->generate('mon_home_i18n');
+            $this->container->get('logger')->info('- Redirectiong to localized home: '.$url);
+            $response = new RedirectResponse($url);
+            $response->attributes->set('auth_token', $token);
+            $event->setResponse($response);
         }
-        return;
+       * 
+       */
     }
-
 }

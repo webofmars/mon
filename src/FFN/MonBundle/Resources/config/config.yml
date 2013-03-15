@@ -5,12 +5,3 @@ fos_user:
     registration:
         confirmation:
             enabled:    true
-
-services:
-    ffn_kernel_listener_locale:
-        class: FFN\MonBundle\Listener\FFNRequestListener
-        tags:
-          - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
-        arguments:
-          - "@service_container"
-          

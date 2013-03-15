@@ -30,8 +30,9 @@ class LoadWeatherData extends AbstractFixture implements OrderedFixtureInterface
     }
 
     public function load(ObjectManager $om) {
-        $nbProjects = $this->container->getParameter('nb_projects', 4);
-        $nbControls = $this->container->getParameter('nb_scenarii', 5);
+        $nbProjects = $this->container->getParameter('nb_projects', 1);
+        $nbScenarii = $this->container->getParameter('nb_scenarii', 1);
+        $nbControls = $this->container->getParameter('nb_controls', 1);
 
         for ($i = 1; $i <= $nbProjects; $i++) {
 
@@ -44,7 +45,7 @@ class LoadWeatherData extends AbstractFixture implements OrderedFixtureInterface
             $om->flush();
             $this->addReference('weather_proj' . $i, $weather);
 
-            for ($j = 1; $j <= $nbControls; $j++) {
+            for ($j = 1; $j <= $nbScenarii; $j++) {
 
                 // scenarii
                 $weather = new Weather();
@@ -55,15 +56,17 @@ class LoadWeatherData extends AbstractFixture implements OrderedFixtureInterface
                 $om->flush();
                 $this->addReference('weather_sc' . $i . $j, $weather);
 
-                // controls
-                $weather = new Weather();
-                $weather->setObjectType(Weather::OBJECT_TYPE_CONTROL);
-                $weather->setRefIdObject($this->getReference('ctrl' . $i . $j)->getId());
-                $weather->setWeatherState(rand(1, 5));
+                for ($k = 1; $k <= $nbControls; $k++) {
+                    // controls
+                    $weather = new Weather();
+                    $weather->setObjectType(Weather::OBJECT_TYPE_CONTROL);
+                    $weather->setRefIdObject($this->getReference('ctrl' . $i . $j . $k)->getId());
+                    $weather->setWeatherState(rand(1, 5));
 
-                $om->persist($weather);
-                $om->flush();
-                $this->addReference('weather_ctrl' . $i . $j, $weather);
+                    $om->persist($weather);
+                    $om->flush();
+                    $this->addReference('weather_ctrl' . $i . $j . $k, $weather);
+                }
             }
         }
     }

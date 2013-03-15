@@ -8,7 +8,7 @@ class FAQController extends Controller {
     
     public function showAction() {
         
-        $culture = $this->getRequest()->getLocale('en');
+        $culture = $this->getRequest()->getLocale('cz');
         return $this->render("FFNMonBundle::FAQ.$culture.html.twig");
     }
     

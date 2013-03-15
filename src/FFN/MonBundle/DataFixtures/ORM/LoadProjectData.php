@@ -33,7 +33,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $om) {
 
         // Get how many projects to create
-        $nbProjects = $this->container->getParameter('nb_projects', 4);
+        $nbProjects = $this->container->getParameter('nb_projects', 1);
 
         // Creation of several projects
         for ($i = 1; $i <= $nbProjects; $i++) {

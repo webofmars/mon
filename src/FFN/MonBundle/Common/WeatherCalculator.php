@@ -49,5 +49,5 @@ class WeatherCalculator {
         }
         
         return $score;
-    }        
+    }
 }
