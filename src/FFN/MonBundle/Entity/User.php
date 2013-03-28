@@ -84,18 +84,18 @@ class User extends BaseUser {
     public function setSubscription($subscription) {
         $this->subscription = $subscription;
     }
-    
-    public function getAllScenarii() {
+
+    public function getAllScenarios() {
         $scList = new ArrayCollection();
         foreach ($this->projects as $project) {
             $scList->add($project->getScenarios());
         }
         return $scList;
     }
-    
+
     public function getAllControls() {
         $ctrlList = new ArrayCollection();
-        foreach ($this->getAllScenarii() as $sc) {
+        foreach ($this->getAllScenarios() as $sc) {
             // TOFIX not working on ArrayCols
             //$ctrlList->add($sc->getControls());
         }

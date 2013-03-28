@@ -12,7 +12,7 @@ use Doctrine\Common\Collections\Collection;
  *
  * @ORM\Table(name="subscription")
  * @ORM\Entity
- * 
+ *
  */
 class Subscription {
 
@@ -51,7 +51,7 @@ class Subscription {
      *
      * @ORM\Column(name="max_sc", type="integer", nullable=true)
      */
-    private $maxScenarii = 1;
+    private $maxScenarios = 3;
 
     /**
      * @var integer
@@ -59,7 +59,7 @@ class Subscription {
      * @ORM\Column(name="max_ctrl", type="integer", nullable=true)
      */
     private $maxControls = 5;
-    
+
     public function getId() {
         return $this->id;
     }
@@ -92,12 +92,12 @@ class Subscription {
         $this->maxProjects = $maxProjects;
     }
 
-    public function getMaxScenarii() {
-        return $this->maxScenarii;
+    public function getMaxScenarios() {
+        return $this->maxScenarios;
     }
 
-    public function setMaxScenarii($maxScenarii) {
-        $this->maxScenarii = $maxScenarii;
+    public function setMaxScenarios($maxScenarios) {
+        $this->maxScenarios = $maxScenarios;
     }
 
     public function getMaxControls() {

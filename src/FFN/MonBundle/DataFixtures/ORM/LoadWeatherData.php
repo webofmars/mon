@@ -47,7 +47,7 @@ class LoadWeatherData extends AbstractFixture implements OrderedFixtureInterface
 
             for ($j = 1; $j <= $nbScenarii; $j++) {
 
-                // scenarii
+                // scenarios
                 $weather = new Weather();
                 $weather->setObjectType(Weather::OBJECT_TYPE_SCENARIO);
                 $weather->setRefIdObject($this->getReference('sc' . $i . $j)->getId());

@@ -7,8 +7,19 @@
   <div class="container">
 
     {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
-
-    <div class="page-header">
+    <div class="row">
+      {% if app.session.hasFlash('success_msg') %}
+        <div class="alert alert-success">
+          {{ app.session.flash('success_msg') }}
+        </div>
+      {% endif %}
+      {% if app.session.hasFlash('error_msg') %}
+        <div class="alert alert-error">
+          {{ app.session.flash('error_msg') }}
+        </div>
+      {% endif %}
+    </div>
+    <div>
       <h1><small>{{ 'mon_control_list' | trans({}, 'messages') | raw }}</small></h1>
     </div>
 
@@ -23,16 +34,16 @@
           <th>{{'mon_identifier' | trans({}, 'messages') | raw }}</th>
           <th>{{'mon_name'       | trans({}, 'messages') | raw }}</th>
           <th>{{'mon_weather'    | trans({}, 'messages') | raw }}</th>
-          <th>{{'mon_actions'    | trans({}, 'messages') | raw }}</th>          
+          <th>{{'mon_actions'    | trans({}, 'messages') | raw }}</th>
         </tr>
       </thead>
       <tbody>
         {% for control in controls %}
         <tr>
           <td>{{control.id}}</td>
-          <td><a href="{{ path( 'mon_graph', {control_id: control.id, 
-                                                startTs: startTs, 
-                                                stopTs:  stopTs }) 
+          <td><a href="{{ path( 'mon_graph', {control_id: control.id,
+                                                startTs: startTs,
+                                                stopTs:  stopTs })
                 }}">{{ control.name}}</a>
           </td>
           <td>

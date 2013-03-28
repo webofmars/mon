@@ -25,7 +25,7 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
 
     public function execute(InputInterface $input, OutputInterface $output) {
 
-        /* is going from controls, through scenarii, to projects */
+        /* is going from controls, through scenarios, to projects */
 
         // get all the controls
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
@@ -35,25 +35,25 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
         foreach ($controls as $control) {
 
             $captures = $em->getRepository("FFNMonBundle:Capture")->findLastsByControl($control->getId(), $this->getContainer()->getParameter('weather_default_window_size'));
-            
+
             $output->writeln('+ calculating score for control #' . $control->getId());
             $score = 0;
-            
+
             foreach ($captures as $capture) {
                 $output->write('  + calculating score for capture #' . $capture->getId().': ');
-                $score = $score + WeatherCalculator::getWeatherScore($capture, 
-                                                            $this->getContainer()->getParameter('weather_default_valid_codes'), 
-                                                            (float) $this->getContainer()->getParameter('weather_default_dns_threshold'), 
-                                                            (float) $this->getContainer()->getParameter('weather_default_tcp_threshold'), 
-                                                            (float) $this->getContainer()->getParameter('weather_default_first_packet_threshold'), 
+                $score = $score + WeatherCalculator::getWeatherScore($capture,
+                                                            $this->getContainer()->getParameter('weather_default_valid_codes'),
+                                                            (float) $this->getContainer()->getParameter('weather_default_dns_threshold'),
+                                                            (float) $this->getContainer()->getParameter('weather_default_tcp_threshold'),
+                                                            (float) $this->getContainer()->getParameter('weather_default_first_packet_threshold'),
                                                             (float) $this->getContainer()->getParameter('weather_default_total_time_threshold'));
                 $output->writeln($score);
             }
             $score = $score/count($captures);
             $output->writeln('  + average score: '.$score);
-            
+
             //$output->writeln($score." vs ".$this->getContainer()->getParameter('weather_very_good_score'));
-            
+
             if ($score >= $this->getContainer()->getParameter('weather_very_good_score')) {
                 $ctrl_weather = Weather::WEATHER_SUNNY;
             } elseif ($score >= $this->getContainer()->getParameter('weather_average_score')) {
@@ -63,28 +63,28 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
             } else {
                 $ctrl_weather = Weather::WEATHER_STORM;
             }
-            
+
             // $output->writeln("    + weather: $ctrl_weather");
-            
+
             $this->updateWeather(Weather::OBJECT_TYPE_CONTROL, $capture->getControl()->getId(), $ctrl_weather);
         }
 
         // scenarios
-        $scenarii = $em->getRepository("FFNMonBundle:Scenario")->findAll();
-        
-        foreach ($scenarii as $scenario) {
+        $scenarios = $em->getRepository("FFNMonBundle:Scenario")->findAll();
+
+        foreach ($scenarios as $scenario) {
             $sc_weather = Weather::WEATHER_UNKNOWN;
             $output->write('+ calculating score for scenario #' . $scenario->getId().": ");
             foreach ($scenario->getControls() as $control) {
-                
+
                 $control_weather = $em->getRepository("FFNMonBundle:Weather")->findOneByControl($control->getId());
                 $sc_weather = min($sc_weather, $control_weather->getWeatherState());
             }
             $output->writeln($sc_weather);
-            
+
             $this->updateWeather(Weather::OBJECT_TYPE_SCENARIO, $scenario->getId(), $sc_weather);
         }
-        
+
         // projects
         $projects = $em->getRepository("FFNMonBundle:Project")->findAll();
         foreach ($projects as $project) {
@@ -95,25 +95,25 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
                 $pj_weather = \min($pj_weather, $scenario_weather->getWeatherState());
             }
             $output->writeln($pj_weather);
-            
+
             $this->updateWeather(Weather::OBJECT_TYPE_PROJECT, $project->getId(), $pj_weather);
         }
     }
-    
+
     private function updateWeather($objectType, $refIdObject, $weatherStatus) {
-        
+
         $em = $this->getContainer()->get('doctrine')->getEntityManager();
-        $weather = $em->getRepository("FFNMonBundle:Weather")->findOneBy(array('objectType' => $objectType, 
+        $weather = $em->getRepository("FFNMonBundle:Weather")->findOneBy(array('objectType' => $objectType,
                                                                 'refIdObject' => $refIdObject));
         if ($weather === NULL) {
-        
+
             $weather = new Weather();
             $weather->setObjectType($objectType);
             $weather->setRefIdObject($refIdObject);
         }
-        
+
         $weather->setWeatherState($weatherStatus);
         $em->persist($weather);
-        $em->flush();    
+        $em->flush();
     }
 }

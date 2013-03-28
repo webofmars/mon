@@ -39,14 +39,14 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
         $nbControls = $this->container->getParameter('nb_controls', 1);
         
         $urls = array(
-                    'http://www.yahoo.fr', 
+                    'http://www.yahoo.fr',
                     'http://www.google.com',
                     'http://www.allocine.fr',
                     'http://www.microsoft.com',
                     'http://www.rueducommerce.fr',
                     'http://jesuissurquecedomainenexistepas.com'
                 );
-        
+
 
         // Creation of several controls (= 1 per existing scenario)
         for ($i = 1; $i <= $nbProjects; $i++) {

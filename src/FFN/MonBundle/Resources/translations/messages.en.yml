@@ -2,7 +2,7 @@
 mon_title: Mon
 mon_about: About Mon
 mon_contact: How to contact Mon ?
-mon_home: Accueil
+mon_home: Home
 mon_login: Login
 mon_logout: Logout
 mon_mail: Email
@@ -54,9 +54,10 @@ mon_project_projects: Projects
 mon_project_edit: Edit project
 mon_project_edition_failed: Project modification failed
 mon_project_creation_validated: Project modification succeeded
+mon_project_wording: Project
 
 # Scenario wordings
-mon_scenario_list: List of scenarii
+mon_scenario_list: List of scenarios
 mon_scenario_create: Create new scenario
 mon_scenario_delete: Delete scenario
 mon_scenario_creation_failed: Scenario creation failed
@@ -68,9 +69,10 @@ mon_scenario_enabled: Activated
 mon_scenario_frequency: Frequency (min)
 mon_scenario_form_name_placeholder: Scenario name
 mon_scenario_name: Name
-mon_scenario_number: existing scenarii
+mon_scenario_number: existing scenarios
 mon_scenario_alone: 1 scenario only
 mon_scenario_none: None configured scenario
+mon_scenario_wording: Scenario
 
 # Control wordings
 mon_control_list: List of controls
@@ -87,6 +89,7 @@ mon_control_add_validator: Add validator
 mon_control_number: existing controls
 mon_control_alone: 1 control only
 mon_control_none: None configured control
+mon_control_wording: Control
 
 # graph wordings
 mon_graph_label: Graph for
