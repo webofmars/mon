@@ -33,13 +33,13 @@ class LoadScenarioData  extends AbstractFixture implements OrderedFixtureInterfa
 
     public function load(ObjectManager $om) {
 
-        // Get how many projects & scenarii to create
+        // Get how many projects & scenarios to create
         $nbProjects = $this->container->getParameter('nb_projects', 1);
-        $nbScenarii = $this->container->getParameter('nb_scenarii', 1);
+        $nbScenarios = $this->container->getParameter('nb_scenarios', 1);
 
         // Creation of several scenarios
         for ($i = 1; $i <= $nbProjects; $i++) {
-          for ($j = 1; $j <= $nbScenarii; $j++) {
+          for ($j = 1; $j <= $nbScenarios; $j++) {
 
             $sc = new scenario();
 
