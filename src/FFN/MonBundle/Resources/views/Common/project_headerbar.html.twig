@@ -1,13 +1,25 @@
 <ul class="breadcrumb">
   <li><a href="{{ path('mon_home') }}">{{ 'mon_home' | trans({}, 'messages') | raw }}</a>
   {% if project is defined %}
-    <span class="divider">/</span><li><a href="{{path('mon_project_home', { 'id': project.id })}}" class="brand">{{ 'mon_project_wording' | trans({}, 'messages') | raw }} : {{project.name}}</a>
+    {% if project.id is defined %}
+      <span class="divider">/</span><li><a href="{{path('mon_project_home', { 'id': project.id })}}" class="brand">{{ 'mon_project_wording' | trans({}, 'messages') | raw }} : {{project.name}}</a>
+    {% else %}
+      <span class="divider">/</span><li><a href="{{path('mon_project_home', { 'id': project.getIdProject })}}" class="brand">{{ 'mon_project_wording' | trans({}, 'messages') | raw }} : {{project.getProjectEntity.name}}</a>
+    {% endif %}
   {% endif %}
   {% if scenario is defined %}
-    <span class="divider">/</span><li><a href="{{path('mon_scenario_home', { 'id': scenario.id })}}" class="brand">{{ 'mon_scenario_wording' | trans({}, 'messages') | raw }} : {{ scenario.name }}</a>
+    {% if scenario.id is defined %}
+      <span class="divider">/</span><li><a href="{{path('mon_scenario_home', { 'id': scenario.id })}}" class="brand">{{ 'mon_scenario_wording' | trans({}, 'messages') | raw }} : {{ scenario.name }}</a>
+    {% else %}
+      <span class="divider">/</span><li><a href="{{path('mon_scenario_home', { 'id': scenario.getIdScenario })}}" class="brand">{{ 'mon_scenario_wording' | trans({}, 'messages') | raw }} : {{ scenario.getScenarioEntity.name }}</a>
+    {% endif %}
   {% endif %}
   {% if control is defined %}
-    <span class="divider">/</span><li><a href="{{path('mon_control_home', { 'id': control.id })}}" class="brand">{{ 'mon_control_wording' | trans({}, 'messages') | raw }} : {{ control.name }}</a>
+    {% if control.id is defined %}
+      <span class="divider">/</span><li><a href="{{path('mon_control_home', { 'id': control.id })}}" class="brand">{{ 'mon_control_wording' | trans({}, 'messages') | raw }} : {{ control.name }}</a>
+    {% else %}
+      <span class="divider">/</span><li><a href="{{path('mon_control_home', { 'id': control.getIdControl })}}" class="brand">{{ 'mon_control_wording' | trans({}, 'messages') | raw }} : {{ control.getControlEntity.name }}</a>
+    {% endif %}
   {% endif %}
   </li>
 </ul>

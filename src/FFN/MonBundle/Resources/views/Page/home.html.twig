@@ -35,52 +35,52 @@
     {% set nb_current_line = 0 %}
     {% for project in projects %}
       <!-- to reduce displayed description length if necessary -->
-      {% set project_description_length = project.description|length %}
+      {% set project_description_length = project.getProjectEntity.description|length %}
       {% if (project_description_length > max_project_description_length) %}
-        {% set project_description = project.description|slice(0,max_project_description_length-4)~' ...' %}
+        {% set project_description = project.getProjectEntity.description|slice(0,max_project_description_length-4)~' ...' %}
       {% else %}
-        {% set project_description = project.description %}
+        {% set project_description = project.getProjectEntity.description %}
       {% endif %}
       {% if (nb_current_line % 3) == 0 %}
         <div class="row-fluid"> <!-- ligne de 3 projets -->
       {% endif %}
       {% set nb_current_line = nb_current_line + 1 %}
-      {% set nb_scenarios = project.scenarios|length %}
+      {% set nb_scenarios = project.getScenarios|length %}
           <div class="span4 blue-outline projectdiv">
             <div class="pagination-centered">
-              <h3>{{project.name}}</h2>
-              <p title="{{ project.description }}">{{ project_description }}</p>
+              <h3>{{project.getProjectEntity.name}}</h2>
+              <p title="{{ project.getProjectEntity.description }}">{{ project_description }}</p>
             </div>
             <div class="pagination-centered"><!-- meteo globale -->
-              {% if projects_weather[project.id][0] is null %}
+              {% if project.getWeatherEntity == false %}
                 <span class="imgUnknown"></span>
-              {% elseif projects_weather[project.id][0].weatherState == 1 %}
+              {% elseif project.getWeatherEntity.getWeatherState == 1 %}
                 <span class="imgStorm"></span>
-              {% elseif projects_weather[project.id][0].weatherState == 2 %}
+              {% elseif project.getWeatherEntity.getWeatherState == 2 %}
                 <span class="imgRain"></span>
-              {% elseif projects_weather[project.id][0].weatherState == 3 %}
+              {% elseif project.getWeatherEntity.getWeatherState == 3 %}
                 <span class="imgCloud"></span>
-              {% elseif projects_weather[project.id][0].weatherState == 4 %}
+              {% elseif project.getWeatherEntity.getWeatherState == 4 %}
                 <span class="imgSun"></span>
-              {% elseif projects_weather[project.id][0].weatherState == 5 %}
+              {% elseif project.getWeatherEntity.getWeatherState == 5 %}
                 <span class="imgUnknown"></span>
               {% endif %}
             </div>
             <div class="pagination-centered">
-              <a class="btn" href="{{path('mon_project_home', { 'id': project.id })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
-              <a class="btn" href="{{path('mon_project_edit', { 'id': project.id })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a>
+              <a class="btn" href="{{path('mon_project_home', { 'id': project.getIdProject })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+              <a class="btn" href="{{path('mon_project_edit', { 'id': project.getIdProject })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a>
             </div>
             <br/>
             {% if nb_scenarios > 0 %}
               {% set count = 0 %}
-              {% for scenario in project.scenarios %}
+              {% for scenario in project.getScenarios %}
                 {% if (count < nb_max_list) %}
                   <!-- to reduce displayed name length if necessary -->
-                  {% set scenario_name_length = scenario.name|length %}
+                  {% set scenario_name_length = scenario.getScenarioEntity.name|length %}
                   {% if (scenario_name_length > max_scenario_name_list_length) %}
-                    {% set scenario_name = scenario.name|slice(0,max_scenario_name_list_length-4)~' ...' %}
+                    {% set scenario_name = scenario.getScenarioEntity.name|slice(0,max_scenario_name_list_length-4)~' ...' %}
                   {% else %}
-                    {% set scenario_name = scenario.name %}
+                    {% set scenario_name = scenario.getScenarioEntity.name %}
                   {% endif %}
                   {% set count = count + 1 %}
                   <div class="inline">
@@ -88,18 +88,18 @@
                       <tr>
                         <td>
                           &nbsp;&nbsp;&nbsp;&nbsp;
-                          <a href="{{ path('mon_scenario_home', { 'id': scenario.id }) }}" title='{{ scenario.name }}'>
-                            {% if projects_weather[project.id][1][scenario.id] is null %}
+                          <a href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name }}'>
+                            {% if scenario.getWeatherEntity == false %}
                               <span class="icoUnknown"></span>
-                            {% elseif projects_weather[project.id][1][scenario.id].weatherState == 1 %}
+                            {% elseif scenario.getWeatherEntity.weatherState == 1 %}
                               <span class="icoStorm"></span>
-                            {% elseif projects_weather[project.id][1][scenario.id].weatherState == 2 %}
+                            {% elseif scenario.getWeatherEntity.weatherState == 2 %}
                               <span class="icoRain"></span>
-                            {% elseif projects_weather[project.id][1][scenario.id].weatherState == 3 %}
+                            {% elseif scenario.getWeatherEntity.weatherState == 3 %}
                               <span class="icoCloud"></span>
-                            {% elseif projects_weather[project.id][1][scenario.id].weatherState == 4 %}
+                            {% elseif scenario.getWeatherEntity.weatherState == 4 %}
                               <span class="icoSun"></span>
-                            {% elseif projects_weather[project.id][1][scenario.id].weatherState == 5 %}
+                            {% elseif scenario.getWeatherEntity.weatherState == 5 %}
                               <span class="icoUnknown"></span>
                             {% endif %}
                             {{ scenario_name }}
