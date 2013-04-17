@@ -35,9 +35,9 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
 
         // Get how many projects & controls to create
         $nbProjects = $this->container->getParameter('nb_projects', 1);
-        $nbScenarii = $this->container->getParameter('nb_scenarii', 1);
+        $nbScenarios = $this->container->getParameter('nb_scenarios', 1);
         $nbControls = $this->container->getParameter('nb_controls', 1);
-        
+
         $urls = array(
                     'http://www.yahoo.fr',
                     'http://www.google.com',
@@ -50,9 +50,9 @@ class LoadControlData  extends AbstractFixture implements OrderedFixtureInterfac
 
         // Creation of several controls (= 1 per existing scenario)
         for ($i = 1; $i <= $nbProjects; $i++) {
-          for ($j = 1; $j <= $nbScenarii; $j++) {
+          for ($j = 1; $j <= $nbScenarios; $j++) {
             for ($k = 1; $k <= $nbControls; $k++) {
-                
+
                 $ctrl = new Control();
 
                 $ctrl->setName('FFN_fixtures_ctrl_'.$i.$j.$k);
