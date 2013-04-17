@@ -57,11 +57,11 @@ class Scenario
      * @ORM\Column(name="date_creation", type="datetime")
      */
     private $dateCreation;
-    
+
     /**
      * @var array
-     * 
-     * @ORM\OneToMany(targetEntity="Control", mappedBy="scenario", cascade={"persist"})
+     *
+     * @ORM\OneToMany(targetEntity="Control", mappedBy="scenario", cascade={"persist", "remove"})
      */
     protected $controls;
 
@@ -75,7 +75,7 @@ class Scenario
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -91,14 +91,14 @@ class Scenario
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -114,14 +114,14 @@ class Scenario
     public function setFrequency($frequency)
     {
         $this->frequency = $frequency;
-    
+
         return $this;
     }
 
     /**
      * Get frequency
      *
-     * @return integer 
+     * @return integer
      */
     public function getFrequency()
     {
@@ -137,14 +137,14 @@ class Scenario
     public function setDateCreation($dateCreation)
     {
         $this->dateCreation = $dateCreation;
-    
+
         return $this;
     }
 
     /**
      * Get dateCreation
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getDateCreation()
     {
@@ -160,14 +160,14 @@ class Scenario
     public function setEnabled($enabled)
     {
         $this->enabled = $enabled;
-    
+
         return $this;
     }
 
     /**
      * Get enabled
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getEnabled()
     {
@@ -184,14 +184,14 @@ class Scenario
     public function setProject(\FFN\MonBundle\Entity\Project $project = null)
     {
         $this->project = $project;
-    
+
         return $this;
     }
 
     /**
      * Get project
      *
-     * @return \FFN\MonBundle\Entity\Project 
+     * @return \FFN\MonBundle\Entity\Project
      */
     public function getProject()
     {
@@ -207,7 +207,7 @@ class Scenario
     public function addControl(\FFN\MonBundle\Entity\Control $controls)
     {
         $this->controls[] = $controls;
-    
+
         return $this;
     }
 
@@ -224,7 +224,7 @@ class Scenario
     /**
      * Get controls
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getControls()
     {

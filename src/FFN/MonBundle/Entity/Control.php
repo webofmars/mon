@@ -59,21 +59,21 @@ class Control {
 
     /**
      * @var array
-     * 
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\ControlHeader", mappedBy="control",cascade={"persist"})
+     *
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\ControlHeader", mappedBy="control",cascade={"persist", "remove"})
      */
     private $controlHeaders;
 
     /**
      * @var ArrayCollection
-     * 
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Validator", mappedBy="control", cascade={"persist"})
+     *
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Validator", mappedBy="control", cascade={"persist", "remove"})
      */
     private $validators;
 
     /**
      * @var integer
-     * 
+     *
      * @ORM\ManyToOne(targetEntity="Scenario", inversedBy="controls", cascade={"persist"})
      * @ORM\JoinColumn(name="scenario_id", referencedColumnName="id")
      */
@@ -82,9 +82,9 @@ class Control {
     /**
      *
      * @var ArrayCollection
-     * 
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Capture", mappedBy="control", cascade={"persist"})
-     * 
+     *
+     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Capture", mappedBy="control", cascade={"persist", "remove"})
+     *
      */
     protected $captures;
     // @TODO: externalisser dans la conf
@@ -92,7 +92,7 @@ class Control {
      *
      * @var type float
      * @ORM\Column(name="dns_threshold", type="float", nullable=true)
-     * 
+     *
      */
     private $dnsThreshold = 1.0;
 
@@ -107,7 +107,7 @@ class Control {
      *
      * @var type float
      * @ORM\Column(name="first_packet_threshold", type="float", nullable=true)
-     * 
+     *
      */
     private $firstPacketThreshold = 2.0;
 
@@ -130,7 +130,7 @@ class Control {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId() {
         return $this->id;
@@ -151,7 +151,7 @@ class Control {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName() {
         return $this->name;
@@ -172,7 +172,7 @@ class Control {
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl() {
         return $this->url;
@@ -193,7 +193,7 @@ class Control {
     /**
      * Get mimeType
      *
-     * @return string 
+     * @return string
      */
     public function getMimeType() {
         return $this->mimeType;
@@ -214,7 +214,7 @@ class Control {
     /**
      * Get connectionTimeout
      *
-     * @return integer 
+     * @return integer
      */
     public function getConnectionTimeout() {
         return $this->connectionTimeout;
@@ -235,7 +235,7 @@ class Control {
     /**
      * Get responseTimeout
      *
-     * @return integer 
+     * @return integer
      */
     public function getResponseTimeout() {
         return $this->responseTimeout;
@@ -304,7 +304,7 @@ class Control {
     /**
      * Get scenario
      *
-     * @return \FFN\MonBundle\Entity\Scenario 
+     * @return \FFN\MonBundle\Entity\Scenario
      */
     public function getScenario() {
         return $this->scenario;
@@ -325,7 +325,7 @@ class Control {
     /**
      * Get frequency
      *
-     * @return integer 
+     * @return integer
      */
     public function getFrequency() {
         return $this->frequency;
@@ -355,7 +355,7 @@ class Control {
     /**
      * Get captures
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCaptures() {
         return $this->captures;
@@ -392,5 +392,5 @@ class Control {
     public function setTotalTimeThreshold($totalTimeThreshold) {
         $this->totalTimeThreshold = $totalTimeThreshold;
     }
-    
+
 }

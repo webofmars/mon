@@ -44,27 +44,24 @@ mon_user_photo_manage: Manage Photos
 mon_user_no_created: Utilisateur non créé
 
 # Project wordings
-mon_project_create: Créer un projet
-mon_project_creation_failed: Création du projet échouée
-mon_project_creation_validated: Création du projet avec succès
 mon_project_my_projects: Mes Projets
 mon_project_name: Nom
 mon_project_description: Description
 mon_project_projects: Projets
+mon_project_wording: Projet
+mon_project_unknown: Le projet demandé n'existe pas
+mon_project_create: Créer un projet
+mon_project_creation_failed: Création du projet échouée
+mon_project_creation_validated: Création du projet effectuée
 mon_project_edit: Modifier le projet
 mon_project_edition_failed: Modification du projet échouée
 mon_project_edition_validated: Modification du projet effectuée
-mon_project_wording: Projet
+mon_project_delete: Supprimer le projet
+mon_project_deletion_failed: Suppression du projet échouée
+mon_project_deletion_validated: Suppression du projet effectuée
 
 # Scenario wordings
 mon_scenario_list: Liste des scenarios
-mon_scenario_create: Créer un scénario
-mon_scenario_delete: Supprimer le scénario
-mon_scenario_creation_failed: Création du scénario echouée
-mon_scenario_creation_validated: Création du scénario avec succès
-mon_scenario_edit: Modifier le scénario
-mon_scenario_edit_failed: Modification du scénario echouée
-mon_scenario_edit_validated: Modification du scénario avec succès
 mon_scenario_enabled: Actif
 mon_scenario_frequency: Fréquence (en min)
 mon_scenario_form_name_placeholder: Nom de votre scénario
@@ -73,23 +70,38 @@ mon_scenario_number: scénarios existants
 mon_scenario_alone: 1 seul scénario actuellement
 mon_scenario_none: Aucun scénario configuré
 mon_scenario_wording: Scénario
+mon_scenario_unknown: Le scénario demandé n'existe pas
+mon_scenario_create: Créer un scénario
+mon_scenario_creation_failed: Création du scénario échouée
+mon_scenario_creation_validated: Création du scénario effectuée
+mon_scenario_edit: Modifier le scénario
+mon_scenario_edition_failed: Modification du scénario échouée
+mon_scenario_edition_validated: Modification du scénario effectuée
+mon_scenario_delete: Supprimer le scénario
+mon_scenario_deletion_failed: Suppression du scénario échouée
+mon_scenario_deletion_validated: Suppression du scénario effectuée
 
 # Control wordings
 mon_control_list: Liste des contrôles
-mon_control_create: Créer un contrôle
-mon_control_edit: Modifier le contrôle
-mon_control_delete: Supprimer le contrôle
-mon_control_creation_failed: Création du contrôle échouée
-mon_control_creation_validated: Création du contrôle effectuée
-mon_control_form_name_placeholder: Nom de votre contrôle
 mon_control_name: Nom
 mon_control_url: Url
-mon_control_add_header: Ajouter un header
-mon_control_add_validator: Ajouter un validateur
 mon_control_number: contrôles existants
 mon_control_alone: 1 seul contrôle actuellement
 mon_control_none: Aucun contrôle configuré
-mon_control_title: Contrôle
+mon_control_wording: Contrôle
+mon_control_form_name_placeholder: Nom de votre contrôle
+mon_control_unknown: Le contrôle demandé n'existe pas
+mon_control_create: Créer un contrôle
+mon_control_creation_failed: Création du contrôle échouée
+mon_control_creation_validated: Création du contrôle effectuée
+mon_control_edit: Modifier le contrôle
+mon_control_edition_failed: Modification du contrôle échouée
+mon_control_edition_validated: Modification du contrôle effectuée
+mon_control_delete: Supprimer le contrôle
+mon_control_deletion_failed: Suppression du contrôle échouée
+mon_control_deletion_validated: Suppression du contrôle effectuée
+mon_control_add_header: Ajouter un header
+mon_control_add_validator: Ajouter un validateur
 
 # graph wordings
 mon_graph_label: Graphique pour

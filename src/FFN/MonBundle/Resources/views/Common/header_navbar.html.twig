@@ -16,7 +16,7 @@
                     <li><a href="{{ path('mon_project_edit', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
                     <li class="divider"></li>
                     <li><a href="{{path('mon_scenario_add', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
-                  {% else %}
+                  {% elseif project.getIdProject is defined %}
                     <li><a href="{{ path('mon_project_edit', {'id': project.getIdProject, '_locale': app.request.get('_locale') })}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
                     <li class="divider"></li>
                     <li><a href="{{path('mon_scenario_add', {'id': project.getIdProject, '_locale': app.request.get('_locale') })}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
@@ -26,7 +26,7 @@
                       <li><a href="{{path('mon_scenario_edit', {'id': scenario.id,'_locale': app.request.get('_locale') })}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
                       <li class="divider"></li>
                       <li><a href="{{path('mon_control_add', {'id': scenario.id, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>
-                    {% else %}
+                    {% elseif scenario.getIdScenario is defined %}
                       <li><a href="{{path('mon_scenario_edit', {'id': scenario.getIdScenario,'_locale': app.request.get('_locale') })}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
                       <li class="divider"></li>
                       <li><a href="{{path('mon_control_add', {'id': scenario.getIdScenario, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>

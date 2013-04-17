@@ -44,27 +44,24 @@ mon_user_photo_manage: Manage Photos
 mon_user_no_created: User not created
 
 # Project wordings
-mon_project_create: Create new project
-mon_project_creation_failed: Project creation failed
-mon_project_creation_validated: Project creation succeeded
 mon_project_my_projects: My Projects
 mon_project_name: Name
 mon_project_description: Description
 mon_project_projects: Projects
+mon_project_wording: Project
+mon_project_unknown: Requested project is unknown
+mon_project_create: Create new project
+mon_project_creation_failed: Project creation failed
+mon_project_creation_validated: Project creation succeeded
 mon_project_edit: Edit project
 mon_project_edition_failed: Project modification failed
-mon_project_creation_validated: Project modification succeeded
-mon_project_wording: Project
+mon_project_edition_validated: Project modification succeeded
+mon_project_delete: Delete project
+mon_project_deletion_failed: Project deletion failed
+mon_project_deletion_validated: Project deletion succeeded
 
 # Scenario wordings
 mon_scenario_list: List of scenarios
-mon_scenario_create: Create new scenario
-mon_scenario_delete: Delete scenario
-mon_scenario_creation_failed: Scenario creation failed
-mon_scenario_creation_validated: Scenario creation succeeded
-mon_scenario_edit: Modify scenario
-mon_scenario_edit_failed: Scenario modification failed
-mon_scenario_edit_validated: Scenario modification succeeded
 mon_scenario_enabled: Activated
 mon_scenario_frequency: Frequency (min)
 mon_scenario_form_name_placeholder: Scenario name
@@ -73,23 +70,38 @@ mon_scenario_number: existing scenarios
 mon_scenario_alone: 1 scenario only
 mon_scenario_none: None configured scenario
 mon_scenario_wording: Scenario
+mon_scenario_unknown: Requested scenario is unknown
+mon_scenario_create: Create new scenario
+mon_scenario_creation_failed: Scenario creation failed
+mon_scenario_creation_validated: Scenario creation succeeded
+mon_scenario_edit: Modify scenario
+mon_scenario_edition_failed: Scenario modification failed
+mon_scenario_edition_validated: Scenario modification succeeded
+mon_scenario_delete: Delete scenario
+mon_scenario_deletion_failed: Scenario deletion failed
+mon_scenario_deletion_validated: Scenario deletion succeeded
 
 # Control wordings
 mon_control_list: List of controls
-mon_control_create: Create new control
-mon_control_edit: Modify control
-mon_control_delete: Delete control
-mon_control_creation_failed: Control creation failed
-mon_control_creation_validated: Control creation succeeded
-mon_control_form_name_placeholder: Control name
 mon_control_name: Name
 mon_control_url: Url
-mon_control_add_header: Add header
-mon_control_add_validator: Add validator
 mon_control_number: existing controls
 mon_control_alone: 1 control only
 mon_control_none: None configured control
 mon_control_wording: Control
+mon_control_form_name_placeholder: Control name
+mon_control_unknown: Requested control is unknown
+mon_control_create: Create new control
+mon_control_creation_failed: Control creation failed
+mon_control_creation_validated: Control creation succeeded
+mon_control_edit: Modify control
+mon_control_edition_failed: Control modification failed
+mon_control_edition_validated: Control modification succeeded
+mon_control_delete: Delete control
+mon_control_deletion_failed: Control deletion failed
+mon_control_deletion_validated: Control deletion succeeded
+mon_control_add_header: Add header
+mon_control_add_validator: Add validator
 
 # graph wordings
 mon_graph_label: Graph for
