@@ -1,6 +1,5 @@
 <?php
 
-
 namespace FFN\MonBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
@@ -8,34 +7,59 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use DateTime;
 use FFN\MonBundle\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Description of LoadUseroData
+ * Description of LoadUserData
  *
  * @author frederic
  */
-class LoadUserData  extends AbstractFixture implements OrderedFixtureInterface {
+class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface {
 
-    public function load(ObjectManager $om) {
+  /**
+   * @var ContainerInterface
+   */
+  private $container;
 
-        $user = new User();
+  /**
+   * {@inheritDoc}
+   */
+  public function setContainer(ContainerInterface $container = null) {
+    $this->container = $container;
+  }
 
+  public function load(ObjectManager $om) {
+
+    // Get how many other users to create
+    $nbUsers = $this->container->getParameter('nb_users', 1);
+
+    // Creation of users (first one is 'admin')
+    for ($i = 1; $i <= $nbUsers; $i++) {
+      $user = new User();
+      if ($i == 1) {
+        // admin user
         $user->setUsername('admin');
         $user->setEmail('dev@null.cz');
-        $user->setEnabled(true);
         $user->setPlainPassword('JABE6mA3JUw7BSvQPCfG');
-        $user->setLocked(false);
-        $user->setExpired(false);
-        $user->setSubscription($om->merge($this->getReference('subscription_premium')));
-
-        $om->persist($user);
-        $om->flush();
-
-        $this->setReference('user', $user);
-
+      } else {
+        // other user
+        $user->setUsername('user_' . $i);
+        $user->setEmail('user_' . $i . '@null.cz');
+        $user->setPlainPassword('user_' . $i);
+      }
+      $user->setEnabled(true);
+      $user->setLocked(false);
+      $user->setExpired(false);
+      $user->setSubscription($om->merge($this->getReference('subscription_premium')));
+      $om->persist($user);
+      $om->flush();
+      $this->setReference('usr_' . $i, $user);
     }
+  }
 
-    public function getOrder() {
-        return(2);
-    }
+  public function getOrder() {
+    return(2);
+  }
+
 }

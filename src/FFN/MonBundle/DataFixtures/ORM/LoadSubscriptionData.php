@@ -21,7 +21,7 @@ class LoadSubscriptionData  extends AbstractFixture implements OrderedFixtureInt
 
         $sub = new Subscription();
         $sub->setName('free user');
-        $sub->setDescription('Default level of subscrtiption');
+        $sub->setDescription('Default level of subscription');
         $sub->setMaxProjects(1);
         $sub->setMaxScenarios(5);
         $sub->setMaxControls(5);
@@ -31,7 +31,7 @@ class LoadSubscriptionData  extends AbstractFixture implements OrderedFixtureInt
 
         $sub = new Subscription();
         $sub->setName('premium user');
-        $sub->setDescription('Highest level of subscrtiption');
+        $sub->setDescription('Highest level of subscription');
         $sub->setMaxProjects(NULL);
         $sub->setMaxScenarios(NULL);
         $sub->setMaxControls(NULL);

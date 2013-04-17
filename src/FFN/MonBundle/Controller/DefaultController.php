@@ -9,17 +9,11 @@ use FFN\MonBundle\Model\Project as ProjectModel;
 use FFN\MonBundle\Entity\Scenario as ScenarioEntity;
 use FFN\MonBundle\Model\Scenario as ScenarioModel;
 use FFN\MonBundle\Entity\Control as ControlEntity;
-use FFN\MonBundle\Model\Control as ControlModel;
-use FFN\MonBundle\Entity\Capture as CaptureEntity;
-use FFN\MonBundle\Entity\CaptureDetail as CaptureDetailEntity;
-use FFN\MonBundle\Entity\ControlHeader;
 use FFN\MonBundle\Entity\Weather;
 use FFN\MonBundle\Form\ControlType;
 use FFN\MonBundle\Form\ProjectType;
 use FFN\MonBundle\Form\ScenarioType;
 use FFN\MonBundle\Form\UserType;
-use Doctrine\ORM\EntityManager;
-use Doctrine\Common\Collections\ArrayCollection;
 use DateTime;
 use DateInterval;
 
@@ -115,7 +109,7 @@ class DefaultController extends Controller {
    */
   public function adminUserDeleteAction($id) {
     $em = $this->get('doctrine')->getManager();
-    // Control if user exists
+    // Control if user exists, and if so delete user
     $user = $em->getRepository('FFN\MonBundle\Entity\User')->findOneById($id);
     if ($user instanceof User) {
       $em->remove($user);
@@ -203,6 +197,8 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_control_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
+    // TODO : check that user can access to this control
+
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($control->getScenario()->getId());
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
     $form = $this->createForm(new ControlType($this->get('translator')), $control);
@@ -240,7 +236,7 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_control_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
-
+    // TODO : check that user can access to this control
     // get related scenario for final redirection
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($control->getScenario()->getId());
 
@@ -290,6 +286,7 @@ class DefaultController extends Controller {
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
+    // TODO : check that user can access to this project
     // initiate associated project model
     $project_model = new ProjectModel($em);
     $project_model->setIdProject($project_entity->getId());
@@ -307,12 +304,13 @@ class DefaultController extends Controller {
   public function projectAddAction() {
     // get user
     $user = $this->get('security.context')->getToken()->getUser();
+    // initiate project entity to initiate form
     $project = new ProjectEntity();
     $form = $this->createForm(new ProjectType($this->get('translator')), $project);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
       $form->bindRequest($request);
-      // check if form is valid, and if so create the new Project, and redirect to its page
+      // check if form is filled & valid, and if so create the new Project, and redirect to its page
       if ($form->isValid()) {
         $em = $this->get('doctrine')->getManager();
         $project->setDateCreation(new \DateTime());
@@ -350,6 +348,9 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_project_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
+
+    // TODO : check that user can access to this project
+
     $form = $this->createForm(new ProjectType($this->get('translator')), $project);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
@@ -385,7 +386,8 @@ class DefaultController extends Controller {
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
-    // remove scenario
+    // TODO : check that user can access to this project
+    // remove project
     $em->remove($project);
     $em->flush();
     // home page redirection
@@ -413,6 +415,7 @@ class DefaultController extends Controller {
     $scenario_model->setIdScenario($scenario_entity->getId());
     $scenario_model->hydrate();
 
+    // TODO : check that user can access to this scenario
     // get related project (entity)
     $project_entity = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario_entity->getProject()->getId());
 
@@ -491,6 +494,8 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
+    // TODO : check that user can access to this scenario
+
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
     $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
     $request = $this->getRequest();
@@ -526,7 +531,7 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
-
+    // TODO : check that user can access to this scenario
     // get related project for final redirection
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
 
