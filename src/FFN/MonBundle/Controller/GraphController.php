@@ -31,6 +31,14 @@ class GraphController extends Controller {
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
+    // get related project for control and final redirection
+    $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
+    // control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
+
     // get graphic data from DB
     $graphdata = array();
     $captures_data = $em->getRepository('FFN\MonBundle\Entity\Capture')->findByIdAndTimeRange($control_id, $startTs, $stopTs);
@@ -45,9 +53,6 @@ class GraphController extends Controller {
             $project = $scenario->getProject();
             $title = $control->getName();
           }
-        } else {
-          // TODO: trans
-          throw new AccessDeniedException("Not allowed to see this graph");
         }
       }
     } else {
@@ -68,4 +73,18 @@ class GraphController extends Controller {
         ));
   }
 
+  /**
+   * Control if current user can access to given project
+   * @param ProjectEntity $project - project to control
+   * @return true|redirect
+   */
+  private function verifyProjectAccess(ProjectEntity $project) {
+    $user = $this->get('security.context')->getToken()->getUser();
+    if ($user !== $project->getUser()) {
+      // no right to access to this project
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_denied'));
+      return $this->redirect($this->generateUrl('mon_home'));
+    }
+    return true;
+  }
 }
