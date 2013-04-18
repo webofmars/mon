@@ -50,6 +50,7 @@ mon_project_description: Description
 mon_project_projects: Projets
 mon_project_wording: Projet
 mon_project_unknown: Le projet demandé n'existe pas
+mon_project_denied: Accès non autorisé au projet
 mon_project_create: Créer un projet
 mon_project_creation_failed: Création du projet échouée
 mon_project_creation_validated: Création du projet effectuée

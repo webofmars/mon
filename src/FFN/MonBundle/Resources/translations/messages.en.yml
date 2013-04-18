@@ -50,6 +50,7 @@ mon_project_description: Description
 mon_project_projects: Projects
 mon_project_wording: Project
 mon_project_unknown: Requested project is unknown
+mon_project_denied: Project access denied
 mon_project_create: Create new project
 mon_project_creation_failed: Project creation failed
 mon_project_creation_validated: Project creation succeeded

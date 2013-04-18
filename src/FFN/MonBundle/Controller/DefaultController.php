@@ -73,11 +73,9 @@ class DefaultController extends Controller {
         $password = $user_request_params['password'];
         $email = $user_request_params['email'];
         // Control if user already exists
-        $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneBy(array(
-            'username' => $username));
+        $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneBy(array('username' => $username));
         if ($is_exist == false) {
-          $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneBy(array(
-              'email' => $email));
+          $is_exist = $em->getRepository('FFN\MonBundle\Entity\User')->findOneBy(array('email' => $email));
           if ($is_exist == false) {
             $manipulator = $this->container->get('fos_user.util.user_manipulator');
             $res = $manipulator->create($username, $password, $email, true, false);
@@ -141,6 +139,9 @@ class DefaultController extends Controller {
   public function controlAddAction($id) {
     $em = $this->get('doctrine')->getManager();
 
+    // get user
+    $user = $this->get('security.context')->getToken()->getUser();
+
     // get scenario entity
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if (!($scenario instanceof ScenarioEntity)) {
@@ -149,6 +150,12 @@ class DefaultController extends Controller {
       return $this->redirect($this->generateUrl('mon_home'));
     }
     $project = $scenario->getProject();
+
+    // control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
 
     $control = new ControlEntity();
     $form = $this->createForm(new ControlType($this->get('translator')), $control);
@@ -197,10 +204,16 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_control_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
-    // TODO : check that user can access to this control
 
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($control->getScenario()->getId());
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
+
+    // control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
+
     $form = $this->createForm(new ControlType($this->get('translator')), $control);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
@@ -236,13 +249,20 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_control_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
-    // TODO : check that user can access to this control
     // get related scenario for final redirection
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($control->getScenario()->getId());
+    $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
 
-    // remove control
+    // control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
+
+// remove control
     $em->remove($control);
     $em->flush();
+
     // scenario page redirection
     $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_control_deletion_success'));
     return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $scenario->getId())));
@@ -286,7 +306,12 @@ class DefaultController extends Controller {
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
-    // TODO : check that user can access to this project
+// control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project_entity);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
+
     // initiate associated project model
     $project_model = new ProjectModel($em);
     $project_model->setIdProject($project_entity->getId());
@@ -349,7 +374,11 @@ class DefaultController extends Controller {
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
-    // TODO : check that user can access to this project
+// control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
 
     $form = $this->createForm(new ProjectType($this->get('translator')), $project);
     $request = $this->getRequest();
@@ -386,7 +415,12 @@ class DefaultController extends Controller {
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
-    // TODO : check that user can access to this project
+// control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
+
     // remove project
     $em->remove($project);
     $em->flush();
@@ -415,9 +449,13 @@ class DefaultController extends Controller {
     $scenario_model->setIdScenario($scenario_entity->getId());
     $scenario_model->hydrate();
 
-    // TODO : check that user can access to this scenario
     // get related project (entity)
     $project_entity = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario_entity->getProject()->getId());
+    // control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project_entity);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
 
     // initiate useful display parameters
     $startTs = new DateTime();
@@ -447,6 +485,12 @@ class DefaultController extends Controller {
       // project identifier unknow
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
+    }
+
+// control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
     }
 
     $scenario = New ScenarioEntity();
@@ -494,9 +538,13 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
-    // TODO : check that user can access to this scenario
 
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
+    // control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
     $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
@@ -531,9 +579,14 @@ class DefaultController extends Controller {
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
-    // TODO : check that user can access to this scenario
-    // get related project for final redirection
+
+    // get related project for control and final redirection
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($scenario->getProject()->getId());
+    // control that user is allowed to access to related project
+    $verifyProject = $this->verifyProjectAccess($project);
+    if ($verifyProject !== true) {
+      return $verifyProject;
+    }
 
     // remove scenario
     $em->remove($scenario);
@@ -541,6 +594,21 @@ class DefaultController extends Controller {
     // project page redirection
     $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_scenario_deletion_success'));
     return $this->redirect($this->generateUrl('mon_project_home', array('id' => $project->getId())));
+  }
+
+  /**
+   * Control if current user can access to given project
+   * @param ProjectEntity $project - project to control
+   * @return true|redirect
+   */
+  private function verifyProjectAccess(ProjectEntity $project) {
+    $user = $this->get('security.context')->getToken()->getUser();
+    if ($user !== $project->getUser()) {
+      // no right to access to this project
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_denied'));
+      return $this->redirect($this->generateUrl('mon_home'));
+    }
+    return true;
   }
 
 }
