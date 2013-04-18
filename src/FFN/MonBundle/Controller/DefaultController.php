@@ -27,7 +27,7 @@ class DefaultController extends Controller {
     // list all existing users
     $users = $em->getRepository('FFN\MonBundle\Entity\User')->findAll();
     // display existing users list
-    return $this->render('FFNMonBundle:Page:admin_user.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Admin\admin_user.html.twig', array(
                 'users' => $users,
             ));
   }
@@ -52,7 +52,7 @@ class DefaultController extends Controller {
       $em->persist($user);
       $em->flush();
     }
-    return $this->render('FFNMonBundle:Page:is_user_active.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Admin\is_user_active.html.twig', array(
                 'isActive' => $isActive
             ));
   }
@@ -99,7 +99,7 @@ class DefaultController extends Controller {
       }
     }
 
-    return $this->render('FFNMonBundle:Page:admin_user_add.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Admin\admin_user_add.html.twig', array(
                 'form' => $form->createView(),
             ));
   }
@@ -177,7 +177,7 @@ class DefaultController extends Controller {
         $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
       }
     }
-    return $this->render('FFNMonBundle:Page:control_add.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Control\control_add.html.twig', array(
                 'form' => $form->createView(),
                 'project' => $project,
                 'scenario' => $scenario,
@@ -215,7 +215,7 @@ class DefaultController extends Controller {
         $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_control_edition_failed'));
       }
     }
-    return $this->render('FFNMonBundle:Page:control_edit.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Control\control_edit.html.twig', array(
                 'form' => $form->createView(),
                 'project' => $project,
                 'scenario' => $scenario,
@@ -292,7 +292,7 @@ class DefaultController extends Controller {
     $project_model->setIdProject($project_entity->getId());
     $project_model->hydrate();
 
-    return $this->render('FFNMonBundle:Page:project_home.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Project\project_home.html.twig', array(
                 'project' => $project_model,
                 'scenarios' => $project_model->getScenarios(),
             ));
@@ -331,7 +331,7 @@ class DefaultController extends Controller {
         $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
       }
     }
-    return $this->render('FFNMonBundle:Page:project_add.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Project\project_add.html.twig', array(
                 'form' => $form->createView(),
             ));
   }
@@ -366,7 +366,7 @@ class DefaultController extends Controller {
         $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
       }
     }
-    return $this->render('FFNMonBundle:Page:project_edit.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Project\project_edit.html.twig', array(
                 'form' => $form->createView(),
                 'project' => $project,
             ));
@@ -425,7 +425,7 @@ class DefaultController extends Controller {
     $startTs->sub(new DateInterval('PT12H'));
     $stopTs->add(new DateInterval('PT12H'));
 
-    return $this->render('FFNMonBundle:Page:scenario_home.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Scenario\scenario_home.html.twig', array(
                 'project' => $project_entity,
                 'scenario' => $scenario_model,
                 'controls' => $scenario_model->getControls(),
@@ -475,7 +475,7 @@ class DefaultController extends Controller {
         $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
       }
     }
-    return $this->render('FFNMonBundle:Page:scenario_add.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Scenario\scenario_add.html.twig', array(
                 'form' => $form->createView(),
                 'project' => $project,
             ));
@@ -511,7 +511,7 @@ class DefaultController extends Controller {
         $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_edition_failed'));
       }
     }
-    return $this->render('FFNMonBundle:Page:scenario_edit.html.twig', array(
+    return $this->render('FFNMonBundle:Page:Scenario\scenario_edit.html.twig', array(
                 'form' => $form->createView(),
                 'project' => $project,
                 'scenario' => $scenario,
