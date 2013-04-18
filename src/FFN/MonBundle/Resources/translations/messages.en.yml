@@ -61,7 +61,7 @@ mon_project_deletion_failed: Project deletion failed
 mon_project_deletion_validated: Project deletion succeeded
 
 # Scenario wordings
-mon_scenario_list: List of scenarios
+mon_scenario_list: My scenarios
 mon_scenario_enabled: Activated
 mon_scenario_frequency: Frequency (min)
 mon_scenario_form_name_placeholder: Scenario name
@@ -82,7 +82,7 @@ mon_scenario_deletion_failed: Scenario deletion failed
 mon_scenario_deletion_validated: Scenario deletion succeeded
 
 # Control wordings
-mon_control_list: List of controls
+mon_control_list: My controls
 mon_control_name: Name
 mon_control_url: Url
 mon_control_number: existing controls
@@ -114,6 +114,7 @@ mon_graph_tcp_connection: TCP connection
 mon_graph_dns_resolution: DNS
 mon_graph_valid: Valid
 mon_graph_timeout: Timeout
+mon_graph_empty: None available data for this slottime
 
 # Weather wordings
 mon_weather: Weather

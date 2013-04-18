@@ -6,17 +6,6 @@
 <div class="container">
   {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
   <div class="row">
-    {% if app.session.hasFlash('success_msg') %}
-      <div class="alert alert-success">
-        {{ app.session.flash('success_msg') }}
-      </div>
-    {% endif %}
-      {% if app.session.hasFlash('error_msg') %}
-      <div class="alert alert-error">
-        {{ app.session.flash('error_msg') }}
-      </div>
-    {% endif %}
-
     <div class="container-fluid">
         <form class="form-signin" action="{{ path("mon_control_edit", {'id': control.id}) }}" method="post">
             <div class="row-fluid"><h2 class="form-signin-heading">{{ 'mon_control_edit'|trans({}, 'messages') }}</h2></div>

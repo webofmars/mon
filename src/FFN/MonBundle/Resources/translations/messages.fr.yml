@@ -61,7 +61,7 @@ mon_project_deletion_failed: Suppression du projet échouée
 mon_project_deletion_validated: Suppression du projet effectuée
 
 # Scenario wordings
-mon_scenario_list: Liste des scenarios
+mon_scenario_list: Mes scénarios
 mon_scenario_enabled: Actif
 mon_scenario_frequency: Fréquence (en min)
 mon_scenario_form_name_placeholder: Nom de votre scénario
@@ -82,7 +82,7 @@ mon_scenario_deletion_failed: Suppression du scénario échouée
 mon_scenario_deletion_validated: Suppression du scénario effectuée
 
 # Control wordings
-mon_control_list: Liste des contrôles
+mon_control_list: Mes contrôles
 mon_control_name: Nom
 mon_control_url: Url
 mon_control_number: contrôles existants
@@ -114,6 +114,7 @@ mon_graph_tcp_connection: Connexion TCP
 mon_graph_dns_resolution: Résolution DNS
 mon_graph_valid: Valide
 mon_graph_timeout: Timeout
+mon_graph_empty: Aucune donnée disponible pour cette période
 
 # Weather wordings
 mon_weather: Météo

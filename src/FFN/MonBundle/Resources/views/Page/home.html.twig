@@ -7,18 +7,6 @@
 
 <div class="container">
   {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
-  <div class="row">
-    {% if app.session.hasFlash('success_msg') %}
-      <div class="alert alert-success">
-        {{ app.session.flash('success_msg') }}
-      </div>
-    {% endif %}
-    {% if app.session.hasFlash('error_msg') %}
-      <div class="alert alert-error">
-        {{ app.session.flash('error_msg') }}
-      </div>
-    {% endif %}
-  </div>
   <div>
     <h1><small>{{ 'mon_project_my_projects' | trans({}, 'messages') | raw }}</small></h1>
   </div>

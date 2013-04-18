@@ -2,16 +2,6 @@
 {% block body %}
 <div class="container main_page top_50">
   <div class="row-fluid">
-  {% if app.session.hasFlash('success_msg') %}
-    <div class="alert alert-success">
-      {{ app.session.flash('success_msg') }}
-    </div>
-  {% endif %}
-  {% if app.session.hasFlash('error_msg') %}
-    <div class="alert alert-error">
-      {{ app.session.flash('error_msg') }}
-    </div>
-  {% endif %}
     <table class="table table-striped tablesorter" id="table_user_manage">
       <caption>{{ 'mon_user_list' | trans({}, 'messages') | raw }}</caption>
       <thead>

@@ -16,7 +16,7 @@
     %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
     {% endstylesheets %}
-        
+
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -25,25 +25,7 @@
 <body>
     {% block header %}
         {% include 'FFNMonBundle:Common:header_navbar.html.twig' %}
-    {% endblock %} 
-
-{# DEPRECATED #} 
-    {% if app.session.hasFlash('success_msg') %}
-      <div class="alert alert-success">
-      {{ app.session.flash('success_msg') }}
-      </div>
-    {% endif %}
-    {% if app.session.hasFlash('error_msg') %}
-      <div class="alert alert-error">
-      {{ app.session.flash('error_msg') }}
-      </div>
-    {% endif %}
-{# -------------------------------------------------------------------------- #}
-    {% for flashMessage in app.session.flashbag.get('error') %}
-        <div class="alert alert-error">
-            {{ flashMessage }}
-        </div>
-    {% endfor %}
+    {% endblock %}
 
     {% block body %}
     {% endblock %}
@@ -53,13 +35,13 @@
 
     {% block footer %}
         {% include 'FFNMonBundle:Common:footer.html.twig' %}
-    {% endblock %} 
-        
-    {% javascripts 
-        '@FFNMonBundle/Resources/public/js/jquery-1.8.3.js' 
-        '@FFNMonBundle/Resources/public/js/jquery.tablesorter.js' 
-        '@FFNMonBundle/Resources/public/js/bootstrap.js' 
-        '@FFNMonBundle/Resources/public/js/app.js' 
+    {% endblock %}
+
+    {% javascripts
+        '@FFNMonBundle/Resources/public/js/jquery-1.8.3.js'
+        '@FFNMonBundle/Resources/public/js/jquery.tablesorter.js'
+        '@FFNMonBundle/Resources/public/js/bootstrap.js'
+        '@FFNMonBundle/Resources/public/js/app.js'
             output='js/app.js'
             filter='yui_js' %}
         <script src="{{ asset_url}}"></script>

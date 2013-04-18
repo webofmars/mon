@@ -6,16 +6,6 @@
 <div class="container">
   {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
   <div class="row">
-    {% if app.session.hasFlash('success_msg') %}
-      <div class="alert alert-success">
-        {{ app.session.flash('success_msg') }}
-      </div>
-    {% endif %}
-      {% if app.session.hasFlash('error_msg') %}
-      <div class="alert alert-error">
-        {{ app.session.flash('error_msg') }}
-      </div>
-    {% endif %}
     <form class="form-signin" action="{{ path("mon_scenario_add", {'id': project.id}) }}" method="post">
       <h2 class="form-signin-heading">{{ 'mon_scenario_create'|trans({}, 'messages') }}</h2>
       {{ form_row(form.name) }}

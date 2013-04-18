@@ -86,15 +86,15 @@ class DefaultController extends Controller {
               $res->setSubscription($subscription);
               $em->persist($res);
               $em->flush();
-              $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_user_created'));
+              $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_user_created'));
             } else {
-              $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_user_no_created'));
+              $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_user_no_created'));
             }
           } else {
-            $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_mail_already_used'));
+            $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_mail_already_used'));
           }
         } else {
-          $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_user_already_exist'));
+          $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_user_already_exist'));
         }
       }
     }
@@ -118,9 +118,9 @@ class DefaultController extends Controller {
     // Control if deletion has worked
     $user = $em->getRepository('FFN\MonBundle\Entity\User')->findOneById($id);
     if ($user instanceof User) {
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_user_delete_failed'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_user_delete_failed'));
     } else {
-      $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_user_delete_user_confirmed'));
+      $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_user_delete_user_confirmed'));
     }
     return $this->redirect($this->generateUrl('mon_admin_user'));
   }
@@ -145,7 +145,7 @@ class DefaultController extends Controller {
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if (!($scenario instanceof ScenarioEntity)) {
       // scenario identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
     $project = $scenario->getProject();
@@ -171,10 +171,10 @@ class DefaultController extends Controller {
         $weather->setWeatherState(Weather::WEATHER_UNKNOWN);
         $em->persist($weather);
         $em->flush();
-        $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_control_creation_validated'));
+        $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_control_creation_validated'));
         return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $id)));
       } else {
-        $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
+        $this->get('session')->getFlashBag()->add('error', $form->getErrorsAsString());
       }
     }
     return $this->render('FFNMonBundle:Page:Control\control_add.html.twig', array(
@@ -194,7 +194,7 @@ class DefaultController extends Controller {
     $control = $em->getRepository('FFN\MonBundle\Entity\Control')->findOneById($id);
     if (!($control instanceof ControlEntity)) {
       // control identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_control_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_control_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
     // TODO : check that user can access to this control
@@ -209,10 +209,10 @@ class DefaultController extends Controller {
       if ($form->isValid()) {
         $em->persist($control);
         $em->flush();
-        $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_control_edition_validated'));
+        $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_control_edition_validated'));
         return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $scenario->getId())));
       } else {
-        $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_control_edition_failed'));
+        $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_control_edition_failed'));
       }
     }
     return $this->render('FFNMonBundle:Page:Control\control_edit.html.twig', array(
@@ -233,7 +233,7 @@ class DefaultController extends Controller {
     $control = $em->getRepository('FFN\MonBundle\Entity\Control')->findOneById($id);
     if (!($control instanceof ControlEntity)) {
       // control identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_control_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_control_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
     // TODO : check that user can access to this control
@@ -244,7 +244,7 @@ class DefaultController extends Controller {
     $em->remove($control);
     $em->flush();
     // scenario page redirection
-    $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_control_deletion_success'));
+    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_control_deletion_success'));
     return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $scenario->getId())));
   }
 
@@ -282,7 +282,7 @@ class DefaultController extends Controller {
     $project_entity = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     if (!($project_entity instanceof ProjectEntity)) {
       // project identifier unknow : redirect to home
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_project_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
@@ -325,10 +325,10 @@ class DefaultController extends Controller {
         $em->persist($weather);
         $em->flush();
         $id = $project->getId();
-        $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_project_creation_validated'));
+        $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_project_creation_validated'));
         return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
       } else {
-        $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
+        $this->get('session')->getFlashBag()->add('error', $form->getErrorsAsString());
       }
     }
     return $this->render('FFNMonBundle:Page:Project\project_add.html.twig', array(
@@ -345,7 +345,7 @@ class DefaultController extends Controller {
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     if (!($project instanceof ProjectEntity)) {
       // project identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_project_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
@@ -360,10 +360,10 @@ class DefaultController extends Controller {
         $em = $this->get('doctrine')->getManager();
         $em->persist($project);
         $em->flush();
-        $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_project_edition_validated'));
+        $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_project_edition_validated'));
         return $this->redirect($this->generateUrl('mon_project_home', array('id' => $id)));
       } else {
-        $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
+        $this->get('session')->getFlashBag()->add('error', $form->getErrorsAsString());
       }
     }
     return $this->render('FFNMonBundle:Page:Project\project_edit.html.twig', array(
@@ -382,7 +382,7 @@ class DefaultController extends Controller {
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     if (!($project instanceof ScenarioEntity)) {
       // project identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_project_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
@@ -391,7 +391,7 @@ class DefaultController extends Controller {
     $em->remove($project);
     $em->flush();
     // home page redirection
-    $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_project_deletion_success'));
+    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_project_deletion_success'));
     return $this->redirect($this->generateUrl('mon_home'));
   }
 
@@ -406,7 +406,7 @@ class DefaultController extends Controller {
     $scenario_entity = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if (!($scenario_entity instanceof ScenarioEntity)) {
       // scenario identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
@@ -445,7 +445,7 @@ class DefaultController extends Controller {
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
     if (!($project instanceof ProjectEntity)) {
       // project identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_project_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
 
@@ -469,10 +469,10 @@ class DefaultController extends Controller {
         $weather->setWeatherState(Weather::WEATHER_UNKNOWN);
         $em->persist($weather);
         $em->flush();
-        $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_scenario_creation_validated'));
+        $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_scenario_creation_validated'));
         return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $scenario->getId())));
       } else {
-        $this->get('session')->getFlashBag()->set('error', $form->getErrorsAsString());
+        $this->get('session')->getFlashBag()->add('error', $form->getErrorsAsString());
       }
     }
     return $this->render('FFNMonBundle:Page:Scenario\scenario_add.html.twig', array(
@@ -491,7 +491,7 @@ class DefaultController extends Controller {
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if (!($scenario instanceof ScenarioEntity)) {
       // scenario identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
     // TODO : check that user can access to this scenario
@@ -505,10 +505,10 @@ class DefaultController extends Controller {
       if ($form->isValid()) {
         $em->persist($scenario);
         $em->flush();
-        $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_scenario_edition_validated'));
+        $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_scenario_edition_validated'));
         return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $id)));
       } else {
-        $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_edition_failed'));
+        $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_scenario_edition_failed'));
       }
     }
     return $this->render('FFNMonBundle:Page:Scenario\scenario_edit.html.twig', array(
@@ -528,7 +528,7 @@ class DefaultController extends Controller {
     $scenario = $em->getRepository('FFN\MonBundle\Entity\Scenario')->findOneById($id);
     if (!($scenario instanceof ScenarioEntity)) {
       // scenario identifier unknow
-      $this->get('session')->getFlashBag()->set('error', $this->get('translator')->trans('mon_scenario_unknown'));
+      $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_scenario_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
     }
     // TODO : check that user can access to this scenario
@@ -539,7 +539,7 @@ class DefaultController extends Controller {
     $em->remove($scenario);
     $em->flush();
     // project page redirection
-    $this->get('session')->getFlashBag()->set('notice', $this->get('translator')->trans('mon_scenario_deletion_success'));
+    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_scenario_deletion_success'));
     return $this->redirect($this->generateUrl('mon_project_home', array('id' => $project->getId())));
   }
 

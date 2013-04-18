@@ -4,16 +4,11 @@
 
 {% block body %}
 <div class="container main_page top_50">
-  {% if app.session.hasFlash('success_msg') %}
-      <div class="alert alert-success">
-        {{ app.session.flash('success_msg') }}
-      </div>
-    {% endif %}
-      {% if app.session.hasFlash('error_msg') %}
-      <div class="alert alert-error">
-        {{ app.session.flash('error_msg') }}
-      </div>
-    {% endif %}
+
+  <div class="container">
+    {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
+  </div>
+
   <form class="form-signin" action="{{ path("mon_project_add") }}" method="post">
     <h2 class="form-signin-heading">{{ 'mon_project_create'|trans({}, 'messages') }}</h2>
     {{ form_row(form.name) }}
@@ -21,5 +16,6 @@
     <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
     {{ form_rest(form) }}
   </form>
+
 </div> <!-- /container -->
 {% endblock %}
