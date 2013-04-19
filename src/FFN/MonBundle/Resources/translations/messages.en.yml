@@ -17,6 +17,8 @@ mon_identifier: Id
 mon_name: Name
 mon_actions: Actions
 mon_options: Options
+mon_no: No
+mon_yes: Yes
 
 # Admin wordings
 mon_menu_admin: Administration
@@ -58,6 +60,7 @@ mon_project_edit: Edit project
 mon_project_edition_failed: Project modification failed
 mon_project_edition_validated: Project modification succeeded
 mon_project_delete: Delete project
+mon_project_deletion_confirm: Do you confirm the deletion of this project ?
 mon_project_deletion_failed: Project deletion failed
 mon_project_deletion_validated: Project deletion succeeded
 
@@ -79,6 +82,7 @@ mon_scenario_edit: Modify scenario
 mon_scenario_edition_failed: Scenario modification failed
 mon_scenario_edition_validated: Scenario modification succeeded
 mon_scenario_delete: Delete scenario
+mon_scenario_deletion_confirm: Do you confirm the deletion of this scenario ?
 mon_scenario_deletion_failed: Scenario deletion failed
 mon_scenario_deletion_validated: Scenario deletion succeeded
 
@@ -99,6 +103,7 @@ mon_control_edit: Modify control
 mon_control_edition_failed: Control modification failed
 mon_control_edition_validated: Control modification succeeded
 mon_control_delete: Delete control
+mon_control_deletion_confirm: Do you confirm the deletion of this control ?
 mon_control_deletion_failed: Control deletion failed
 mon_control_deletion_validated: Control deletion succeeded
 mon_control_add_header: Add header

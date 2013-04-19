@@ -264,7 +264,7 @@ class DefaultController extends Controller {
     $em->flush();
 
     // scenario page redirection
-    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_control_deletion_success'));
+    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_control_deletion_validated'));
     return $this->redirect($this->generateUrl('mon_scenario_home', array('id' => $scenario->getId())));
   }
 
@@ -409,7 +409,7 @@ class DefaultController extends Controller {
     $em = $this->get('doctrine')->getManager();
 
     $project = $em->getRepository('FFN\MonBundle\Entity\Project')->findOneById($id);
-    if (!($project instanceof ScenarioEntity)) {
+    if (!($project instanceof ProjectEntity)) {
       // project identifier unknow
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_unknown'));
       return $this->redirect($this->generateUrl('mon_home'));
@@ -425,7 +425,7 @@ class DefaultController extends Controller {
     $em->remove($project);
     $em->flush();
     // home page redirection
-    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_project_deletion_success'));
+    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_project_deletion_validated'));
     return $this->redirect($this->generateUrl('mon_home'));
   }
 
@@ -592,7 +592,7 @@ class DefaultController extends Controller {
     $em->remove($scenario);
     $em->flush();
     // project page redirection
-    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_scenario_deletion_success'));
+    $this->get('session')->getFlashBag()->add('notice', $this->get('translator')->trans('mon_scenario_deletion_validated'));
     return $this->redirect($this->generateUrl('mon_project_home', array('id' => $project->getId())));
   }
 

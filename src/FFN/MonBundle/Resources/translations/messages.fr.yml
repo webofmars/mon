@@ -17,6 +17,8 @@ mon_identifier: Id
 mon_name: Nom
 mon_actions: Actions
 mon_options: Options
+mon_no: Non
+mon_yes: Oui
 
 # Admin wordings
 mon_menu_admin: Administration
@@ -58,6 +60,7 @@ mon_project_edit: Modifier le projet
 mon_project_edition_failed: Modification du projet échouée
 mon_project_edition_validated: Modification du projet effectuée
 mon_project_delete: Supprimer le projet
+mon_project_deletion_confirm: Etes-vous certain de vouloir supprimer le projet ?
 mon_project_deletion_failed: Suppression du projet échouée
 mon_project_deletion_validated: Suppression du projet effectuée
 
@@ -79,6 +82,7 @@ mon_scenario_edit: Modifier le scénario
 mon_scenario_edition_failed: Modification du scénario échouée
 mon_scenario_edition_validated: Modification du scénario effectuée
 mon_scenario_delete: Supprimer le scénario
+mon_scenario_deletion_confirm: Etes-vous certain de vouloir supprimer le scénario ?
 mon_scenario_deletion_failed: Suppression du scénario échouée
 mon_scenario_deletion_validated: Suppression du scénario effectuée
 
@@ -99,6 +103,7 @@ mon_control_edit: Modifier le contrôle
 mon_control_edition_failed: Modification du contrôle échouée
 mon_control_edition_validated: Modification du contrôle effectuée
 mon_control_delete: Supprimer le contrôle
+mon_control_deletion_confirm: Etes-vous certain de vouloir supprimer le contrôle ?
 mon_control_deletion_failed: Suppression du contrôle échouée
 mon_control_deletion_validated: Suppression du contrôle effectuée
 mon_control_add_header: Ajouter un header

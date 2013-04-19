@@ -61,7 +61,7 @@
                   <ul class="dropdown-menu">
                     <li><a href="{{path('mon_control_add', { 'id': scenario.getIdScenario })}}">{{ 'mon_control_create' | trans({}, 'messages') | raw }}</a></li>
                     <li><a href="{{path('mon_scenario_edit', { 'id': scenario.getIdScenario })}}">{{ 'mon_scenario_edit' | trans({}, 'messages') | raw }}</a></li>
-                    <li><a href="{{path('mon_scenario_delete', { 'id': scenario.getIdScenario })}}">{{ 'mon_scenario_delete' | trans({}, 'messages') | raw }}</a></li>
+                    <li><a onclick="showConfirmDelete('{{path('mon_scenario_delete', { 'id': scenario.getIdScenario })}}');">{{ 'mon_scenario_delete' | trans() | raw()}}</a></li>
                   </ul>
                 </div>
               </div>
@@ -125,5 +125,18 @@
     {% endfor %}
   </div> <!-- /container -->
 {% endif %}
+
+<!-- Validation of scenario deletion -->
+<div id="myModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>{{ 'mon_scenario_deletion_confirm' | trans({}, 'messages') | raw }}</h3>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#myModal').modal('hide');">{{ 'mon_no' | trans({}, 'messages') | raw }}</a>
+    <a href="{{path("mon_home")}}" id="button_submit_cancel" class="btn btn-primary">{{ 'mon_yes' | trans({}, 'messages') | raw }}</a>
+  </div>
+</div>
+<!-- / Validation of scenario deletion -->
 
 {% endblock %}

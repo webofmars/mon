@@ -3,19 +3,22 @@
 {% set section = 'project_add' %}
 
 {% block body %}
-<div class="container main_page top_50">
-
-  <div class="container">
-    {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
+<div class="container">
+  {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
+  <div class="row">
+    <div class="container-fluid">
+      <form class="form-signin" action="{{ path("mon_project_add") }}" method="post">
+        <div class="row-fluid"><h2 class="form-signin-heading">{{ 'mon_project_create'|trans({}, 'messages') }}</h2></div>
+        <div class="row-fluid">{{ form_row(form.name) }}</div>
+        <div class="row-fluid">{{ form_row(form.description) }}</div>
+        <br/><br/>
+        <div class="row-fluid pagination-centered">
+          <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
+          <a class="btn btn-large" href="{{ path("mon_home") }}">{{ 'mon_cancel'|trans({}, 'messages') }}</a>
+        </div>
+        {{ form_rest(form) }}
+      </form>
+    </div>
   </div>
-
-  <form class="form-signin" action="{{ path("mon_project_add") }}" method="post">
-    <h2 class="form-signin-heading">{{ 'mon_project_create'|trans({}, 'messages') }}</h2>
-    {{ form_row(form.name) }}
-    {{ form_row(form.description) }}
-    <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
-    {{ form_rest(form) }}
-  </form>
-
-</div> <!-- /container -->
+</div>
 {% endblock %}

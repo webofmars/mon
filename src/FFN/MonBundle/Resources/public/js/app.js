@@ -8,7 +8,7 @@ function manageUserActivation(button, user_id){
   action = '/app_dev.php/admin/user/active/'+user_id+'/'+statut;
   $.ajax({
     url: action,
-    cache: false, 
+    cache: false,
     success: function(html){
       if(button.attr('class') == "alertRight on"){
         button.removeClass('on');
@@ -17,7 +17,7 @@ function manageUserActivation(button, user_id){
         button.removeClass('off');
         button.addClass('on');
       }
-    }, 
+    },
     error: function(XMLHttpRequest, textStatus, errorThrown){
       alert(textStatus)
     }
@@ -46,28 +46,34 @@ function add_control_header(container) {
 }
 
 // On définit une fonction qui va ajouter un champ
-  function add_validator(container) {
-    // On définit le numéro du champ (en comptant le nombre de champs déjà ajoutés)
-    index = container.children().length;
+function add_validator(container) {
+  // On définit le numéro du champ (en comptant le nombre de champs déjà ajoutés)
+  index = container.children().length;
 
-    // On ajoute à la fin de la balise <div> le contenu de l'attribut « data-prototype »
-    // Après avoir remplacé la variable __name__ qu'il contient par le numéro du champ
-    container.append($(container.attr('data-prototype').replace(/__name__/g, index)));
+  // On ajoute à la fin de la balise <div> le contenu de l'attribut « data-prototype »
+  // Après avoir remplacé la variable __name__ qu'il contient par le numéro du champ
+  container.append($(container.attr('data-prototype').replace(/__name__/g, index)));
 
-    // On ajoute également un bouton pour pouvoir supprimer la catégorie
-    container.append($('<a href="#" id="delete_validator_' + index + '" class="btn btn-danger">Supprimer</a><br /><br />'));
+  // On ajoute également un bouton pour pouvoir supprimer la catégorie
+  container.append($('<a href="#" id="delete_validator_' + index + '" class="btn btn-danger">Supprimer</a><br /><br />'));
 
-    // On supprime le champ à chaque clic sur le lien de suppression
-    $('#delete_validator_' + index).click(function() {
-      $(this).prev().remove();  // $(this).prev() est le template ajouté
-      $(this).remove();         // $(this) est le lien de suppression
-      return false;
-    });
-  }
+  // On supprime le champ à chaque clic sur le lien de suppression
+  $('#delete_validator_' + index).click(function() {
+    $(this).prev().remove();  // $(this).prev() est le template ajouté
+    $(this).remove();         // $(this) est le lien de suppression
+    return false;
+  });
+}
 
 function showConfirmDeleteUser(route, wording){
   $('#button_submit_cancel_user').attr('href', route);
   $('#p_username_to_delete').append(wording);
+  $('#myModal').modal('show');
+}
+
+function showConfirmDelete(route, wording){
+  $('#button_submit_cancel').attr('href', route);
+  $('#p_name_to_delete').append(wording);
   $('#myModal').modal('show');
 }
 
@@ -78,7 +84,7 @@ $(function() {
   var $container_controlHeader = $('#control_controlHeaders');
   var $container_validator = $('#control_validators');
 
-  
+
 
   // On ajoute un premier champ directement s'il n'en existe pas déjà un (cas d'un nouvel article par exemple)
   if($container_controlHeader.children().length == 0) {
@@ -93,7 +99,7 @@ $(function() {
     add_control_header($container_controlHeader);
     return false;
   });
-  
+
   $('#add_validator').click(function() {
     add_validator($container_validator);
     return false;

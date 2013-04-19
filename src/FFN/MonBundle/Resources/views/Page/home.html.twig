@@ -54,9 +54,18 @@
                 <span class="imgUnknown"></span>
               {% endif %}
             </div>
-            <div class="pagination-centered">
-              <a class="btn" href="{{path('mon_project_home', { 'id': project.getIdProject })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
-              <a class="btn" href="{{path('mon_project_edit', { 'id': project.getIdProject })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a>
+            <div class="pagination-centered"> <!-- boutons -->
+              <div class="btn-toolbar">
+                <a class="btn" href="{{path('mon_project_home', { 'id': project.getIdProject })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+                <div class="btn-group">
+                  <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="{{path('mon_scenario_add', { 'id': project.getIdProject })}}">{{ 'mon_scenario_create' | trans({}, 'messages') | raw }}</a></li>
+                    <li><a href="{{path('mon_project_edit', { 'id': project.getIdProject })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a></li>
+                    <li><a onclick="showConfirmDelete('{{path('mon_project_delete', { 'id': project.getIdProject })}}');">{{ 'mon_project_delete' | trans() | raw()}}</a></li>
+                  </ul>
+                </div>
+              </div>
             </div>
             <br/>
             {% if nb_scenarios > 0 %}
@@ -118,5 +127,18 @@
 
   </div> <!-- /container -->
 {% endif %}
+
+<!-- Validation of project deletion -->
+<div id="myModal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>{{ 'mon_project_deletion_confirm' | trans({}, 'messages') | raw }}</h3>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onclick="$('#myModal').modal('hide');">{{ 'mon_no' | trans({}, 'messages') | raw }}</a>
+    <a href="{{path("mon_home")}}" id="button_submit_cancel" class="btn btn-primary">{{ 'mon_yes' | trans({}, 'messages') | raw }}</a>
+  </div>
+</div>
+<!-- / Validation of project deletion -->
 
 {% endblock %}

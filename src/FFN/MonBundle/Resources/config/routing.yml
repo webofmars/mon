@@ -53,11 +53,11 @@ mon_graph_simple:
     _controller: FFNMonBundle:Graph:show
   requirements:
     _locale: en|fr
-    control_id: \d+  
+    control_id: \d+
 
 mon_admin_user_add:
     pattern:  /{_locale}/admin/user/add
-    defaults: 
+    defaults:
       _controller: FFNMonBundle:Default:adminUserAdd
       _locale: %locale%
     requirements:
@@ -113,6 +113,13 @@ mon_project_edit:
     defaults: { _controller: FFNMonBundle:Default:projectEdit }
     requirements:
         _method: GET|POST
+
+mon_project_delete:
+    pattern: /project/delete/{id}
+    defaults: { _controller: FFNMonBundle:Default:projectDelete }
+    requirements:
+        _method: GET
+        id: \d+
 
 mon_scenario_add:
     pattern: /scenario/add/{id}
