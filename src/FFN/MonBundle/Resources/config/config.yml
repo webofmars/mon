@@ -1,7 +1,0 @@
-fos_user:
-    db_driver: orm
-    firewall_name: main
-    user_class: FFN\MonBundle\Entity\User
-    registration:
-        confirmation:
-            enabled:    true

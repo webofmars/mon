@@ -54,6 +54,16 @@ doctrine:
         auto_generate_proxy_classes: true
         auto_mapping: true
 
+# Fos UserBundle
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: FFN\MonBundle\Entity\User
+    registration:
+        confirmation:
+            enabled:    true
+
+# Lunetics locale detection
 lunetics_locale:
   allowed_locales:
     - fr

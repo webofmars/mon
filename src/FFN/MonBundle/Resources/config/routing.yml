@@ -55,10 +55,11 @@ mon_graph_simple:
     _locale: en|fr
     control_id: \d+
 
+# Users
 mon_admin_user_add:
     pattern:  /{_locale}/admin/user/add
     defaults:
-      _controller: FFNMonBundle:Default:adminUserAdd
+      _controller: FFNMonBundle:User:adminUserAdd
       _locale: %locale%
     requirements:
         _method: GET|POST
@@ -66,7 +67,7 @@ mon_admin_user_add:
 
 mon_admin_user_activation:
     pattern: /{_locale}/admin/user/active/{id}/{statut}
-    defaults: { _controller: FFNMonBundle:Default:adminUserActivation }
+    defaults: { _controller: FFNMonBundle:User:adminUserActivation }
     requirements:
         _method: GET|POST
         _locale: en|fr
@@ -74,14 +75,14 @@ mon_admin_user_activation:
 
 mon_admin_user_delete:
     pattern:  /{_locale}/admin/user/delete/{id}
-    defaults: { _controller: FFNMonBundle:Default:adminUserDelete }
+    defaults: { _controller: FFNMonBundle:User:adminUserDelete }
     requirements:
         _method: GET
         id: \d+
 
 mon_admin_user_edit:
     pattern:  /{_locale}/admin/user/{id}
-    defaults: { _controller: FFNMonBundle:Default:adminUserEdit }
+    defaults: { _controller: FFNMonBundle:User:adminUserEdit }
     requirements:
         _method: GET
         _locale: en|fr
@@ -89,11 +90,12 @@ mon_admin_user_edit:
 
 mon_admin_user:
     pattern:  /{_locale}/admin/user
-    defaults: { _controller: FFNMonBundle:Default:adminUser }
+    defaults: { _controller: FFNMonBundle:User:adminUser }
     requirements:
         _method: GET
         _locale: en|fr
 
+# Projects
 mon_project_add:
     pattern: /project/add
     defaults: { _controller: FFNMonBundle:Default:projectAdd }
