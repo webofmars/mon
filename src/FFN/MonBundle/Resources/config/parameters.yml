@@ -9,7 +9,10 @@ parameters:
   weather_average_score: 1100
   weather_poor_score: 1050
   weather_bad_score: 0150
-
+  nb_projects: 4
+  nb_scenarii: 1
+  nb_controls: 3
+  nb_users: 3
 
 twig:
   globals:
@@ -19,4 +22,3 @@ twig:
     max_scenario_name_title_length: 27
     max_control_name_list_length: 39
     max_control_name_title_length: 27
-

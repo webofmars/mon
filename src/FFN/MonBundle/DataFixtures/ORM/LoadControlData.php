@@ -34,7 +34,7 @@ class LoadControlData extends AbstractFixture implements OrderedFixtureInterface
     // Get how many things to create
     $nbUsers = $this->container->getParameter('nb_users', 1);
     $nbProjects = $this->container->getParameter('nb_projects', 1);
-    $nbScenarios = $this->container->getParameter('nb_scenarios', 1);
+    $nbScenarios = $this->container->getParameter('nb_scenarii', 1);
     $nbControls = $this->container->getParameter('nb_controls', 1);
 
     $urls = array(

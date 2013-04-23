@@ -128,3 +128,6 @@ mon_weather: Météo
 # FAQ wordings
 mon_faq_long: Foire Aux Questions
 mon_faq: FAQ
+
+# Custom FOS Userbundle template
+layout.fos_title: Mon S&eactute;curit&eactute;

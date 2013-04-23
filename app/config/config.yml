@@ -3,6 +3,7 @@ imports:
     - { resource: security.yml }
     - { resource: "@FFNMonBundle/Resources/config/config.yml" }
     - { resource: "@FFNMonBundle/Resources/config/parameters.yml" }
+    - { resource: "@FFNUserBundle/Resources/config/parameters.yml" }
 
 framework:
     #esi:             ~
@@ -54,16 +55,28 @@ doctrine:
         auto_generate_proxy_classes: true
         auto_mapping: true
 
-# Fos UserBundle
+# Swiftmailer Configuration
+swiftmailer:
+    transport: %mailer_transport%
+    host:      %mailer_host%
+    username:  %mailer_user%
+    password:  %mailer_password%
+    delivery_address: %mailer_delivery_address%
+    spool:     { type: memory }
+
+# FOSUserBundle
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: FFN\MonBundle\Entity\User
+    user_class: FFN\UserBundle\Entity\User
     registration:
         confirmation:
             enabled:    true
-
-# Lunetics locale detection
+    from_email:
+        address:        webofmars@gmail.com
+        sender_name:    WoM User Administrator (do not reply)
+            
+# Lunetics Locale Switcher
 lunetics_locale:
   allowed_locales:
     - fr
@@ -75,5 +88,4 @@ lunetics_locale:
     template: FFNMonBundle::localeSwitcher.html.twig
     show_current_locale: false
   cookie:
-    set_on_change: true
-    
+    set_on_change: true    

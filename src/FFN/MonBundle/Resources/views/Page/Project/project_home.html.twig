@@ -1,7 +1,7 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
 {% set section = 'project' %}
-{% set nb_scenarios = scenarios|length %}
+{% set nb_scenarii = scenarios|length %}
 
 {% block body %}
 
@@ -18,7 +18,7 @@
   </div>
 </div>
 
-{% if nb_scenarios > 0 %}
+{% if nb_scenarii > 0 %}
   <div class="container">
     {% set nb_current_line = 0 %}
     {% for scenario in scenarios %}

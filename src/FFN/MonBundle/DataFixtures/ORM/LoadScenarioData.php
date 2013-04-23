@@ -34,7 +34,7 @@ class LoadScenarioData extends AbstractFixture implements OrderedFixtureInterfac
     // Get how many things to create
     $nbUsers = $this->container->getParameter('nb_users', 1);
     $nbProjects = $this->container->getParameter('nb_projects', 1);
-    $nbScenarios = $this->container->getParameter('nb_scenarios', 1);
+    $nbScenarios = $this->container->getParameter('nb_scenarii', 1);
 
     // Creation of several scenarios
     for ($i = 1; $i <= $nbUsers; $i++) {
@@ -43,7 +43,7 @@ class LoadScenarioData extends AbstractFixture implements OrderedFixtureInterfac
           $sc = new scenario();
           $sc->setDateCreation(new DateTime());
           $sc->setEnabled(true);
-          $sc->setName('FFN_fixt_scn_' . $k . '_'.$i . '_'.$j);
+          $sc->setName('FFN_fixt_scn_' . $i . '_'.$j . '_'.$k);
           $sc->setFrequency(rand(5, 30));
           $sc->setProject($om->merge($this->getReference('prj_' . $i . '_' . $j)));
           $om->persist($sc);

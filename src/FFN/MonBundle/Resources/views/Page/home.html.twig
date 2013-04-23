@@ -33,7 +33,7 @@
         <div class="row-fluid"> <!-- ligne de 3 projets -->
       {% endif %}
       {% set nb_current_line = nb_current_line + 1 %}
-      {% set nb_scenarios = project.getScenarios|length %}
+      {% set nb_scenarii = project.getScenarios|length %}
           <div class="span4 blue-outline projectdiv">
             <div class="pagination-centered">
               <h3>{{project.getProjectEntity.name}}</h2>
@@ -68,7 +68,7 @@
               </div>
             </div>
             <br/>
-            {% if nb_scenarios > 0 %}
+            {% if nb_scenarii > 0 %}
               {% set count = 0 %}
               {% for scenario in project.getScenarios %}
                 {% if (count < nb_max_list) %}
@@ -108,10 +108,10 @@
                 {% endif %}
               {% endfor %}
               <p class="pagination-centered">
-                {% if nb_scenarios == 1 %}
+                {% if nb_scenarii == 1 %}
                   <em>{{ 'mon_scenario_alone' | trans({}, 'messages') | raw }}</em>
                 {% else %}
-                  <em>{{ nb_scenarios }} {{ 'mon_scenario_number' | trans({}, 'messages') | raw }}</em>
+                  <em>{{ nb_scenarii }} {{ 'mon_scenario_number' | trans({}, 'messages') | raw }}</em>
                 {% endif %}
               </p>
             {% else %}

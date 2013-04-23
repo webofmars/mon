@@ -5,7 +5,7 @@ namespace FFN\MonBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use FFN\MonBundle\Entity\User;
+use FFN\UserBundle\Entity\User;
 use FFN\MonBundle\Entity\Scenario;
 
 /**
@@ -60,7 +60,7 @@ class Project
     protected $scenarios;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="projects", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="FFN\UserBundle\Entity\User", inversedBy="projects", cascade={"persist"})
      */
     protected $user;
 
@@ -187,10 +187,10 @@ class Project
     /**
      * Set user
      *
-     * @param \FFN\MonBundle\Entity\User $user
+     * @param \FFN\UserBundle\Entity\User $user
      * @return Project
      */
-    public function setUser(\FFN\MonBundle\Entity\User $user = null)
+    public function setUser(\FFN\UserBundle\Entity\User $user = null)
     {
         $this->user = $user;
 
@@ -200,7 +200,7 @@ class Project
     /**
      * Get user
      *
-     * @return \FFN\MonBundle\Entity\User
+     * @return \FFN\UserBundle\Entity\User
      */
     public function getUser()
     {
