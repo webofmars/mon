@@ -131,3 +131,5 @@ mon_faq: FAQ
 
 # Custom FOS Userbundle template
 layout.fos_title: Mon Security
+mon_already_member: Already a member ?
+mon_not_yet_member: Or signup today for free !

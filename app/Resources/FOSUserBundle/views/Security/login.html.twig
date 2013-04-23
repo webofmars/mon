@@ -1,41 +1,60 @@
 {% extends "FOSUserBundle::layout.html.twig" %}
 
-{% block fos_user_content %}
-{% if error %}
-    <div>{{ error|trans({}, 'FOSUserBundle') }}</div>
-{% endif %}
+{% block body %}
+<div class="row-fluid">
+    <table>
+    <tr>
+        <td valign="top" cellspacing="10">
+            <div class="text-info">
+                <h1>{{ 'mon_already_member' | trans({}, 'messages') }}</h1>
+            </div>
+            {% block fos_user_content %}
+                {% if error %}
+                        <div>{{ error |trans({}, 'FOSUserBundle') }}</div>
+                {% endif %}
+                <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
+                    <div class="control-group">
+                        <label class="control-label" for="username"><i class="icon-user">&nbsp;</i>&nbsp;{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+                        <div class="controls">
+                            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Username" />
+                        </div>
+                    </div>
 
-  
-<form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-    
-    <div class="control-group">
-        <label class="control-label" for="username"><i class="icon-user">&nbsp;</i>&nbsp;{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-        <div class="controls">
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Username" />
-        </div>
-    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="password"><i class="icon-lock">&nbsp;</i>&nbsp;{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+                        <div class="controls">
+                            <input type="password" id="password" name="_password" required="required" placeholder="Password" />
+                        </div>
+                    </div>
 
-    <div class="control-group">
-        <label class="control-label" for="password"><i class="icon-lock">&nbsp;</i>&nbsp;{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-        <div class="controls">
-            <input type="password" id="password" name="_password" required="required" placeholder="Password" />
-        </div>
-    </div>
+                    <div class="control-group">
+                        <div class="controls">
+                            <label for="remember_me">
+                                <input type="checkbox" id="remember_me" name="_remember_me" value="on"> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                            </label>
+                        </div>
+                    </div>
 
-    <div class="control-group">
-        <div class="controls">
-            <label for="remember_me">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on"> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-            </label>
-        </div>
-    </div>
-    
-    <div class="control-group">
-        <div class="controls">
-            <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
-        </div>
-    </div>
-</form>
-{% endblock fos_user_content %}
+                    <div class="control-group">
+                        <div class="controls">
+                            <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+                        </div>
+                    </div>
+                </form>
+            {% endblock fos_user_content %}
+        </td>
+        <td valign="top" cellspacing="10">
+            &nbsp;<div style="border-left:1px solid #000;height:500px"></div>&nbsp;
+        </td>
+        <td valign="top" cellspacing="10">
+            <div class="text-info" >
+                <h1>{{ 'mon_not_yet_member'   | trans({}, 'messages') }}</h1>
+                <a href="{{ path('fos_user_registration_register') }}">{{ 'mon_register' | trans({}, 'messages') }}</a>
+            </div>
+        </td>
+    </tr>
+    </table>
+</div>
+{% endblock body %}
