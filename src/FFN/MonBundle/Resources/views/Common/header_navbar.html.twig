@@ -31,6 +31,13 @@
                       <li class="divider"></li>
                       <li><a href="{{path('mon_control_add', {'id': scenario.getIdScenario, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>
                     {% endif %}
+                    {% if control is defined %}
+                      {% if control.id is defined %}
+                        <li><a href="{{path('mon_control_edit', {'id': control.id,'_locale': app.request.get('_locale') })}}">{{'mon_control_edit'| trans({}, 'messages') | raw }}</a></li>
+                      {% elseif control.getIdControl is defined %}
+                        <li><a href="{{path('mon_control_edit', {'id': control.getIdControl,'_locale': app.request.get('_locale') })}}">{{'mon_control_edit'| trans({}, 'messages') | raw }}</a></li>
+                      {% endif %}
+                    {% endif %}
                   {% endif %}
                 {% endif %}
               </ul>

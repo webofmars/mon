@@ -17,6 +17,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class GraphController extends Controller {
 
   public function showAction($control_id, $startTs = null, $stopTs = null) {
+
     $em = $this->get('doctrine')->getManager();
 
     // get related control/scenario/project entities for breadcrumb
@@ -87,4 +88,5 @@ class GraphController extends Controller {
     }
     return true;
   }
+
 }
