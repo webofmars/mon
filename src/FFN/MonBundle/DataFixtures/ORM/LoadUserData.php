@@ -42,11 +42,13 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setUsername('admin');
         $user->setEmail('dev@null.cz');
         $user->setPlainPassword('JABE6mA3JUw7BSvQPCfG');
+        $user->setRoles(array($user::ROLE_SUPER_ADMIN));
       } else {
         // other user
         $user->setUsername('user_' . $i);
         $user->setEmail('user_' . $i . '@null.cz');
         $user->setPlainPassword('user_' . $i);
+        $user->setRoles(array($user::ROLE_DEFAULT));
       }
       $user->setEnabled(true);
       $user->setLocked(false);
