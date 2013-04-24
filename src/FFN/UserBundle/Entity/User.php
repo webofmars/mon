@@ -93,7 +93,8 @@ class User extends BaseUser {
 
     public function __construct() {
         parent::__construct();
-        $this->subscription = 1;
+        // TODO: this is to be fixed by model switch
+        $this->subscription = NULL;
         $this->projects = new ArrayCollection();
     }
 
