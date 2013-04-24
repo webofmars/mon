@@ -11,7 +11,7 @@ use FFN\UserBundle\Entity\User;
  * @author Frederic Leger <leger.frederic@gmail.com>
  */
 class UserController extends Controller {
-    
+
   /**
    * Display admin page (existing users list)
    */
@@ -124,5 +124,5 @@ class UserController extends Controller {
     return $this->render('FFNMonBundle:Page:home.html.twig', array(
             ));
   }
-    
+
 }
