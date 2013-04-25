@@ -1,16 +1,21 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
+
 {% block body %}
-<div class="row">
+
+<div class="container">
+  <div class="row-fluid">
     <div class="span12 page-header">
-        <h1>{{ "mon_contact" | trans({}, 'messages') | raw }}</h1>
+      <h1>{{ "mon_contact" | trans({}, 'messages') | raw }}</h1>
     </div>
     <div class="span4">
-        <p>Différents moyens:
-        <ul>
-            <li>Téléphone : <a href="callto:0033607365572">06.07.36.55.72</a> (de 8h à 20h GMT+1)</li>
-            <li>Par mail : <a href="mailto:contact@mon.it">contact@mon.it</a></li>
-            <li>Sur irc : <a href="irc.freenode.net">#mon.it sur freenode.net</a></li>
-        </ul>
+      <p>Différents moyens:
+      <ul>
+        <li>Téléphone : <a href="callto:0033607365572">06.07.36.55.72</a> (de 8h à 20h GMT+1)</li>
+        <li>Par mail : <a href="mailto:contact@mon.it">contact@mon.it</a></li>
+        <li>Sur irc : <a href="irc.freenode.net">#mon.it sur freenode.net</a></li>
+      </ul>
     </div>
+  </div>
 </div>
+
 {% endblock %}
