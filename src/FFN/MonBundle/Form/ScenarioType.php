@@ -23,7 +23,7 @@ class ScenarioType extends AbstractType{
     //parent::buildForm($builder, $options);
     $builder
       ->add('name', 'text', array('label' => $this->getTranslator()->trans('mon_scenario_name')))
-      ->add('frequency', 'text', array('label' => $this->getTranslator()->trans('mon_scenario_frequency')))
+      ->add('frequency', 'integer', array('label' => $this->getTranslator()->trans('mon_scenario_frequency'), 'data' => 30))
       ->add('enabled', 'checkbox', array('label' => $this->getTranslator()->trans('mon_scenario_enabled')))
     ;
   }
