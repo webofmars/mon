@@ -5,6 +5,7 @@ mon_contact: How to contact Mon ?
 mon_home: Home
 mon_login: Login
 mon_logout: Logout
+mon_edit_profile: Profile
 mon_mail: Email
 mon_mail_already_used: Mail already used
 mon_password: Password
