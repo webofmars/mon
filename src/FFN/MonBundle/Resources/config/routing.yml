@@ -98,76 +98,76 @@ mon_admin_user:
 # Projects
 mon_project_add:
     pattern: /project/add
-    defaults: { _controller: FFNMonBundle:Default:projectAdd }
+    defaults: { _controller: FFNMonBundle:Project:projectAdd }
     requirements:
         _method: GET|POST
         _locale: en|fr
 
 mon_project_home:
     pattern: /project/{id}
-    defaults: { _controller: FFNMonBundle:Default:project }
+    defaults: { _controller: FFNMonBundle:Project:project }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_project_edit:
     pattern: /project/edit/{id}
-    defaults: { _controller: FFNMonBundle:Default:projectEdit }
+    defaults: { _controller: FFNMonBundle:Project:projectEdit }
     requirements:
         _method: GET|POST
 
 mon_project_delete:
     pattern: /project/delete/{id}
-    defaults: { _controller: FFNMonBundle:Default:projectDelete }
+    defaults: { _controller: FFNMonBundle:Project:projectDelete }
     requirements:
         _method: GET
         id: \d+
 
 mon_scenario_add:
     pattern: /scenario/add/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenarioAdd }
+    defaults: { _controller: FFNMonBundle:Scenario:scenarioAdd }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_scenario_home:
     pattern: /scenario/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenario }
+    defaults: { _controller: FFNMonBundle:Scenario:scenario }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_scenario_edit:
     pattern: /scenario/edit/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenarioEdit }
+    defaults: { _controller: FFNMonBundle:Scenario:scenarioEdit }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_scenario_delete:
     pattern: /scenario/delete/{id}
-    defaults: { _controller: FFNMonBundle:Default:scenarioDelete }
+    defaults: { _controller: FFNMonBundle:Scenario:scenarioDelete }
     requirements:
         _method: GET
         id: \d+
 
 mon_control_add:
     pattern: /control/add/{id}
-    defaults: { _controller: FFNMonBundle:Default:controlAdd }
+    defaults: { _controller: FFNMonBundle:Control:controlAdd }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_control_edit:
     pattern: /control/edit/{id}
-    defaults: { _controller: FFNMonBundle:Default:controlEdit }
+    defaults: { _controller: FFNMonBundle:Control:controlEdit }
     requirements:
         _method: GET|POST
         id: \d+
 
 mon_control_delete:
     pattern: /control/delete/{id}
-    defaults: { _controller: FFNMonBundle:Default:controlDelete }
+    defaults: { _controller: FFNMonBundle:Control:controlDelete }
     requirements:
         _method: GET|POST
         id: \d+

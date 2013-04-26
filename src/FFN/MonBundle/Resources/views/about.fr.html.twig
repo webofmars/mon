@@ -1,19 +1,24 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
+
 {% block body %}
-<div class="row">
-  <div class="span12 page-header">
-    <h1>{{ "mon_about" | trans({}, 'messages') | raw }}</h1>
-  </div>
-      <div class="span4">
-        <p>MON est un projet de monitoring externe. Il existe en 4 modes :
-        <ol>
-            <li>Online (ce site)</li>
-            <li>Externalisé et privé dans notre infrastructure</li>
-            <li>Solution logicielle gérée par vos équipes</li>
-            <li>Appliance type "boite noire"</li>
-        </ol>
+
+<div class="container">
+  <div class="row-fluid">
+    <div class="span12 page-header">
+      <h1>{{ "mon_about" | trans({}, 'messages') | raw }}</h1>
+    </div>
+    <div class="span4">
+      <p>MON est un projet de monitoring externe. Il existe en 4 modes :
+      <ol>
+        <li>Online (ce site)</li>
+        <li>Externalisé et privé dans notre infrastructure</li>
+        <li>Solution logicielle gérée par vos équipes</li>
+        <li>Appliance type "boite noire"</li>
+      </ol>
       </p>
-      <p>Pour toute demande de tarif <a href={{ path('mon_contact') }}>nous contatcter</a>.</p>
-        </div>
+      <p>Pour toute demande de tarif <a href={{ path('mon_contact') }}>nous contacter</a>.</p>
+    </div>
+  </div>
 </div>
+
 {% endblock %}
