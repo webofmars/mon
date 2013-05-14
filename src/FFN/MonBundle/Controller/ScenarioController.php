@@ -93,8 +93,6 @@ class ScenarioController extends DefaultController {
       if ($form->isValid()) {
         $em = $this->get('doctrine')->getManager();
         $scenario->setDateCreation(new \DateTime());
-        $scenario->setEnabled(false);
-        $scenario->setFrequency(0);
         $scenario->setProject($project);
         $em->persist($scenario);
         $em->flush();

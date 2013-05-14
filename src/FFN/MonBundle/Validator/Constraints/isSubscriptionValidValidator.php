@@ -25,32 +25,40 @@ class isSubscriptionValidValidator extends ConstraintValidator {
   // fait la validation
   public function validate($object, Constraint $constraint) {
 
+      $subscription = $this->user->getSubscription();
+      
     if ($object instanceof Project) {
-      if (!is_null($this->user->getSubscription()->getMaxProjects())
-              && count($this->user->getProjects()) >= $this->user->getSubscription()->getMaxProjects()) {
+      
+      if (is_null($subscription)) {
+          $this->context->addViolation("Can't determine your subscription type");
+          return;
+      }
+      
+      if (!is_null($subscription->getMaxProjects())
+              && count($this->user->getProjects()) >= $subscription->getMaxProjects()) {
 
         $this->context->addViolation('You have reached the maximum limit of projects. you subscription is allowing you up to '
-                . $this->user->getSubscription()->getMaxProjects() . ' projects.');
+                . $subscription->getMaxProjects() . ' projects.');
       }
     }
 
     if ($object instanceof Scenario) {
-      if (!is_null($this->user->getSubscription()->getMaxScenarios())
-              && count($this->user->getAllScenarios()) >= $this->user->getSubscription()->getMaxScenarios()) {
+      if (!is_null($subscription->getMaxScenarios())
+              && count($this->user->getAllScenarios()) >= $subscription->getMaxScenarios()) {
 
         $this->context->addViolation('You have reached the maximum limit of scenarios.' .
                 'Your current subscription is allowing you up to '
-                . $this->user->getSubscription()->getMaxScenarios() . ' scenarios'
+                . $subscription->getMaxScenarios() . ' scenarios'
                 . ' (' . count($this->user->getAllScenarios()) . ').');
       }
     }
 
     if ($object instanceof Control) {
-      if (!is_null($this->user->getSubscription()->getMaxControls())
-              && count($this->user->getAllControls()) >= $this->user->getSubscription()->getMaxControls()) {
+      if (!is_null($subscription->getMaxControls())
+              && count($this->user->getAllControls()) >= $subscription->getMaxControls()) {
 
         $this->context->addViolation('You have reached the maximum limit of controls. you subscription is allowing you up to '
-                . $this->user->getSubscription()->getMaxControls() . ' controls.');
+                . $subscription->getMaxControls() . ' controls.');
       }
     }
   }

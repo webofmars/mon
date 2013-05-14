@@ -26,7 +26,8 @@ class ProjectType extends AbstractType {
                 'label' => $this->getTranslator()->trans('mon_project_name')
             ))
             ->add('description', 'textarea', array(
-                'label' => $this->getTranslator()->trans('mon_project_description')
+                'label' => $this->getTranslator()->trans('mon_project_description'),
+                'required' => false,
             ));
   }
 

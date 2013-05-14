@@ -35,6 +35,7 @@ security:
         
   access_control:
     - { path: ^/(fr|en)/login,          role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(fr|en)/register,       role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/(fr|en)/resetting,      role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/(fr|en)/about,          role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/(fr|en)/contact,        role: IS_AUTHENTICATED_ANONYMOUSLY }

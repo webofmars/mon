@@ -5,6 +5,7 @@ mon_contact: How to contact Mon ?
 mon_home: Home
 mon_login: Login
 mon_logout: Logout
+mon_edit_profile: Profile
 mon_mail: Email
 mon_mail_already_used: Mail already used
 mon_password: Password
@@ -63,6 +64,7 @@ mon_project_delete: Delete project
 mon_project_deletion_confirm: Do you confirm the deletion of this project ?
 mon_project_deletion_failed: Project deletion failed
 mon_project_deletion_validated: Project deletion succeeded
+mon_project_unauthorized_access: You are not authorized to access this project
 
 # Scenario wordings
 mon_scenario_list: My scenarios
@@ -85,6 +87,7 @@ mon_scenario_delete: Delete scenario
 mon_scenario_deletion_confirm: Do you confirm the deletion of this scenario ?
 mon_scenario_deletion_failed: Scenario deletion failed
 mon_scenario_deletion_validated: Scenario deletion succeeded
+
 
 # Control wordings
 mon_control_list: My controls

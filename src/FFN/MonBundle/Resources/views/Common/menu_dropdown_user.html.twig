@@ -1,0 +1,20 @@
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <ul class="nav">
+        <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                <i class="icon-user icon-white"></i>
+                {{ app.user.username }}<b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a href="">{{ app.user.getSubscription.name() }}</a></li>
+                <hr/>
+                <li><a href="{{ path("fos_user_profile_edit")}}">{{ 'mon_edit_profile' | trans({}, 'messages') | raw }}</a></li>
+                <li><a href="{{ path("fos_user_security_logout")}}">{{ 'mon_logout' | trans({}, 'messages') | raw }}</a></li>
+            </ul>
+        <li>
+    </ul>
+    
+{% else %}
+    <li><a href="{{ path("fos_user_security_login")}}">{{ 'mon_login' | trans({}, 'messages') | raw }}</a></li>
+    <li><a href="{{ path('fos_user_registration_register')}}">{{ 'mon_register' | trans({}, 'messages') | raw }}</a></li>
+{% endif %}

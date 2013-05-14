@@ -5,6 +5,7 @@ mon_contact: Nous contacter
 mon_home: Accueil
 mon_login: Connexion
 mon_logout: D&eacute;connexion
+mon_edit_profile: Profil
 mon_mail: Email
 mon_mail_already_used: Mail déjà utilisé
 mon_password: Mot de passe
@@ -63,6 +64,7 @@ mon_project_delete: Supprimer le projet
 mon_project_deletion_confirm: Etes-vous certain de vouloir supprimer le projet ?
 mon_project_deletion_failed: Suppression du projet échouée
 mon_project_deletion_validated: Suppression du projet effectuée
+mon_project_unauthorized_access: Vous n'êtes pas autorisé à accéder ce projet
 
 # Scenario wordings
 mon_scenario_list: Mes scénarios
