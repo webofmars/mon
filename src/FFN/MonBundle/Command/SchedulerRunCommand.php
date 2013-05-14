@@ -25,17 +25,17 @@ class SchedulerRunCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        
-        $em = $this->getContainer()->get('doctrine')->getEntityManager();
+
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $captures = $em->getRepository("FFNMonBundle:Capture")->findAll();
-        
+
         foreach($captures as $capture) {
             $now = new DateTime('now', new DateTimeZone('UTC'));
             if ( ($capture->getDateScheduled() < $now) and is_null($capture->getDateExecuted()) ) {
                 $output->writeln("- running control #".$capture->getControl()->getId());
-                
+
                 $capture->setDateExecuted(new DateTime());
-                
+
                 // Actully run the sampler process
                 try {
                     FFNDaemon::run($capture);
@@ -49,16 +49,16 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                     $em->flush();
                     continue;
                 }
-                
+
                 $em->persist($capture);
                 $em->persist($capture->getCaptureDetail());
                 $em->flush();
-                
+
                 // Validators callback
                 if (count($capture->getControl()->getValidators())) {
                     foreach ($capture->getControl()->getValidators() as $validator) {
                         $res = $validator->getSubValidator()->validate(
-                                $validator->getCriteria(), 
+                                $validator->getCriteria(),
                                 $capture->getCaptureDetail()->getContent());
                         $output->write("  + laucnhing validator ".$validator->getSubValidator()->getName()." : ");
                         $output->writeln($res);

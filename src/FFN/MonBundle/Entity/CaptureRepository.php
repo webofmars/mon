@@ -47,7 +47,7 @@ class captureRepository extends EntityRepository {
             return null;
         }
     }
-    
+
     public function findLastsByControl($ctrl_id, $max) {
         $em = $this->getEntityManager();
         $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c

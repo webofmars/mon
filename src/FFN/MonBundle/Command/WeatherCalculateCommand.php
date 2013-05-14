@@ -28,7 +28,7 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
         /* is going from controls, through scenarios, to projects */
 
         // get all the controls
-        $em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $controls = $em->getRepository("FFNMonBundle:Control")->findAll();
 
         // Controls
@@ -102,7 +102,7 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
 
     private function updateWeather($objectType, $refIdObject, $weatherStatus) {
 
-        $em = $this->getContainer()->get('doctrine')->getEntityManager();
+        $em = $this->getContainer()->get('doctrine')->getManager();
         $weather = $em->getRepository("FFNMonBundle:Weather")->findOneBy(array('objectType' => $objectType,
                                                                 'refIdObject' => $refIdObject));
         if ($weather === NULL) {
