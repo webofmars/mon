@@ -60,7 +60,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                         $res = $validator->getSubValidator()->validate(
                                 $validator->getCriteria(),
                                 $capture->getCaptureDetail()->getContent());
-                        $output->write("  + laucnhing validator ".$validator->getSubValidator()->getName()." : ");
+                        $output->write("  + launching validator ".$validator->getSubValidator()->getName()." : ");
                         $output->writeln($res);
                         $capture->setIsValid($res);
                     }

@@ -3,22 +3,22 @@
 namespace FFN\MonBundle\Common;
 
 use FFN\MonBundle\Entity\Capture;
-use \FFN\MonBundle\Entity\CaptureDetail;
+use FFN\MonBundle\Entity\CaptureDetail;
 
 class Daemon {
 
     public static function run(Capture $capture) {
-        
+
         $cd = new CaptureDetail();
         $capture->setCaptureDetail($cd);
-        
+
         try {
             $res = self::curl_wrapper($capture->getControl()->getUrl());
         }
         catch (Excetion $e) {
             echo("daemon: $e->toString()\n");
         }
-        
+
         if ($res[0] != false) {
             $capture->setResponseCode($res[2]);
             $capture->setTcp($res[3]);
@@ -26,19 +26,19 @@ class Daemon {
             $capture->setFirstPacket($res[5]);
             $capture->setTotal($res[6]);
             $capture->setIsTimeout(false);
-                
+
             $cd->setContent($res[1]);
             $cd->setIsConnectionTimeout(false);
             $cd->setIsResponseTimeout(false);
-            
+
             // TODO: add callback for validator
             $cd->setValidators("tuti va bene!");
             $capture->setIsValid(true);
         }
         else {
-            
+
             $capture->setIsValid(false);
-            
+
             // gère les différents timeout
             if (in_array($res[1], array(1, 2, 3, 4, 5, 6, 7, 12, 28))) {
                 $capture->setIsTimeout(true);
@@ -61,15 +61,15 @@ class Daemon {
                         break;
                 }
             }
-            
+
             $cd->setContent('error: '.$res[2].'. ('.$res[1].')');
         }
     }
 
     /**
-     * 
+     *
      * @param type $url
-     * 
+     *
      * Wraper arround libcurl
      * returns an array :
      * Success:
@@ -86,9 +86,9 @@ class Daemon {
      *  2 : error message
      */
     public static function curl_wrapper($url) {
-        
+
         $results = array();
-        
+
         // Création d'un gestionnaire curl
         $ch = curl_init($url);
 
@@ -102,7 +102,7 @@ class Daemon {
 
         // Exécution
         $reponse = curl_exec($ch);
-        
+
         // Vérification si une erreur est survenue
         if (!curl_errno($ch)) {
             $info = curl_getinfo($ch);
@@ -122,7 +122,7 @@ class Daemon {
                 curl_errno($ch),
                 curl_error($ch));
         }
-        
+
         curl_close($ch);
         return($results);
     }
