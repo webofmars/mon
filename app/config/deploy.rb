@@ -27,7 +27,7 @@ set :deploy_to,      "/var/www/#{application}"
 set :deploy_via,     :copy #remote_cache #rsync_with_remote_cache
 
 # Exclusion of files
-set :copy_exclude, "**/*_dev.*"
+set :copy_exclude, ["**/*_dev.*", "**/*_test.*"]
 
 # Roles
 role :web,           domain                   # Your HTTP server, Apache/etc
