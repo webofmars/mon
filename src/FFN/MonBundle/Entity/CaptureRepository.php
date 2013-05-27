@@ -88,7 +88,7 @@ class captureRepository extends EntityRepository {
                                     WHERE c.dateExecuted is null AND c.dateScheduled <= :date
                                     ORDER BY c.dateScheduled ASC');
         $now = new \DateTime();
-        $query->setParameter('date', $now->getTimestamp());
+        $query->setParameter('date', $now->format('Y-m-d H:i:s'));
         try {
             return $query->getResult();
         } catch (NoResultException $e) {

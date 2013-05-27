@@ -39,7 +39,8 @@ set :keep_releases,  3
 
 set :use_sudo,       false
 set :use_composer,   true
-set :symfony_env,    "prod"
+set :symfony_env,      "prod"
+set :symfony_env_prod, "prod"
 
 # Update vendors during the deploy
 # after 1st deploy you might want to change this to false. If true it'll install vendors each time
@@ -62,9 +63,11 @@ ssh_options[:forward_agent] = true
 # Be more verbose by uncommenting the following line
 logger.level = Logger::MAX_LEVEL
 
+after "deploy", "deploy:export"
+
 # Command to launch at the deploy end
-#namespace :deploy do
-#  task :export, :roles => :web do
-#    run "export SYMFONY_ENV=prod"
-#  end
-#end
+namespace :deploy do
+  task :export, :roles => :web do
+    run "export SYMFONY_ENV=prod"
+  end
+end
