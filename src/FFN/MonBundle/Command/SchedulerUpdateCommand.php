@@ -35,9 +35,9 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
       $output->writeln('error: missing argument interval');
     }
 
-    $start = new DateTime('@' . $this->minutes_round(time(), $input->getArgument('round')));
-    $stop = new DateTime('@' . $this->minutes_round(time(), $input->getArgument('round')));
-    $stop->add(new DateInterval('PT' . $input->getArgument('interval') . 'M'));
+    $start = new DateTime('@' . $this->minutes_round(time(), $input->getArgument('round')), new DateTimeZone('UTC'));
+    $stop = $start;
+    $stop->modify('+'.$input->getArgument('interval').' minutes');
 
     $output->writeln('- Updating capture table between ' . $start->format('Y-m-d H:i:s') . ' and ' . $stop->format('Y-m-d H:i:s') . ' ...');
 

@@ -4,6 +4,7 @@ namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use DateTime;
 
 /**
  * captureRepository
@@ -87,7 +88,7 @@ class captureRepository extends EntityRepository {
         $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
                                     WHERE c.dateExecuted is null AND c.dateScheduled <= :date
                                     ORDER BY c.dateScheduled ASC');
-        $now = new \DateTime();
+        $now = new DateTime('now', new DateTimeZone('UTC'));
         $query->setParameter('date', $now->format('Y-m-d H:i:s'));
         try {
             return $query->getResult();
