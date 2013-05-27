@@ -12,6 +12,7 @@ use FFN\MonBundle\Entity\Capture;
 use FFN\MonBundle\Entity\CaptureDetail;
 use DateTime;
 use DateInterval;
+use DateTimeZone;
 
 /**
  * Command that fill up the capture scheduled dates based on the scenario frequencies
