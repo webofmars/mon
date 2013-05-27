@@ -27,46 +27,42 @@ class SchedulerRunCommand extends ContainerAwareCommand {
     protected function execute(InputInterface $input, OutputInterface $output) {
 
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $captures = $em->getRepository("FFNMonBundle:Capture")->findAll();
+        $captures = $em->getRepository("FFNMonBundle:Capture")->findAllToBeExecuted();
 
-        foreach($captures as $capture) {
-            $now = new DateTime('now', new DateTimeZone('UTC'));
-            if ( ($capture->getDateScheduled() < $now) and is_null($capture->getDateExecuted()) ) {
-                $output->writeln("- running control #".$capture->getControl()->getId());
+        foreach ($captures as $capture) {
+            $output->writeln("- running control #" . $capture->getControl()->getId());
 
-                $capture->setDateExecuted(new DateTime());
+            $capture->setDateExecuted(new DateTime());
 
-                // Actully run the sampler process
-                try {
-                    FFNDaemon::run($capture);
-                }
-                catch (\Exception $e) {
-                    $this->getContainer()->get('logger')->err("Daemon: Error when getting the capture for control id="
-                            .$capture->getControl()->getId());
-                    $this->getContainer()->get('logger')->err("curl_wrapper: ".$e->getMessage());
-                    $output->writeln("curl_wrapper: ".$e->getMessage());
-                    $em->persist($capture);
-                    $em->flush();
-                    continue;
-                }
-
+            // Actually run the sampler process
+            try {
+                FFNDaemon::run($capture);
+            } catch (\Exception $e) {
+                $this->getContainer()->get('logger')->err("Daemon: Error when getting the capture for control id="
+                        . $capture->getControl()->getId());
+                $this->getContainer()->get('logger')->err("curl_wrapper: " . $e->getMessage());
+                $output->writeln("curl_wrapper: " . $e->getMessage());
                 $em->persist($capture);
-                $em->persist($capture->getCaptureDetail());
                 $em->flush();
+                continue;
+            }
 
-                // Validators callback
-                if (count($capture->getControl()->getValidators())) {
-                    foreach ($capture->getControl()->getValidators() as $validator) {
-                        $res = $validator->getSubValidator()->validate(
-                                $validator->getCriteria(),
-                                $capture->getCaptureDetail()->getContent());
-                        $output->write("  + launching validator ".$validator->getSubValidator()->getName()." : ");
-                        $output->writeln($res);
-                        $capture->setIsValid($res);
-                    }
+            $em->persist($capture);
+            $em->persist($capture->getCaptureDetail());
+            $em->flush();
+
+            // Validators callback
+            if (count($capture->getControl()->getValidators())) {
+                foreach ($capture->getControl()->getValidators() as $validator) {
+                    $res = $validator->getSubValidator()->validate(
+                            $validator->getCriteria(), $capture->getCaptureDetail()->getContent());
+                    $output->write("  + launching validator " . $validator->getSubValidator()->getName() . " : ");
+                    $output->writeln($res);
+                    $capture->setIsValid($res);
                 }
             }
         }
         $em->close();
     }
+
 }

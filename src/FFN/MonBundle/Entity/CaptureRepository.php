@@ -3,6 +3,7 @@
 namespace FFN\MonBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NoResultException;
 
 /**
  * captureRepository
@@ -12,54 +13,85 @@ use Doctrine\ORM\EntityRepository;
  */
 class captureRepository extends EntityRepository {
 
+    /**
+     * Get all captures for a control and a period
+     *
+     * @param integer $ctrl_id - control identifier
+     * @param \DateTime $start - period beginning
+     * @param \DateTime $stop - period ending
+     * @return array
+     */
     public function findByIdAndTimeRange($ctrl_id, $start, $stop) {
-
         $em = $this->getEntityManager();
-
         $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
             WHERE c.dateExecuted > :start
             AND c.dateExecuted < :stop
             AND c.control = :control_id
             ORDER BY c.dateExecuted ASC');
-
         $query->setParameter('control_id', $ctrl_id);
         $query->setParameter('start', $start);
         $query->setParameter('stop', $stop);
-
         try {
             return $query->getResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
+        } catch (NoResultException $e) {
             return null;
         }
     }
 
+    /**
+     * Get all last captures
+     *
+     * @param integer $max - limitation of results list
+     * @return array
+     */
     public function findLasts($max) {
         $em = $this->getEntityManager();
-
         $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
                                     ORDER BY c.dateExecuted ASC');
-
         $query->setMaxResults($max);
-
         try {
             return $query->getResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
+        } catch (NoResultException $e) {
             return null;
         }
     }
 
+    /**
+     * Get all last captures for a control
+     *
+     * @param integer $ctrl_id - control identifier
+     * @param integer $max - limitation of results list
+     * @return array
+     */
     public function findLastsByControl($ctrl_id, $max) {
         $em = $this->getEntityManager();
         $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
                                     WHERE c.control = :control_id
                                     ORDER BY c.dateExecuted ASC');
-
         $query->setParameter('control_id', $ctrl_id);
         $query->setMaxResults($max);
-
         try {
             return $query->getResult();
-        } catch (\Doctrine\ORM\NoResultException $e) {
+        } catch (NoResultException $e) {
+            return null;
+        }
+    }
+
+    /**
+     * Get all captures that need to be executed
+     * 
+     * @return array
+     */
+    public function findAllToBeExecuted() {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
+                                    WHERE c.dateExecuted is null AND c.dateScheduled <= :date
+                                    ORDER BY c.dateScheduled ASC');
+        $now = new \DateTime();
+        $query->setParameter('date', $now->getTimestamp());
+        try {
+            return $query->getResult();
+        } catch (NoResultException $e) {
             return null;
         }
     }

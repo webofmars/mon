@@ -39,7 +39,7 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
     $stop = new DateTime('@' . $this->minutes_round(time(), $input->getArgument('round')));
     $stop->add(new DateInterval('PT' . $input->getArgument('interval') . 'M'));
 
-    $output->writeln('- Updating capture table beetween ' . $start->format('Y-m-d H:i:s') . ' and ' . $stop->format('Y-m-d H:i:s') . ' ...');
+    $output->writeln('- Updating capture table between ' . $start->format('Y-m-d H:i:s') . ' and ' . $stop->format('Y-m-d H:i:s') . ' ...');
 
     // get all the scenarios
     $em = $this->getContainer()->get('doctrine')->getManager();
