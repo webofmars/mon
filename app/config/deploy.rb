@@ -26,6 +26,9 @@ set :deploy_to,      "/var/www/#{application}"
 # Deploy strategy
 set :deploy_via,     :copy #remote_cache #rsync_with_remote_cache
 
+# Exclusion of files
+set :copy_exclude, "**/*_dev.*"
+
 # Roles
 role :web,           domain                   # Your HTTP server, Apache/etc
 role :app,           domain                   # This may be the same as your `Web` server
@@ -57,3 +60,14 @@ ssh_options[:forward_agent] = true
 
 # Be more verbose by uncommenting the following line
 logger.level = Logger::MAX_LEVEL
+
+# Command to launch at the deploy end
+namespace :deploy do
+  task :restart, :roles => :web do
+    run "touch #{ current_path }/tmp/restart.txt"
+  end
+
+  task :restart_daemons, :roles => :app do
+    sudo "monit restart all -g daemons"
+  end
+end
