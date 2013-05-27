@@ -32,7 +32,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
         foreach ($captures as $capture) {
             $output->writeln("- running control #" . $capture->getControl()->getId());
 
-            $capture->setDateExecuted(new DateTime());
+            $capture->setDateExecuted(new DateTime('now', new DateTimeZone('UTC')));
 
             // Actually run the sampler process
             try {
