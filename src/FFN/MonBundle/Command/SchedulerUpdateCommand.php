@@ -37,7 +37,7 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
     }
 
     $start = new DateTime('@' . $this->minutes_round(time(), $input->getArgument('round')), new DateTimeZone('UTC'));
-    $stop = $start;
+    $stop = clone $start;
     $stop->modify('+'.$input->getArgument('interval').' minutes');
 
     $output->writeln('- Updating capture table between ' . $start->format('Y-m-d H:i:s') . ' and ' . $stop->format('Y-m-d H:i:s') . ' ...');
