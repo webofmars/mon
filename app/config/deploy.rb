@@ -39,6 +39,7 @@ set :keep_releases,  3
 
 set :use_sudo,       false
 set :use_composer,   true
+set :symfony_env,    prod
 
 # Update vendors during the deploy
 # after 1st deploy you might want to change this to false. If true it'll install vendors each time
@@ -62,12 +63,8 @@ ssh_options[:forward_agent] = true
 logger.level = Logger::MAX_LEVEL
 
 # Command to launch at the deploy end
-namespace :deploy do
-  task :restart, :roles => :web do
-    run "touch #{ current_path }/tmp/restart.txt"
-  end
-
-  task :restart_daemons, :roles => :app do
-    sudo "monit restart all -g daemons"
-  end
-end
+#namespace :deploy do
+#  task :export, :roles => :web do
+#    run "export SYMFONY_ENV=prod"
+#  end
+#end
