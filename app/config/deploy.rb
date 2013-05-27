@@ -45,7 +45,7 @@ set :use_composer,   true
 set :update_vendors, true
 
 # Set some paths to be shared between versions
-set :shared_files,    ["app/config/parameters.ini"]
+set :shared_files,    [app_path + "/config/parameters.ini", web_path + "/.htaccess"]
 set :shared_children, [app_path + "/logs", web_path + "/uploads", "vendor"]
 
 # To prevent "you must have a tty to run sudo" message
