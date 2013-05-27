@@ -39,7 +39,7 @@ set :keep_releases,  3
 
 set :use_sudo,       false
 set :use_composer,   true
-set :symfony_env,    prod
+set :symfony_env,    "prod"
 
 # Update vendors during the deploy
 # after 1st deploy you might want to change this to false. If true it'll install vendors each time
