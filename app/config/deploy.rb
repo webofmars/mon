@@ -34,9 +34,6 @@ role :web,           domain                   # Your HTTP server, Apache/etc
 role :app,           domain                   # This may be the same as your `Web` server
 role :db,            domain, :primary => true # This is where Symfony2 migrations will run
 
-# The number of releases which will remain on the server
-set :keep_releases,  3
-
 set :use_sudo,       false
 set :use_composer,   true
 
@@ -60,3 +57,9 @@ ssh_options[:forward_agent] = true
 
 # Be more verbose by uncommenting the following line
 logger.level = Logger::MAX_LEVEL
+
+# The number of releases which will remain on the server
+set :keep_releases,  3
+
+# Clean old releases after deploy
+after "deploy:update", "deploy:cleanup"
