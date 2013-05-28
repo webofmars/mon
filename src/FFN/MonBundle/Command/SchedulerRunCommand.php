@@ -21,19 +21,33 @@ class SchedulerRunCommand extends ContainerAwareCommand {
 
     protected function configure() {
         $this->setName('mon:scheduler:run');
-        $this->setDescription('gets the captures already scheduled');
+        $this->setDescription('gets the captures already scheduled and launch them');
+        $this->addArgument('idwatcher', InputArgument::OPTIONAL, 'Identifier of watcher', 1);
+        $this->addArgument('nbwatcher', InputArgument::OPTIONAL, 'Number of simultaneous watchers', 1);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
 
+        if (is_null($input->getArgument('idwatcher'))) {
+            $output->writeln('error: missing argument idwatcher');
+        }
+        if (is_null($input->getArgument('nbwatcher'))) {
+            $output->writeln('error: missing argument nbwatcher');
+        }
+
+        $output->writeln("begin of watcher #" . $input->getArgument('idwatcher') . " treatment (on " . $input->getArgument('nbwatcher') . " simultaneous)");
+
         $em = $this->getContainer()->get('doctrine')->getManager();
-        $captures = $em->getRepository("FFNMonBundle:Capture")->findAllToBeExecuted();
+        $captures = $em->getRepository("FFNMonBundle:Capture")->findAllToBeExecuted($input->getArgument('idwatcher'), $input->getArgument('nbwatcher'));
 
+        $nbCaptures = count($captures);
+        $output->writeln("number of captures to catch : " . $nbCaptures);
+
+        $counter = 0;
         foreach ($captures as $capture) {
-            $output->writeln("- running control #" . $capture->getControl()->getId());
-
+            $progression = round(($counter++) * 100 / $nbCaptures) . '%';
+            $output->writeln("- running control #" . $capture->getControl()->getId() . " (".$progression.")");
             $capture->setDateExecuted(new DateTime('now', new DateTimeZone('UTC')));
-
             // Actually run the sampler process
             try {
                 FFNDaemon::run($capture);
@@ -46,11 +60,9 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                 $em->flush();
                 continue;
             }
-
             $em->persist($capture);
             $em->persist($capture->getCaptureDetail());
             $em->flush();
-
             // Validators callback
             if (count($capture->getControl()->getValidators())) {
                 foreach ($capture->getControl()->getValidators() as $validator) {
@@ -62,6 +74,9 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                 }
             }
         }
+
+        $output->writeln("end of watcher #" . $input->getArgument('idwatcher') . " treatment");
+
         $em->close();
     }
 

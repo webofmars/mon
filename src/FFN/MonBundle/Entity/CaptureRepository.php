@@ -82,12 +82,23 @@ class captureRepository extends EntityRepository {
     /**
      * Get all captures that need to be executed
      * 
+     * @param integer $identifier - identifier of watcher
+     * @param integer $number - number of watchers
      * @return array
      */
-    public function findAllToBeExecuted() {
+    public function findAllToBeExecuted($identifier = 1, $number = 1) {
         $em = $this->getEntityManager();
+        if ($identifier > 1 || $number > 1) {
+            // we apply a modulo clause
+            $modulo = 'AND MOD(c.id, '.$number.') = '.($identifier-1);
+        } else {
+            // no modulo to apply
+            $modulo = '';
+        }
         $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
-                                    WHERE c.dateExecuted is null AND c.dateScheduled <= :date
+                                    WHERE (c.dateExecuted is null)
+                                    AND (c.dateScheduled <= :date)
+                                    '.$modulo.'
                                     ORDER BY c.dateScheduled ASC');
         $now = new DateTime('now', new DateTimeZone('UTC'));
         $query->setParameter('date', $now->format('Y-m-d H:i:s'));
