@@ -24,9 +24,9 @@ class CaptureDetail
     private $id;
 
     /**
-     * @var string
+     * @var text
      *
-     * @ORM\Column(name="content", type="string", length=255, nullable=true)
+     * @ORM\Column(name="content", type="text", nullable=true)
      */
     private $content = "";
 
@@ -65,7 +65,7 @@ class CaptureDetail
     /**
      * Set content
      *
-     * @param string $content
+     * @param text $content
      * @return CaptureDetail
      */
     public function setContent($content)
@@ -78,7 +78,7 @@ class CaptureDetail
     /**
      * Get content
      *
-     * @return string
+     * @return text
      */
     public function getContent()
     {
