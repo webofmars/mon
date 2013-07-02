@@ -22,8 +22,7 @@
                 '{{ 'mon_graph_date' | trans({}, 'messages') | raw }}',
                 '{{ 'mon_graph_dns_resolution' | trans({}, 'messages') | raw }}',
                 '{{ 'mon_graph_tcp_connection' | trans({}, 'messages') | raw }}',
-                '{{ 'mon_graph_first_packet' | trans({}, 'messages') | raw }}',
-                '{{ 'mon_graph_total_time' | trans({}, 'messages') | raw }}'
+                '{{ 'mon_graph_first_packet' | trans({}, 'messages') | raw }}'
               ],
               {% for row in graphdata %}
                   [
@@ -31,7 +30,6 @@
                       {{ row.dns | json_encode() | replace( {'"': ''} ) | raw() }},
                       {{ row.tcp | json_encode() | replace( {'"': ''} ) | raw() }},
                       {{ row.firstPacket | json_encode() | replace( {'"': ''} ) | raw() }},
-                      {{ row.total | json_encode() | replace( {'"': ''} ) | raw() }}
                   ],
               {% else %}
                   []
@@ -42,7 +40,9 @@
       var options = {
         //title: 'URL response time',
         hAxis: {title: 'Time',  titleTextStyle: {color: 'red'}},
-        isStacked: true
+        isStacked: true,
+        vAxis: {title: "Time (s)"},
+        hAxis: {title: "Date"}
       };
 
       var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
