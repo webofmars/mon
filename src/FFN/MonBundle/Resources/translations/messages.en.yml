@@ -21,6 +21,12 @@ mon_options: Options
 mon_no: No
 mon_yes: Yes
 
+# Subscription wordings
+ffn.mon.subscription.unknown: Can't determine your subscription type
+ffn_mon.subscription.max_projects: You have reached the maximum limit of projects your subscription is allowing you to
+ffn_mon.subscription.max_scenarii: You have reached the maximum limit of scenarios your subscription is allowing you to
+ffn_mon.subscription.max_controls: You have reached the maximum limit of controls your subscription is allowing you to
+
 # Admin wordings
 mon_menu_admin: Administration
 mon_menu_admin_create_user: Create user

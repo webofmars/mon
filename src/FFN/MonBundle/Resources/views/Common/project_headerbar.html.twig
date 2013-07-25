@@ -24,15 +24,14 @@
   </li>
 </ul>
 
+<!-- Header notice -->
 <div class="row-fluid">
-  {% for flashMessage in app.session.flashbag.get('notice') %}
-      <div class="alert alert-success">
-          {{ flashMessage }}
-      </div>
-  {% endfor %}
-  {% for flashMessage in app.session.flashbag.get('error') %}
-      <div class="alert alert-error">
-          {{ flashMessage }}
+  {% for key, msgs in app.session.flashbag.all() %}
+      <!-- messages {{key}} -->
+      <div class="alert alert-{{key}}">
+          {% for msg in msgs %}
+            {{ msg | trans }}
+          {% endfor %}
       </div>
   {% endfor %}
 </div>

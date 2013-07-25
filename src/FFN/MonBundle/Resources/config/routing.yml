@@ -8,34 +8,34 @@ mon_about:
   pattern: /{_locale}/about
   defaults:
     _controller: FFNMonBundle:About:show
-    _locale: %locale%
+    _locale: en
     maxAge: 86400
     sharedMaxAge: 86400
     private: false
   requirements:
-    _locale: en|fr
+    _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
 
 mon_faq:
   pattern: /{_locale}/faq
   defaults:
     _controller: FFNMonBundle:FAQ:show
-    _locale: %locale%
+    _locale: en
     maxAge: 86400
     sharedMaxAge: 86400
     private: false
   requirements:
-    _locale: en|fr
+    _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
 
 mon_contact:
   pattern: /{_locale}/contact
   defaults:
     _controller: FFNMonBundle:Contact:show
-    _locale: %locale%
+    _locale: en
     maxAge: 86400
     sharedMaxAge: 86400
     private: false
   requirements:
-    _locale: en|fr
+    _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
 
 mon_graph:
   pattern: /{_locale}/graph/{control_id}/{startTs}/{stopTs}
@@ -52,8 +52,8 @@ mon_graph_simple:
   defaults:
     _controller: FFNMonBundle:Graph:show
   requirements:
-    _locale: en|fr
-    control_id: \d+
+    _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
+    control_id: "\d+"
 
 # Admin
 mon_admin_user_add:
@@ -63,14 +63,14 @@ mon_admin_user_add:
       _locale: %locale%
     requirements:
         _method: GET|POST
-        _locale: en|fr
+        _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
 
 mon_admin_user_activation:
     pattern: /{_locale}/admin/user/active/{id}/{statut}
     defaults: { _controller: FFNMonBundle:User:adminUserActivation }
     requirements:
         _method: GET|POST
-        _locale: en|fr
+        _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
         statut: true|false
 
 mon_admin_user_delete:
@@ -78,22 +78,23 @@ mon_admin_user_delete:
     defaults: { _controller: FFNMonBundle:User:adminUserDelete }
     requirements:
         _method: GET
-        id: \d+
+        _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
+        id: "\d+"
 
 mon_admin_user_edit:
     pattern:  /{_locale}/admin/user/{id}
     defaults: { _controller: FFNMonBundle:User:adminUserEdit }
     requirements:
         _method: GET
-        _locale: en|fr
-        id: \d+
+        _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
+        id: "\d+"
 
 mon_admin_user:
     pattern:  /{_locale}/admin/user
     defaults: { _controller: FFNMonBundle:User:adminUser }
     requirements:
         _method: GET
-        _locale: en|fr
+        _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
 
 # Projects
 mon_project_add:
@@ -101,7 +102,7 @@ mon_project_add:
     defaults: { _controller: FFNMonBundle:Project:projectAdd }
     requirements:
         _method: GET|POST
-        _locale: en|fr
+        _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
 
 mon_project_home:
     pattern: /project/{id}

@@ -7,8 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class ContactController extends Controller {
 
   public function showAction() {
-    $culture = $this->getRequest()->getLocale('cz');
-    return $this->render("FFNMonBundle::contact.$culture.html.twig");
+    $language = substr($this->getRequest()->getLocale(),0,2);
+    return $this->render("FFNMonBundle::contact.$language.html.twig");
   }
 
 }

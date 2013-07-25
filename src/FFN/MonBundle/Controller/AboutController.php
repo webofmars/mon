@@ -8,9 +8,9 @@ class AboutController extends Controller {
 
   public function showAction() {
 
-    $culture = $this->getRequest()->getLocale('cz');
+    $language = substr($this->getRequest()->getLocale(),0,2);
 
-    return $this->render("FFNMonBundle::about.$culture.html.twig");
+    return $this->render("FFNMonBundle::about.$language.html.twig");
   }
 
 }
