@@ -1,10 +1,6 @@
 <p>Switch to :
     {% for locale in locales %}
-            <a href="{{ locale.link }}" title="{{ locale.locale_current_language }}"><img width="48" height="48" src="{{ 
-            asset('bundles/ffnmon/images/' ~ (locale.locale_current_language | lower) ~ '.jpg') }}" ></a>
+            <a href="{{ locale.link }}" title="{{ locale.locale }}"><img width="48" height="48" src="{{ 
+            asset('bundles/ffnmon/images/' ~ (locale.locale | lower) ~ '.jpg') }}" ></a>
     {% endfor %}
 </p>
-
-<div>
-    <p>Current locale is : {{ app.request.locale }}</p>
-</div>

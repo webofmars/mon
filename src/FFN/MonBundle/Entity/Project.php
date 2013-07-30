@@ -44,7 +44,7 @@ class Project
      *
      * @ORM\Column(name="enabled", type="boolean")
      */
-    private $enabled;
+    private $enabled = true;
 
     /**
      * @var \DateTime
