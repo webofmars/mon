@@ -42,7 +42,7 @@ mon_graph:
   defaults:
     _controller: FFNMonBundle:Graph:show
   requirements:
-    _locale: en|fr
+    _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
     control_id: \d+
     startTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
     stopTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d

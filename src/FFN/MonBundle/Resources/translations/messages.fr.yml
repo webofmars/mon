@@ -22,10 +22,10 @@ mon_no: Non
 mon_yes: Oui
 
 # Subscription wordings
-ffn.mon.unknown_subscription: Impossible de determiner votre type d'abonement
-#ffn_mon.subscription.max_projects: You have reached the maximum limit of projects your subscription is allowing you to
-#ffn_mon.subscription.max_scenarii: You have reached the maximum limit of scenarios your subscription is allowing you to
-#ffn_mon.subscription.max_controls: You have reached the maximum limit of controls your subscription is allowing you to
+ffn.mon.subscription.unknown: Impossible de determiner votre type d'abonement
+ffn_mon.subscription.max_projects: Maximum de projets atteint !
+ffn_mon.subscription.max_scenarii: Maximum de scenarii atteint !
+ffn_mon.subscription.max_controls: Maximum de controles atteint !
 
 
 # Admin wordings

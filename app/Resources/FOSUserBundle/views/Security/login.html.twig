@@ -2,44 +2,46 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container" style="background-color: #F5F5F5; border-radius: 15px 15px 15px 15px;">
   <div class="row-fluid">
     <div class="span5 offset1" style="border-right:1px solid #000;">
       <div class="text-info" style="text-align:center;">
         <h2>{{ 'mon_already_member' | trans({}, 'messages') }}</h2>
-      </div>
-      {% block fos_user_content %}
-        {% if error %}
-          <div>{{ error |trans({}, 'FOSUserBundle') }}</div>
-        {% endif %}
-        <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
-          <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
-          <div class="control-group">
-            <label class="control-label" for="username"><i class="icon-user">&nbsp;</i>&nbsp;{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
-            <div class="controls">
-              <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Username" />
+        {% block fos_user_content %}
+          {% if error %}
+            <div>{{ error |trans({}, 'FOSUserBundle') }}</div>
+          {% endif %}
+          <form class="form-horizontal" action="{{ path("fos_user_security_check") }}" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <div class="control-group">
+              <label class="control-label" for="username"><i class="icon-user">&nbsp;</i>&nbsp;{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+              
+              <div class="controls">
+                <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans({}, 'FOSUserBundle') }}" />
+              </div>
             </div>
-          </div>
-          <div class="control-group">
-            <label class="control-label" for="password"><i class="icon-lock">&nbsp;</i>&nbsp;{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
-            <div class="controls">
-              <input type="password" id="password" name="_password" required="required" placeholder="Password" />
+            <div class="control-group">
+              <label class="control-label" for="password"><i class="icon-lock">&nbsp;</i>&nbsp;{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+              
+              <div class="controls">
+                <input type="password" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}" />
+              </div>
             </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <label for="remember_me">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on"> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
-              </label>
+            <div class="control-group">
+              <div class="controls">
+                <label for="remember_me">
+                  <input type="checkbox" id="remember_me" name="_remember_me" value="on"> {{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                </label>
+              </div>
             </div>
-          </div>
-          <div class="control-group">
-            <div class="controls">
-              <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+            <div class="control-group">
+              <div class="controls">
+                <input class="btn btn-primary" type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+              </div>
             </div>
-          </div>
-        </form>
-      {% endblock fos_user_content %}
+          </form>
+        {% endblock fos_user_content %}
+     </div>
     </div>
     <div class="span5" style="text-align:center;">
       <div class="text-info">

@@ -59,7 +59,7 @@ class UserController extends Controller {
     $form = $this->createForm(new UserType($this->get('translator')), $user);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
+      $form->bind($request);
       if ($form->isValid()) {
         $user_request_params = $request->get('user');
         $username = $user_request_params['username'];

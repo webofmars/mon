@@ -34,12 +34,13 @@ security:
       anonymous: true
         
   access_control:
-    - { path: ^/(fr|en)/login,          role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/(fr|en)/register,       role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/(fr|en)/resetting,      role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/(fr|en)/about,          role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/(fr|en)/contact,        role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/(fr|en)/faq,            role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/(fr|en)/admin/user/add, role: IS_AUTHENTICATED_ANONYMOUSLY }
-    - { path: ^/(fr|en)/admin,          role: ROLE_ADMIN }
-    - { path: ^/,                       role: ROLE_USER }
+    - { path: ^/(.*)/login,          role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(.*)/register,       role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(.*)/resetting,      role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(.*)/about,          role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(.*)/contact,        role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(.*)/faq,            role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(.*)/admin/user/add, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/(.*)/admin,          role: ROLE_ADMIN }
+    - { path: ^/,                    role: ROLE_USER }
+    - { path: ^/graph,               role: ROLE_USER }

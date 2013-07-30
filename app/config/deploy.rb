@@ -14,7 +14,7 @@ set :scm,            :git
 #
 
 set :serverName,     "#{application}.jrns.fr"
-set :user,           "fabien.somnier"
+set :user,           "frederic.leger"
 
 #
 # Deploy settings
@@ -48,7 +48,7 @@ set :shared_children, [app_path + "/logs", web_path + "/uploads", "vendor"]
 # To prevent "you must have a tty to run sudo" message
 default_run_options[:pty] = true
 
-ssh_options[:keys] = [ "~/.ssh/jrns_fabiensomnier_rsa" ]
+ssh_options[:keys] = [ "~/.ssh/id_rsa" ]
 ssh_options[:forward_agent] = true
 
 #set  :git_enable_submodules, 0

@@ -61,7 +61,7 @@ class ProjectController extends DefaultController {
     $form = $this->createForm(new ProjectType($this->get('translator')), $project);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
+      $form->bind($request);
       // check if form is filled & valid, and if so create the new Project, and redirect to its page
       if ($form->isValid()) {
         $em = $this->get('doctrine')->getManager();
@@ -112,7 +112,7 @@ class ProjectController extends DefaultController {
     $form = $this->createForm(new ProjectType($this->get('translator')), $project);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
+      $form->bind($request);
       // check if form is valid, and if so edit the Project, and redirect to its page
       if ($form->isValid()) {
         $em = $this->get('doctrine')->getManager();

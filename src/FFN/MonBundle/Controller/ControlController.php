@@ -44,7 +44,7 @@ class ControlController extends DefaultController {
     $request = $this->getRequest();
 
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
+      $form->bind($request);
       // check if form is valid, and if so create the new Control, and redirect to scenario
       if ($form->isValid()) {
         $em = $this->get('doctrine')->getManager();
@@ -100,7 +100,7 @@ class ControlController extends DefaultController {
     $form = $this->createForm(new ControlType($this->get('translator')), $control);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
+      $form->bind($request);
       // check if form is valid, and if so edit Control, and redirect to its scenario page
       if ($form->isValid()) {
         $em->persist($control);

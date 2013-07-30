@@ -6,7 +6,8 @@ imports:
 
 framework:
     #esi:             ~
-    translator:      ~
+    translator:      { fallback: "undefined" }
+    default_locale:  en
     secret:          %secret%
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -15,8 +16,6 @@ framework:
     csrf_protection: true
     validation:      { enable_annotations: true }
     templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    default_locale:  en
-    trust_proxy_headers: false # Whether or not the Request object should trust proxy headers (X_FORWARDED_FOR/HTTP_CLIENT_IP)
     session:         ~
 
 # Twig Configuration
@@ -29,7 +28,7 @@ assetic:
     debug:          %kernel.debug%
     use_controller: false
     bundles:        [ FFNMonBundle ]
-    #java: /usr/bin/java
+    java: "C:/Program Files/Java/jre7/bin/java.exe"
     filters:
         cssrewrite: ~
         #closure:
@@ -77,14 +76,16 @@ fos_user:
             
 # Lunetics Locale Switcher
 lunetics_locale:
+  strict_mode: false
   allowed_locales:
     - fr
     - en
   guessing_order:
     - cookie
+    - router
     - browser
   switcher:
     template: FFNMonBundle::localeSwitcher.html.twig
-    show_current_locale: false
+    show_current_locale: true
   cookie:
-    set_on_change: true    
+    set_on_change: true

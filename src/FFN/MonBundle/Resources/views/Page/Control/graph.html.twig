@@ -30,7 +30,8 @@
                       {{ row.dateExecuted | date('H:i:s') | json_encode() | replace( {'"': '\''} ) | raw() }},
                       {{ row.dns | json_encode() | replace( {'"': ''} ) | raw() }},
                       {{ row.tcp | json_encode() | replace( {'"': ''} ) | raw() }},
-                      {{ row.firstPacket | json_encode() | replace( {'"': ''} ) | raw() }}
+                      {{ row.firstPacket | json_encode() | replace( {'"': ''} ) | raw() }},
+                      {{ row.total | json_encode() | replace( {'"': ''} ) | raw() }}            
                   ],
               {% else %}
                   [ '' ]

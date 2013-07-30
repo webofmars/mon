@@ -6,7 +6,11 @@
                 {{ app.user.username }}<b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="">{{ app.user.getSubscription.name() }}</a></li>
+                {% if app.user.getSubscription %}
+                    <li><a href="">{{ app.user.getSubscription.name() }}</a></li>
+                 {% else %}
+                        <li><a href="">{{ 'ffn.mon.subscription.unknown' | trans({}, 'messages') | raw }}</a>
+                {% endif %}
                 <hr/>
                 <li><a href="{{ path("fos_user_profile_edit")}}">{{ 'mon_edit_profile' | trans({}, 'messages') | raw }}</a></li>
                 <li><a href="{{ path("fos_user_security_logout")}}">{{ 'mon_logout' | trans({}, 'messages') | raw }}</a></li>

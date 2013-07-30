@@ -88,7 +88,7 @@ class ScenarioController extends DefaultController {
     $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
+      $form->bind($request);
       // check if form is valid, and if so create the new Scenario, and redirect to its page
       if ($form->isValid()) {
         $em = $this->get('doctrine')->getManager();
@@ -139,7 +139,7 @@ class ScenarioController extends DefaultController {
     $form = $this->createForm(new ScenarioType($this->get('translator')), $scenario);
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
-      $form->bindRequest($request);
+      $form->bind($request);
       // check if form is valid, and if so edit Scenario, and redirect to its page
       if ($form->isValid()) {
         $em->persist($scenario);
