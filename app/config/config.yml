@@ -5,18 +5,23 @@ imports:
     - { resource: "@FFNUserBundle/Resources/config/parameters.yml" }
 
 framework:
-    #esi:             ~
+    # esi:             ~
     translator:      { fallback: "undefined" }
     default_locale:  en
-    secret:          %secret%
+    secret: %secret%
     router:
-        resource: "%kernel.root_dir%/config/routing.yml"
-        strict_requirements: %kernel.debug%
-    form:            true
+      resource: "%kernel.root_dir%/config/routing.yml"
+      strict_requirements: %kernel.debug%
+    form: true
     csrf_protection: true
     validation:      { enable_annotations: true }
-    templating:      { engines: ['twig'] } #assets_version: SomeVersionScheme
-    session:         ~
+    templating:      
+      engines: ['twig']
+      assets_base_urls: 
+        http: %http_site_urls%
+        ssl: %https_site_urls%
+      # assets_version: SomeVersionScheme
+    session: ~
 
 # Twig Configuration
 twig:
@@ -28,7 +33,7 @@ assetic:
     debug:          %kernel.debug%
     use_controller: false
     bundles:        [ FFNMonBundle ]
-    java: "C:/Program Files/Java/jre7/bin/java.exe"
+    java: %java_path%
     filters:
         cssrewrite: ~
         #closure:
@@ -49,8 +54,7 @@ doctrine:
         password: %database_password%
         charset:  UTF8
     orm:
-        #auto_generate_proxy_classes: %kernel.debug%
-        auto_generate_proxy_classes: true
+        auto_generate_proxy_classes: %kernel.debug%
         auto_mapping: true
 
 # Swiftmailer Configuration
@@ -71,8 +75,8 @@ fos_user:
         confirmation:
             enabled:    true
     from_email:
-        address:        webofmars@gmail.com
-        sender_name:    WoM User Administrator (do not reply)
+        address: webofmars@gmail.com
+        sender_name: WoM User Administrator (do not reply)
             
 # Lunetics Locale Switcher
 lunetics_locale:

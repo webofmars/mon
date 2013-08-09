@@ -39,7 +39,7 @@ set :use_composer,   true
 
 # Update vendors during the deploy
 # after 1st deploy you might want to change this to false. If true it'll install vendors each time
-set :update_vendors, true
+set :update_vendors, false
 
 # Set some paths to be shared between versions
 set :shared_files,    [app_path + "/config/parameters.ini", web_path + "/.htaccess"]
