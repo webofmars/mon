@@ -69,7 +69,8 @@ class captureRepository extends EntityRepository {
         $em = $this->getEntityManager();
         $query = $em->createQuery('SELECT c FROM FFNMonBundle:Capture c
                                     WHERE c.control = :control_id
-                                    ORDER BY c.dateExecuted ASC');
+                                    AND c.dateExecuted IS NOT NULL 
+                                    ORDER BY c.dateExecuted DESC');
         $query->setParameter('control_id', $ctrl_id);
         $query->setMaxResults($max);
         try {
