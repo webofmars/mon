@@ -25,15 +25,15 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
 
     public function execute(InputInterface $input, OutputInterface $output) {
 
-        $output->write('--------------------------------------------------------------------------------');
-        $output->write('DNS threshold        : ' . (float) $this->getContainer()->getParameter('weather_default_dns_threshold'));
-        $output->write('TCP threshold        : ' . (float) $this->getContainer()->getParameter('weather_default_tcp_threshold'));
-        $output->write('1st packet threshold : ' . (float) $this->getContainer()->getParameter('weather_default_first_packet_threshold'));
-        $output->write('Total time threshold : ' . (float) $this->getContainer()->getParameter('weather_default_total_time_threshold'));
-        $output->write('Very good score : ' . $this->getContainer()->getParameter('weather_very_good_score'));
-        $output->write('Average score   : ' . $this->getContainer()->getParameter('weather_average_score'));
-        $output->write('Poor score      : ' . $this->getContainer()->getParameter('weather_poor_score'));
-        $output->write('--------------------------------------------------------------------------------');
+        $output->writeln('--------------------------------------------------------------------------------');
+        $output->writeln('DNS threshold        : ' . (float) $this->getContainer()->getParameter('weather_default_dns_threshold'));
+        $output->writeln('TCP threshold        : ' . (float) $this->getContainer()->getParameter('weather_default_tcp_threshold'));
+        $output->writeln('1st packet threshold : ' . (float) $this->getContainer()->getParameter('weather_default_first_packet_threshold'));
+        $output->writeln('Total time threshold : ' . (float) $this->getContainer()->getParameter('weather_default_total_time_threshold'));
+        $output->writeln('Very good score : ' . $this->getContainer()->getParameter('weather_very_good_score'));
+        $output->writeln('Average score   : ' . $this->getContainer()->getParameter('weather_average_score'));
+        $output->writeln('Poor score      : ' . $this->getContainer()->getParameter('weather_poor_score'));
+        $output->writeln('--------------------------------------------------------------------------------');
         
         /* looping though controls, through scenarios, to projects */
 
