@@ -1,3 +1,6 @@
+#
+# app
+#
 set :application,    "mon"
 set :domain,         "#{application}.jrns.fr"
 set :app_path,       "app"
@@ -5,14 +8,12 @@ set :app_path,       "app"
 #
 # Repository
 #
-
 set :repository,     "ssh://git@bitbucket.org/webofmars/mon.git"
 set :scm,            :git
 
 #
 # Server connection
 #
-
 set :serverName,     "#{application}.jrns.fr"
 set :user,           "frederic.leger"
 
@@ -24,10 +25,11 @@ set :user,           "frederic.leger"
 set :deploy_to,      "/var/www/#{application}"
 
 # Deploy strategy
-set :deploy_via,     :copy #remote_cache #rsync_with_remote_cache
+# one of : copy, remote_cache, rsync_with_remote_cache
+set :deploy_via,     :copy
 
 # Exclusion of files
-set :copy_exclude, ["**/*_dev.*", "**/*_test.*"]
+# set :copy_exclude, ["*/*_dev.*", "*/*_test.*"]
 
 # Roles
 role :web,           domain                   # Your HTTP server, Apache/etc
@@ -36,6 +38,7 @@ role :db,            domain, :primary => true # This is where Symfony2 migration
 
 set :use_sudo,       false
 set :use_composer,   true
+set :composer_options,  "--no-dev --verbose --prefer-dist --optimize-autoloader"
 
 # Update vendors during the deploy
 # after 1st deploy you might want to change this to false. If true it'll install vendors each time
@@ -53,7 +56,7 @@ ssh_options[:forward_agent] = true
 
 #set  :git_enable_submodules, 0
 
-#set :dump_assetic_assets, true
+set :dump_assetic_assets, true
 
 # Be more verbose by uncommenting the following line
 logger.level = Logger::MAX_LEVEL
@@ -62,4 +65,19 @@ logger.level = Logger::MAX_LEVEL
 set :keep_releases,  3
 
 # Clean old releases after deploy
-after "deploy:update", "deploy:cleanup"
+# after "deploy:update", "deploy:cleanup"
+
+namespace :mon do
+
+  desc "Deploy MON to production server"
+
+  task :really_to_prod, :on_error => :continue do
+    on_rollback { }
+    run deploy.update
+  end
+  
+  task :to_prod do
+    run deploy.update
+  end
+
+end
