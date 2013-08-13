@@ -25,11 +25,7 @@ set :user,           "frederic.leger"
 set :deploy_to,      "/var/www/#{application}"
 
 # Deploy strategy
-# one of : copy, remote_cache, rsync_with_remote_cache
-set :deploy_via,     :copy
-
-# Exclusion of files
-# set :copy_exclude, ["*/*_dev.*", "*/*_test.*"]
+# set :deploy_via,     :copy
 
 # Roles
 role :web,           domain                   # Your HTTP server, Apache/etc
@@ -45,17 +41,19 @@ set :composer_options,  "--no-dev --verbose --prefer-dist --optimize-autoloader"
 set :update_vendors, false
 
 # Set some paths to be shared between versions
-set :shared_files,    [app_path + "/config/parameters.ini", web_path + "/.htaccess"]
-set :shared_children, [app_path + "/logs", web_path + "/uploads", "vendor"]
+set :shared_files,    [ app_path + "/config/parameters.yml", web_path + "/.htaccess"]
+set :shared_children, [ app_path + "/logs", app_path + "/cache", web_path + "/uploads", "vendor"]
+
+set :writable_dirs,       ["app/cache", "app/logs"]
+set :webserver_user,      "apache"
+set :permission_method,   :chown
+set :use_set_permissions, true
 
 # To prevent "you must have a tty to run sudo" message
 default_run_options[:pty] = true
-
 ssh_options[:keys] = [ "~/.ssh/id_rsa" ]
 ssh_options[:forward_agent] = true
-
-#set  :git_enable_submodules, 0
-
+set  :git_enable_submodules, 0
 set :dump_assetic_assets, true
 
 # Be more verbose by uncommenting the following line
@@ -66,18 +64,3 @@ set :keep_releases,  3
 
 # Clean old releases after deploy
 # after "deploy:update", "deploy:cleanup"
-
-namespace :mon do
-
-  desc "Deploy MON to production server"
-
-  task :really_to_prod, :on_error => :continue do
-    on_rollback { }
-    run deploy.update
-  end
-  
-  task :to_prod do
-    run deploy.update
-  end
-
-end
