@@ -13,7 +13,7 @@ parameters:
     database_path:            null
     locale:                   en
     secret:                   ccd1bc7d036e610cafffde92f994531c7
-    http_site_urls:           [ 'http://localhost/mysite/', ]
-    https_site_urls:          [ 'https://localhost/mysite/', ]
+    http_site_urls:           [ 'http://localhost/mysite/' ]
+    https_site_urls:          [ 'https://localhost/mysite/' ]
     java_path:                "/usr/bin/java"
     
