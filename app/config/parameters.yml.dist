@@ -1,0 +1,19 @@
+parameters:
+    database_driver:          pdo_mysql
+    database_host:            127.0.0.1
+    database_port:            ~
+    database_name:            dbname
+    database_user:            dbuser
+    database_password:        dbpass
+    mailer_transport:         smtp
+    mailer_host:              127.0.0.1
+    mailer_user:              ~
+    mailer_password:          ~
+    mailer_delivery_address:  me@foo.com
+    database_path:            null
+    locale:                   en
+    secret:                   ccd1bc7d036e610cafffde92f994531c7
+    http_site_urls:           [ 'http://localhost/mysite/', ]
+    https_site_urls:          [ 'https://localhost/mysite/', ]
+    java_path:                "/usr/bin/java"
+    
