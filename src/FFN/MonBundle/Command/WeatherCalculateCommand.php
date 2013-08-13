@@ -25,7 +25,17 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
 
     public function execute(InputInterface $input, OutputInterface $output) {
 
-        /* is going from controls, through scenarios, to projects */
+        $output->write('--------------------------------------------------------------------------------');
+        $output->write('DNS threshold        : ' . (float) $this->getContainer()->getParameter('weather_default_dns_threshold'));
+        $output->write('TCP threshold        : ' . (float) $this->getContainer()->getParameter('weather_default_tcp_threshold'));
+        $output->write('1st packet threshold : ' . (float) $this->getContainer()->getParameter('weather_default_first_packet_threshold'));
+        $output->write('Total time threshold : ' . (float) $this->getContainer()->getParameter('weather_default_total_time_threshold'));
+        $output->write('Very good score : ' . $this->getContainer()->getParameter('weather_very_good_score'));
+        $output->write('Average score   : ' . $this->getContainer()->getParameter('weather_average_score'));
+        $output->write('Poor score      : ' . $this->getContainer()->getParameter('weather_poor_score'));
+        $output->write('--------------------------------------------------------------------------------');
+        
+        /* looping though controls, through scenarios, to projects */
 
         // get all the controls
         $em = $this->getContainer()->get('doctrine')->getManager();
@@ -51,8 +61,6 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
             }
             $score = $score/count($captures);
             $output->writeln('  + average score: '.$score);
-
-            //$output->writeln($score." vs ".$this->getContainer()->getParameter('weather_very_good_score'));
 
             if ($score >= $this->getContainer()->getParameter('weather_very_good_score')) {
                 $ctrl_weather = Weather::WEATHER_SUNNY;
