@@ -1,7 +1,7 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
 {% block metarefresh %}
-  <meta http-equiv="refresh" content="1800">
+  <meta http-equiv="refresh" content="1800;URL={{ path('mon_graph_simple', { 'control_id': id }) }}">
 {% endblock %}
 
 {% block body %}
@@ -61,11 +61,9 @@
         {{ 'mon_graph_interval_sentence_1' | trans }} {{ start }} {{ 'mon_graph_interval_sentence_2' | trans }} {{ stop }}
     </div>      
     
-    {# TOFIX: this button is not sending the user to the last data, 
-                                    but to the same set by reloading the page #}
     {# A refresh button to actualize the data #}
     <div>
-        <input class="btn btn-primary" type="button" OnClick="javascript:window.location.reload()" id="_graph_refresh" name="_graph_refresh" value="{{ 'mon_graph_refresh_button'|trans }}" />
+        <input class="btn btn-primary" type="button" OnClick="javascript:window.location = '{{ path('mon_graph_simple', { 'control_id': id }) }}';" id="_graph_refresh" name="_graph_refresh" value="{{ 'mon_graph_refresh_button'|trans }}" />
     </div>
     <br/>  
   </div>
@@ -95,15 +93,16 @@
         {% else %}
             {% set classType = 'error' %}
         {% endif %}
-        <tr class="{{ classType }}">
-          <td>{{ row.dateExecuted.format('d/m/Y H:i:s') }}</td>
-          <td>{{ row.dns }}</td>
-          <td>{{ row.tcp }}</td>
-          <td>{{ row.firstPacket }}</td>
-          <td>{{ row.total }}</td>
-          <td>{% if (row.isValid == true) %}Yes{% else %}No{% endif %}</td>
-          <td>{% if (row.isTimeout == true) %}Yes{% else %}No{% endif %}</td>
-        </tr>
+        
+            <tr class="{{ classType }}" onClick="javascript: window.location = '#';">
+              <td>{{ row.dateExecuted.format('d/m/Y H:i:s') }}</td>
+              <td>{{ row.dns }}</td>
+              <td>{{ row.tcp }}</td>
+              <td>{{ row.firstPacket }}</td>
+              <td>{{ row.total }}</td>
+              <td>{% if (row.isValid == true) %}Yes{% else %}No{% endif %}</td>
+              <td>{% if (row.isTimeout == true) %}Yes{% else %}No{% endif %}</td>
+            </tr>
       {% endfor %}
       </table>
     </div>

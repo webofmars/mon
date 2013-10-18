@@ -73,6 +73,7 @@ class GraphController extends Controller {
                 'control' => $control,
                 'start' => $startTs,
                 'stop'  => $stopTs,
+                'id'    => $control_id
         ));
   }
 
