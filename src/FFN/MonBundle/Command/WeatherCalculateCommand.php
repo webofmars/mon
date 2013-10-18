@@ -49,6 +49,10 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
             $output->writeln('+ calculating score for control #' . $control->getId());
             $score = 0;
 
+            if (count($captures)<1) {
+                continue;
+            }
+            
             foreach ($captures as $capture) {
                 $output->write('  + calculating score for capture #' . $capture->getId().': ');
                 $score = $score + WeatherCalculator::getWeatherScore($capture,
@@ -59,7 +63,9 @@ class WeatherCalculateCommand extends ContainerAwareCommand {
                                                             (float) $this->getContainer()->getParameter('weather_default_total_time_threshold'));
                 $output->writeln($score);
             }
+            
             $score = $score/count($captures);
+            
             $output->writeln('  + average score: '.$score);
 
             if ($score >= $this->getContainer()->getParameter('weather_very_good_score')) {
