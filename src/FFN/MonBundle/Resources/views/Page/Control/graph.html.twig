@@ -60,6 +60,9 @@
     <div>
         {{ 'mon_graph_interval_sentence_1' | trans }} {{ start }} {{ 'mon_graph_interval_sentence_2' | trans }} {{ stop }}
     </div>      
+    
+    {# TOFIX: this button is not sending the user to the last data, 
+                                    but to the same set by reloading the page #}
     {# A refresh button to actualize the data #}
     <div>
         <input class="btn btn-primary" type="button" OnClick="javascript:window.location.reload()" id="_graph_refresh" name="_graph_refresh" value="{{ 'mon_graph_refresh_button'|trans }}" />
@@ -70,7 +73,9 @@
   
   {# Data table #}
   <div class="container">
-    <i class="icon-hdd"></i> <h2>{{ 'mon_graph_detail' | trans({}, 'messages') | raw() }}</h2>
+    <div class="row">
+      <h2><i class="icon-hdd" style="vertical-align:middle;"></i>&nbsp;{{ 'mon_graph_detail' | trans({}, 'messages') | raw() }}</h2>
+    </div>
     <div class="row">
       <table class="table table-striped table-hover table-bordered">
         <thead>
