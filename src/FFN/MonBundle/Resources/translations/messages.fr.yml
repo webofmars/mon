@@ -130,6 +130,9 @@ mon_graph_dns_resolution: Résolution DNS
 mon_graph_valid: Valide
 mon_graph_timeout: Timeout
 mon_graph_empty: Aucune donnée disponible pour cette période
+mon_graph_refresh_button: Rafraichir
+mon_graph_interval_sentence_1: Données du
+mon_graph_interval_sentence_2: au
 
 # Weather wordings
 mon_weather: Météo

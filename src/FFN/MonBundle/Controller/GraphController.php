@@ -71,6 +71,8 @@ class GraphController extends Controller {
                 'project' => $project,
                 'scenario' => $scenario,
                 'control' => $control,
+                'start' => $startTs,
+                'stop'  => $stopTs,
         ));
   }
 
