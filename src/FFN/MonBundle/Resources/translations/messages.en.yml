@@ -20,6 +20,7 @@ mon_actions: Actions
 mon_options: Options
 mon_no: No
 mon_yes: Yes
+mon_menu_help: Help
 
 # Subscription wordings
 ffn.mon.subscription.unknown: Can't determine your subscription type

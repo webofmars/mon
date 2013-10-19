@@ -1,64 +1,68 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <a class="brand" href="{{ path("mon_home") }}">
-        {{ 'mon_title'|trans({}, 'messages') }}
-      </a>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li class="dropdown">
-            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-              <a data-toggle="dropdown" class="dropdown-toggle" href="#">{{ 'mon_options' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="{{ path("mon_project_add")}}">{{ 'mon_project_create' | trans({}, 'messages') | raw }}</a></li>
-                {% if project is defined %}
-                  {% if project.id is defined %}
-                    <li><a href="{{ path('mon_project_edit', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{path('mon_scenario_add', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
-                  {% elseif project.getIdProject is defined %}
-                    <li><a href="{{ path('mon_project_edit', {'id': project.getIdProject, '_locale': app.request.get('_locale') })}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{{path('mon_scenario_add', {'id': project.getIdProject, '_locale': app.request.get('_locale') })}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
-                  {% endif %}
-                  {% if scenario is defined %}
-                    {% if scenario.id is defined %}
-                      <li><a href="{{path('mon_scenario_edit', {'id': scenario.id,'_locale': app.request.get('_locale') })}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
-                      <li class="divider"></li>
-                      <li><a href="{{path('mon_control_add', {'id': scenario.id, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>
-                    {% elseif scenario.getIdScenario is defined %}
-                      <li><a href="{{path('mon_scenario_edit', {'id': scenario.getIdScenario,'_locale': app.request.get('_locale') })}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
-                      <li class="divider"></li>
-                      <li><a href="{{path('mon_control_add', {'id': scenario.getIdScenario, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand" href="{{ path("mon_home") }}">
+                {{ 'mon_title'|trans({}, 'messages') }}
+            </a>
+        <div class="nav-collapse collapse">
+            <ul class="nav">
+                <li class="dropdown">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-edit icon-white"></i>&nbsp;{{ 'mon_options' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path("mon_project_add")}}">{{ 'mon_project_create' | trans({}, 'messages') | raw }}</a></li>
+                                {% if project is defined %}
+                                    {% if project.id is defined %}
+                                        <li><a href="{{ path('mon_project_edit', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{{path('mon_scenario_add', {'id': project.id, '_locale': app.request.get('_locale') })}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
+                                    {% elseif project.getIdProject is defined %}
+                                        <li><a href="{{ path('mon_project_edit', {'id': project.getIdProject, '_locale': app.request.get('_locale') })}}">{{'mon_project_edit'| trans({}, 'messages') | raw }}</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="{{path('mon_scenario_add', {'id': project.getIdProject, '_locale': app.request.get('_locale') })}}">{{'mon_scenario_create'| trans({}, 'messages') | raw }}</a></li>
+                                    {% endif %}
+                                    {% if scenario is defined %}
+                                        {% if scenario.id is defined %}
+                                            <li><a href="{{path('mon_scenario_edit', {'id': scenario.id,'_locale': app.request.get('_locale') })}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{path('mon_control_add', {'id': scenario.id, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>
+                                        {% elseif scenario.getIdScenario is defined %}
+                                            <li><a href="{{path('mon_scenario_edit', {'id': scenario.getIdScenario,'_locale': app.request.get('_locale') })}}">{{'mon_scenario_edit'| trans({}, 'messages') | raw }}</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{{path('mon_control_add', {'id': scenario.getIdScenario, '_locale': app.request.get('_locale') })}}">{{'mon_control_create'| trans({}, 'messages') | raw }}</a></li>
+                                        {% endif %}
+                                        {% if control is defined %}
+                                            {% if control.id is defined %}
+                                                <li><a href="{{path('mon_control_edit', {'id': control.id,'_locale': app.request.get('_locale') })}}">{{'mon_control_edit'| trans({}, 'messages') | raw }}</a></li>
+                                            {% elseif control.getIdControl is defined %}
+                                                <li><a href="{{path('mon_control_edit', {'id': control.getIdControl,'_locale': app.request.get('_locale') })}}">{{'mon_control_edit'| trans({}, 'messages') | raw }}</a></li>
+                                            {% endif %}
+                                        {% endif %}
+                                    {% endif %}
+                                {% endif %}
+                        </ul>
                     {% endif %}
-                    {% if control is defined %}
-                      {% if control.id is defined %}
-                        <li><a href="{{path('mon_control_edit', {'id': control.id,'_locale': app.request.get('_locale') })}}">{{'mon_control_edit'| trans({}, 'messages') | raw }}</a></li>
-                      {% elseif control.getIdControl is defined %}
-                        <li><a href="{{path('mon_control_edit', {'id': control.getIdControl,'_locale': app.request.get('_locale') })}}">{{'mon_control_edit'| trans({}, 'messages') | raw }}</a></li>
-                      {% endif %}
-                    {% endif %}
-                  {% endif %}
+                </li>
+                {% if is_granted('ROLE_SUPER_ADMIN') %}
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'mon_menu_admin' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path("mon_admin_user_add")}}">{{ 'mon_menu_admin_create_user' | trans({}, 'messages') | raw }}</a></li>
+                            <li><a href="{{ path("mon_admin_user")}}">{{ 'mon_menu_admin_manage_users' | trans({}, 'messages') | raw }}</a></li>
+                        </ul>
+                    </li>
                 {% endif %}
-              </ul>
-            {% endif %}
-          </li>
-          {% if is_granted('ROLE_SUPER_ADMIN') %}
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'mon_menu_admin' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li class=""><a href="{{ path("mon_admin_user_add")}}">{{ 'mon_menu_admin_create_user' | trans({}, 'messages') | raw }}</a></li>
-                <li class=""><a href="{{ path("mon_admin_user")}}">{{ 'mon_menu_admin_manage_users' | trans({}, 'messages') | raw }}</a></li>
-              </ul>
-            </li>
-          {% endif %}
-        </ul>
-        <ul class="nav pull-right">
-            {% include 'FFNMonBundle:Common:menu_dropdown_user.html.twig' %}
-            <li><a href="{{ path('mon_faq',     { '_locale': app.request.locale } ) }}">{{ 'mon_faq' | trans({}, 'messages') | raw() }}</a></li>
-            <li><a href="{{ path('mon_about',   { '_locale': app.request.locale } ) }}">{{ 'mon_about' | trans({}, 'messages') | raw() }}</a></li>
-            <li><a href="{{ path('mon_contact', { '_locale': app.request.locale } ) }}">{{ 'mon_contact' | trans({}, 'messages') | raw() }}</a></li>
-        </ul>
+        
+                {% include 'FFNMonBundle:Common:menu_dropdown_user.html.twig' %}
+                <li class="dropdown">    
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-question-sign icon-white"></i>&nbsp;{{ 'mon_menu_help' | trans}}<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ path('mon_faq',     { '_locale': app.request.locale } ) }}">{{ 'mon_faq' | trans }}</a></li>
+                        <li><a href="{{ path('mon_about',   { '_locale': app.request.locale } ) }}">{{ 'mon_about' | trans }}</a></li>
+                        <li><a href="{{ path('mon_contact', { '_locale': app.request.locale } ) }}">{{ 'mon_contact' | trans }}</a></li>
+                    </ul>
+                </li>
+      </ul>
       </div>
     </div>
   </div>
