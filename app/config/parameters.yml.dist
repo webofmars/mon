@@ -16,4 +16,8 @@ parameters:
     http_site_urls:           [ 'http://localhost/mysite/' ]
     https_site_urls:          [ 'https://localhost/mysite/' ]
     java_path:                "/usr/bin/java"
+    wom:
+        mon:
+            systemid: xxWoMInternalxx
+            version: 0.3-beta
     

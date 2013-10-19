@@ -99,6 +99,14 @@ class Daemon {
         curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
         curl_setopt($ch, CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_MAXREDIRS, 5);
+        
+        //TODO: The values must come from the config
+        //TODO: is there any RFC header for monitoring system ???
+        // For tracing our solution
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            'X-WoM-mon-version: v1.0',
+            'X-WoM-mon-system-id: xxDEVDEVDEVxx'
+        ));
 
         // Exécution
         $reponse = curl_exec($ch);
