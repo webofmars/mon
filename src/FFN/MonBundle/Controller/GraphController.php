@@ -48,10 +48,11 @@ class GraphController extends Controller {
         $user = $this->get('security.context')->getToken()->getUser();
         if ($user === $capture->getControl()->getScenario()->getProject()->getUser()) {
           array_push($graphdata, $capture);
+          $captureDetail  = $capture->getCaptureDetail();
           if (!($control instanceof ControlEntity)) {
-            $control = $capture->getControl();
-            $scenario = $control->getScenario();
-            $project = $scenario->getProject();
+            $control        = $capture->getControl();
+            $scenario       = $control->getScenario();
+            $project        = $scenario->getProject();
             $title = $control->getName();
           }
         }
@@ -73,7 +74,8 @@ class GraphController extends Controller {
                 'control' => $control,
                 'start' => $startTs,
                 'stop'  => $stopTs,
-                'id'    => $control_id
+                'id'    => $control_id,
+                'capture_detail' => $captureDetail,
         ));
   }
 

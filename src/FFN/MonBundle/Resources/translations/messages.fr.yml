@@ -135,6 +135,9 @@ mon_graph_refresh_button: Rafraichir
 mon_graph_interval_sentence_1: Données du
 mon_graph_interval_sentence_2: au
 
+# capture details wordings
+mon_capture_detail_title: Détails de la capture
+
 # Weather wordings
 mon_weather: Météo
 

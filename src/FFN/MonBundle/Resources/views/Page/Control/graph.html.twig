@@ -78,13 +78,13 @@
       <table class="table table-striped table-hover table-bordered">
         <thead>
           <tr>
-            <th>{{ 'mon_graph_execution_date' | trans({}, 'messages') | raw }}</th>
-            <th>{{ 'mon_graph_dns_resolution' | trans({}, 'messages') | raw }}</th>
-            <th>{{ 'mon_graph_tcp_connection' | trans({}, 'messages') | raw }}</th>
-            <th>{{ 'mon_graph_first_packet' | trans({}, 'messages') | raw }}</th>
-            <th>{{ 'mon_graph_total_time' | trans({}, 'messages') | raw }}</th>
-            <th>{{ 'mon_graph_valid' | trans({}, 'messages') | raw }}</th>
-            <th>{{ 'mon_graph_timeout' | trans({}, 'messages') | raw }}</th>
+            <th>{{ 'mon_graph_execution_date' | trans }}</th>
+            <th>{{ 'mon_graph_dns_resolution' | trans }}</th>
+            <th>{{ 'mon_graph_tcp_connection' | trans }}</th>
+            <th>{{ 'mon_graph_first_packet' | trans }}</th>
+            <th>{{ 'mon_graph_total_time' | trans }}</th>
+            <th>{{ 'mon_graph_valid' | trans }}</th>
+            <th>{{ 'mon_graph_timeout' | trans }}</th>
           </tr>
         </thead>
       {% for row in graphdata %}
@@ -94,7 +94,7 @@
             {% set classType = 'error' %}
         {% endif %}
         
-            <tr class="{{ classType }}" onClick="javascript: window.location = '#';">
+            <tr class="{{ classType }}" onClick="javascript: window.location = '{{ path('mon_capture_details_show', { 'id': capture_detail.id }) }}';">
               <td>{{ row.dateExecuted.format('d/m/Y H:i:s') }}</td>
               <td>{{ row.dns }}</td>
               <td>{{ row.tcp }}</td>
