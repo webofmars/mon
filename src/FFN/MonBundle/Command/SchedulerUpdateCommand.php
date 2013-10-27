@@ -70,7 +70,7 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
     }
 
     // TODO: a externaliser
-    protected function scheduleCapture($dateTime, $control) {
+    protected function scheduleCapture($dateTime, \FFN\MonBundle\Entity\Control $control) {
 
         try {
             // try to add a new scheduled capture to do
@@ -79,6 +79,8 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
             $cap = new capture();
             $cap->setDateScheduled($dateTime);
             $cap->setControl($control);
+            $cap->setOwner($control->getScenario()->getProject()->getUser());
+            $capDetail->setOwner($control->getScenario()->getProject()->getUser());
             $em->persist($cap);
             $em->flush();
             return true;
@@ -95,5 +97,3 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
     }
 
 }
-
-?>

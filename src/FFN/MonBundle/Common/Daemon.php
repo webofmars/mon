@@ -10,6 +10,7 @@ class Daemon {
     public static function run(Capture $capture) {
 
         $cd = new CaptureDetail();
+        $cd->setOwner($capture->getOwner());
         $capture->setCaptureDetail($cd);
 
         try {
@@ -26,7 +27,7 @@ class Daemon {
             $capture->setFirstPacket($res[5]);
             $capture->setTotal($res[6]);
             $capture->setIsTimeout(false);
-
+            
             $cd->setContent($res[1]);
             $cd->setIsConnectionTimeout(false);
             $cd->setIsResponseTimeout(false);

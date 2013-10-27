@@ -45,6 +45,8 @@ class LoadGraphData extends AbstractFixture implements OrderedFixtureInterface, 
           for ($l = 1; $l <= $nbControls; $l++) {
             $cap = new Capture();
             $capd = new CaptureDetail();
+            $cap->setOwner($om->merge($this->getReference('usr_' . $i)));
+            $capd->setOwner($om->merge($this->getReference('usr_' . $i)));
             $cap->setDateExecuted(new DateTime('now'));
             $cap->setDateScheduled(new DateTime('now'));
             $time = (float) rand(0, 999) / 1000;

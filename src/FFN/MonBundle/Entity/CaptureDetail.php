@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="capture_detail")
  * @ORM\Entity
  */
-class CaptureDetail
-{
+class CaptureDetail {
+
     /**
      * @var integer
      *
@@ -22,6 +22,15 @@ class CaptureDetail
      *
      */
     private $id;
+
+    /**
+     *
+     * @var \FFN\UserBundle\Entity\User
+     * @ORM\ManyToOne(targetEntity="FFN\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="owner", referencedColumnName="id", nullable=false)
+     * 
+     */
+    private $owner;
 
     /**
      * @var text
@@ -50,15 +59,13 @@ class CaptureDetail
      * @ORM\Column(name="validators", type="string", length=255, nullable=true)
      */
     private $validators = "";
- 
 
     /**
      * Get id
      *
      * @return integer
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -68,8 +75,7 @@ class CaptureDetail
      * @param text $content
      * @return CaptureDetail
      */
-    public function setContent($content)
-    {
+    public function setContent($content) {
         $this->content = $content;
 
         return $this;
@@ -80,8 +86,7 @@ class CaptureDetail
      *
      * @return text
      */
-    public function getContent()
-    {
+    public function getContent() {
         return $this->content;
     }
 
@@ -91,8 +96,7 @@ class CaptureDetail
      * @param boolean $isConnectionTimeout
      * @return CaptureDetail
      */
-    public function setIsConnectionTimeout($isConnectionTimeout)
-    {
+    public function setIsConnectionTimeout($isConnectionTimeout) {
         $this->isConnectionTimeout = $isConnectionTimeout;
 
         return $this;
@@ -103,8 +107,7 @@ class CaptureDetail
      *
      * @return boolean
      */
-    public function getIsConnectionTimeout()
-    {
+    public function getIsConnectionTimeout() {
         return $this->isConnectionTimeout;
     }
 
@@ -114,8 +117,7 @@ class CaptureDetail
      * @param boolean $isResponseTimeout
      * @return CaptureDetail
      */
-    public function setIsResponseTimeout($isResponseTimeout)
-    {
+    public function setIsResponseTimeout($isResponseTimeout) {
         $this->isResponseTimeout = $isResponseTimeout;
 
         return $this;
@@ -126,8 +128,7 @@ class CaptureDetail
      *
      * @return boolean
      */
-    public function getIsResponseTimeout()
-    {
+    public function getIsResponseTimeout() {
         return $this->isResponseTimeout;
     }
 
@@ -137,8 +138,7 @@ class CaptureDetail
      * @param string $validators
      * @return CaptureDetail
      */
-    public function setValidators($validators)
-    {
+    public function setValidators($validators) {
         $this->validators = $validators;
 
         return $this;
@@ -149,8 +149,29 @@ class CaptureDetail
      *
      * @return string
      */
-    public function getValidators()
-    {
+    public function getValidators() {
         return $this->validators;
-    }    
+    }
+
+    /**
+     * Get owner
+     *
+     * @return \FFN\UserBundle\Entity\User 
+     */
+    public function getOwner() {
+        return $this->owner;
+    }
+
+    /**
+     * Set owner
+     *
+     * @param \FFN\UserBundle\Entity\User $user
+     * @return Capture
+     */
+    public function setOwner(\FFN\UserBundle\Entity\User $user = null) {
+        $this->owner = $user;
+
+        return $this;
+    }
+
 }

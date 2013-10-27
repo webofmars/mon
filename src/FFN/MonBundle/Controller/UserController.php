@@ -100,6 +100,7 @@ class UserController extends Controller {
    */
   public function adminUserDeleteAction($id) {
     $em = $this->get('doctrine')->getManager();
+    
     // Control if user exists, and if so delete user
     $user = $em->getRepository('FFN\UserBundle\Entity\User')->findOneById($id);
     if ($user instanceof User) {
@@ -117,8 +118,8 @@ class UserController extends Controller {
   }
 
   /**
-   * Edit a user (TODO)
-   */
+  * Edit a user (TODO)
+  */
   public function adminUserEditAction($id) {
     echo 'TODO';
     return $this->render('FFNMonBundle:Page:home.html.twig', array(

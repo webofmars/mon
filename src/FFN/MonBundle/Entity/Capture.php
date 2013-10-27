@@ -31,6 +31,15 @@ class Capture {
     private $id;
 
     /**
+     *
+     * @var \FFN\UserBundle\Entity\User
+     * @ORM\ManyToOne(targetEntity="FFN\UserBundle\Entity\User")
+     * @ORM\JoinColumn(name="owner", referencedColumnName="id", nullable=false)
+     * 
+     */
+    private $owner;
+    
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date_scheduled", type="datetime", nullable=true)
@@ -334,6 +343,27 @@ class Capture {
         return $this->control;
     }
 
+    /**
+     * Get owner
+     *
+     * @return \FFN\UserBundle\Entity\User 
+     */
+    public function getOwner() {
+        return $this->owner;
+    }
+    
+     /**
+     * Set owner
+     *
+     * @param \FFN\UserBundle\Entity\User $user
+     * @return Capture
+     */
+    public function setOwner(\FFN\UserBundle\Entity\User $user = null)
+    {
+        $this->owner = $user;
+
+        return $this;
+    }
     
     public function getCaptureDetail() {
         return $this->captureDetail;

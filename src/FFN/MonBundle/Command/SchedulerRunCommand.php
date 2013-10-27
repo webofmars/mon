@@ -48,6 +48,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
             $progression = round(($counter++) * 100 / $nbCaptures) . '%';
             $output->writeln("- running control #" . $capture->getControl()->getId() . " (".$progression.")");
             $capture->setDateExecuted(new DateTime('now', new DateTimeZone('UTC')));
+            
             // Actually run the sampler process
             try {
                 FFNDaemon::run($capture);

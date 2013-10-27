@@ -1,7 +1,7 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
 {% block metarefresh %}
-  <meta http-equiv="refresh" content="1800;URL={{ path('mon_graph_simple', { 'control_id': id }) }}">
+  <meta http-equiv="refresh" content="1800;url={{ path('mon_graph_simple', { 'control_id': id }) }}">
 {% endblock %}
 
 {% block body %}
