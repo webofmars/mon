@@ -87,7 +87,7 @@ mon_scenario_unknown: Requested scenario is unknown
 mon_scenario_create: Create new scenario
 mon_scenario_creation_failed: Scenario creation failed
 mon_scenario_creation_validated: Scenario creation succeeded
-mon_scenario_edit: Modify scenario
+mon_scenario_edit: Edit scenario
 mon_scenario_edition_failed: Scenario modification failed
 mon_scenario_edition_validated: Scenario modification succeeded
 mon_scenario_delete: Delete scenario
@@ -109,7 +109,7 @@ mon_control_unknown: Requested control is unknown
 mon_control_create: Create new control
 mon_control_creation_failed: Control creation failed
 mon_control_creation_validated: Control creation succeeded
-mon_control_edit: Modify control
+mon_control_edit: Edit control
 mon_control_edition_failed: Control modification failed
 mon_control_edition_validated: Control modification succeeded
 mon_control_delete: Delete control

@@ -8,7 +8,7 @@
             <ul class="nav">
                 <li class="dropdown">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-edit icon-white"></i>&nbsp;{{ 'mon_options' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="#"><i class="icon-pencil icon-white"></i>&nbsp;{{ 'mon_actions' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path("mon_project_add")}}">{{ 'mon_project_create' | trans({}, 'messages') | raw }}</a></li>
                                 {% if project is defined %}
@@ -45,7 +45,7 @@
                 </li>
                 {% if is_granted('ROLE_SUPER_ADMIN') %}
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ 'mon_menu_admin' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-lock icon-white"></i>&nbsp;{{ 'mon_menu_admin' | trans({}, 'messages') | raw }}<b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             <li><a href="{{ path("mon_admin_user_add")}}">{{ 'mon_menu_admin_create_user' | trans({}, 'messages') | raw }}</a></li>
                             <li><a href="{{ path("mon_admin_user")}}">{{ 'mon_menu_admin_manage_users' | trans({}, 'messages') | raw }}</a></li>

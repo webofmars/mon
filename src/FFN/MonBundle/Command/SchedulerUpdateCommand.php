@@ -22,8 +22,8 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
     protected function configure() {
         $this->setName('mon:scheduler:update');
         $this->setDescription('update the captures scheduled date based on the scenario frequency');
-        $this->addArgument('interval', InputArgument::OPTIONAL, 'Interval to schedule captures for', 60);
-        $this->addArgument('round', InputArgument::OPTIONAL, 'Round values in increment of', 10);
+        $this->addArgument('interval', InputArgument::OPTIONAL, 'Interval in minute(s) to schedule captures for', 60);
+        $this->addArgument('round', InputArgument::OPTIONAL, 'Captures times will be rounded to this value (in minutes)', 10);
     }
 
     public function execute(InputInterface $input, OutputInterface $output) {
