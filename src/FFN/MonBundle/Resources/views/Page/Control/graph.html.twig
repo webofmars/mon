@@ -27,7 +27,7 @@
               ],
               {% for row in graphdata %}
                   [
-                      {{ row.dateExecuted | date('H:i:s') | json_encode() | replace( {'"': '\''} ) | raw() }},
+                      {{ row.dateExecuted | date('H:i:s', timezone) | json_encode() | replace( {'"': '\''} ) | raw() }},
                       {{ row.dns | json_encode() | replace( {'"': ''} ) | raw() }},
                       {{ row.tcp | json_encode() | replace( {'"': ''} ) | raw() }},
                       {{ row.firstPacket | json_encode() | replace( {'"': ''} ) | raw() }},
@@ -81,10 +81,10 @@
             <th>{{ 'mon_graph_execution_date' | trans }}</th>
             <th>{{ 'mon_graph_dns_resolution' | trans }}</th>
             <th>{{ 'mon_graph_tcp_connection' | trans }}</th>
-            <th>{{ 'mon_graph_first_packet' | trans }}</th>
-            <th>{{ 'mon_graph_total_time' | trans }}</th>
-            <th>{{ 'mon_graph_valid' | trans }}</th>
-            <th>{{ 'mon_graph_timeout' | trans }}</th>
+            <th>{{ 'mon_graph_first_packet'   | trans }}</th>
+            <th>{{ 'mon_graph_total_time'     | trans }}</th>
+            <th>{{ 'mon_graph_valid'          | trans }}</th>
+            <th>{{ 'mon_graph_timeout'        | trans }}</th>
           </tr>
         </thead>
       {% for row in graphdata %}
@@ -95,7 +95,7 @@
         {% endif %}
         
             <tr class="{{ classType }}" onClick="javascript: window.location = '{{ path('mon_capture_details_show', { 'id': capture_detail.id }) }}';">
-              <td>{{ row.dateExecuted.format('d/m/Y H:i:s') }}</td>
+              <td>{{ row.dateExecuted | date('d/m/Y H:i:s', timezone)}}</td>
               <td>{{ row.dns }}</td>
               <td>{{ row.tcp }}</td>
               <td>{{ row.firstPacket }}</td>

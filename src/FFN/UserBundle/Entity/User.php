@@ -18,84 +18,110 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class User extends BaseUser {
 
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+  /**
+   * @ORM\Id
+   * @ORM\Column(type="integer")
+   * @ORM\GeneratedValue(strategy="AUTO")
+   */
+  protected $id;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="FFN\MonBundle\Entity\Subscription")
-     * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id")
-     */
-    protected $subscription;
+  /**
+   * @var int
+   * @ORM\ManyToOne(targetEntity="FFN\MonBundle\Entity\Subscription")
+   * @ORM\JoinColumn(name="subscription_id", referencedColumnName="id")
+   */
+  protected $subscription;
 
-    /**
-     * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Project", mappedBy="user", cascade={"persist"})
-     */
-    protected $projects;
+  /**
+   *
+   * @var string
+   * @ORM\Column(type="string")
+   * 
+   */
+  protected $timezone = 'Europe/Paris';
 
-    /**
-     * Add projects
-     *
-     * @param Project $projects
-     * @return User
-     */
-    public function addProject(Project $projects) {
-        $this->projects[] = $projects;
+  /**
+   * @ORM\OneToMany(targetEntity="FFN\MonBundle\Entity\Project", mappedBy="user", cascade={"persist"})
+   */
+  protected $projects;
 
-        return $this;
+  /**
+   * get user timezone
+   * @return string
+   */
+  public function getTimezone() {
+    return $this->timezone;
+  }
+
+  /**
+   * Set the user timezone
+   * 
+   * @param string $timezone
+   */
+  public function setTimezone($timezone) {
+    $this->timezone = $timezone;
+  }
+
+  /**
+   * Add projects
+   *
+   * @param Project $projects
+   * @return User
+   */
+  public function addProject(Project $projects) {
+    $this->projects[] = $projects;
+
+    return $this;
+  }
+
+  /**
+   * Remove projects
+   *
+   * @param Project $projects
+   */
+  public function removeProject(Project $projects) {
+    $this->projects->removeElement($projects);
+  }
+
+  /**
+   * Get projects
+   *
+   * @return Collection
+   */
+  public function getProjects() {
+    return $this->projects;
+  }
+
+  public function getSubscription() {
+    return $this->subscription;
+  }
+
+  public function setSubscription($subscription) {
+    $this->subscription = $subscription;
+  }
+
+  public function getAllScenarios() {
+    $scList = new ArrayCollection();
+    foreach ($this->projects as $project) {
+      $scList->add($project->getScenarios());
     }
+    return $scList;
+  }
 
-    /**
-     * Remove projects
-     *
-     * @param Project $projects
-     */
-    public function removeProject(Project $projects) {
-        $this->projects->removeElement($projects);
+  public function getAllControls() {
+    $ctrlList = new ArrayCollection();
+    foreach ($this->getAllScenarios() as $sc) {
+      // TOFIX not working on ArrayCols
+      //$ctrlList->add($sc->getControls());
     }
+    return $ctrlList;
+  }
 
-    /**
-     * Get projects
-     *
-     * @return Collection
-     */
-    public function getProjects() {
-        return $this->projects;
-    }
-
-    public function getSubscription() {
-        return $this->subscription;
-    }
-
-    public function setSubscription($subscription) {
-        $this->subscription = $subscription;
-    }
-
-    public function getAllScenarios() {
-        $scList = new ArrayCollection();
-        foreach ($this->projects as $project) {
-            $scList->add($project->getScenarios());
-        }
-        return $scList;
-    }
-
-    public function getAllControls() {
-        $ctrlList = new ArrayCollection();
-        foreach ($this->getAllScenarios() as $sc) {
-            // TOFIX not working on ArrayCols
-            //$ctrlList->add($sc->getControls());
-        }
-        return $ctrlList;
-    }
-
-    public function __construct() {
-        parent::__construct();
-        // TODO: this is to be fixed by model switch
-        $this->subscription = NULL;
-        $this->projects = new ArrayCollection();
-    }
+  public function __construct() {
+    parent::__construct();
+    // TODO: this is to be fixed by model switch
+    $this->subscription = NULL;
+    $this->projects = new ArrayCollection();
+  }
 
 }

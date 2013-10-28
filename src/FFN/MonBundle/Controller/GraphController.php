@@ -67,15 +67,16 @@ class GraphController extends Controller {
     }
 
     return $this->render('FFNMonBundle:Page:Control\graph.html.twig', array(
-                'graphdata' => $graphdata,
-                'title' => $title,
-                'project' => $project,
-                'scenario' => $scenario,
-                'control' => $control,
-                'start' => $startTs,
-                'stop'  => $stopTs,
-                'id'    => $control_id,
-                'capture_detail' => $captureDetail,
+                'graphdata'       => $graphdata,
+                'title'           => $title,
+                'project'         => $project,
+                'scenario'        => $scenario,
+                'control'         => $control,
+                'start'           => $startTs,
+                'stop'            => $stopTs,
+                'id'              => $control_id,
+                'capture_detail'  => $captureDetail,
+                'timezone'        => $user->getTimezone()
         ));
   }
 
