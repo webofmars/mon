@@ -21,7 +21,7 @@
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "*",
         "symfony/console": "2.3.*@dev",
-        "lunetics/locale-bundle": "2.2.*@dev",
+        "lunetics/locale-bundle": "dev-master",
         "jms/security-extra-bundle": "1.5.*@dev",
         "jms/di-extra-bundle": "1.4.*@dev",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
