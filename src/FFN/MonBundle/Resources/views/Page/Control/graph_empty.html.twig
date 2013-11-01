@@ -10,4 +10,10 @@
     {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
   </div>
 
+  <div class="container">
+    <div class="row">
+      <em>{{ 'mon_graph_interval_sentence_1' | trans }} {{ start | date('d/m/Y H:i:s', timezone) }} {{ 'mon_graph_interval_sentence_2' | trans }} {{ stop | date('d/m/Y H:i:s', timezone) }}</em>
+    </div>
+  </div>
+  
 {% endblock %}
