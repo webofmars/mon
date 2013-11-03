@@ -89,7 +89,7 @@ lunetics_locale:
     - router
     - browser
   switcher:
-    template: FFNMonBundle::localeSwitcher.html.twig
+    template: FFNMonBundle:Common:localeSwitcher.html.twig
     show_current_locale: true
   cookie:
     set_on_change: true

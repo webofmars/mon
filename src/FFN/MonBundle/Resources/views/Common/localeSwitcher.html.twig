@@ -1,0 +1,5 @@
+<p>Switch to :
+    {% for locale in locales %}
+            <a href="{{ locale.link }}" title="{{ locale.locale }}">{{ locale.locale | upper }}</a>&nbsp;|&nbsp;
+    {% endfor %}
+</p>
