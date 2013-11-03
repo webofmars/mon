@@ -85,9 +85,11 @@ lunetics_locale:
     - fr
     - en
   guessing_order:
+    - query
+    - session
     - cookie
-    - router
     - browser
+    - router
   switcher:
     template: FFNMonBundle:Common:localeSwitcher.html.twig
     show_current_locale: true
