@@ -149,3 +149,4 @@ mon_faq: FAQ
 layout.fos_title: Mon Security
 mon_already_member: Already a member ?
 mon_not_yet_member: Or signup today for free !
+registration.flash.user_created: Your account has been created
