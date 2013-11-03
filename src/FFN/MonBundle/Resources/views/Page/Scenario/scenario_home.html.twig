@@ -31,9 +31,7 @@
         {% for control in controls %}
         <tr>
           <td>{{control.getIdControl}}</td>
-          <td><a href="{{ path( 'mon_graph', {control_id: control.getIdControl,
-                                                startTs: startTs,
-                                                stopTs:  stopTs })
+          <td><a href="{{ path( 'mon_graph_simple', {control_id: control.getIdControl})
                 }}">{{ control.getControlEntity.name}}</a>
           </td>
           <td>

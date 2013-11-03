@@ -6,8 +6,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FFN\MonBundle\Entity\Project as ProjectEntity;
 use FFN\MonBundle\Entity\Scenario as ScenarioEntity;
 use FFN\MonBundle\Entity\Control as ControlEntity;
-use \DateTime;
-use \DateTimeZone;
+use DateTime;
+use DateTimeZone;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -17,12 +17,28 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class GraphController extends Controller {
 
-  public function showAction($control_id, \DateTime $startTs = null, \Datetime $stopTs = null) {
-    
-    $startTs->setTimezone(new DateTimeZone('UTC'));
-    $stopTs->setTimezone(new DateTimeZone('UTC'));
+  public function showAction($control_id, DateTime $start = null, DateTime $stop = null, $TZ = null, $period = '12 hour') {
     
     $user = $this->get('security.context')->getToken()->getUser();
+    
+    if (is_null($start)) {
+      $start = new DateTime("-$period");
+    }
+    if (is_null($stop)) {
+      $stop = new DateTime("+$period");
+    }
+    
+    if ($TZ == null) {
+      $TZ = new DateTimeZone($user->getTimeZone());
+    }
+    else {
+      $TZ = preg_replace('/,/', '/', $TZ);
+      $TZ = new DateTimeZone($TZ);
+    }
+    
+    $start->setTimezone($TZ);
+    $stop->setTimezone($TZ);
+    
     $em = $this->get('doctrine')->getManager();
     $control = $em->getRepository('FFN\MonBundle\Entity\Control')->findOneById($control_id);
     
@@ -48,15 +64,7 @@ class GraphController extends Controller {
 
     // get graphic data from DB
     $graphdata = array();
-    
-    if (is_null($startTs)) {
-      $startTs = new DateTime("-12 hour", new \DateTimeZone('UTC'));
-    }
-    if (is_null($stopTs)) {
-      $stopTs = new DateTime("+12 hour", new \DateTimeZone('UTC'));
-    }
-    
-    $captures_data = $em->getRepository('FFN\MonBundle\Entity\Capture')->findByIdAndTimeRange($control_id, $startTs, $stopTs);
+    $captures_data = $em->getRepository('FFN\MonBundle\Entity\Capture')->findByIdAndTimeRange($control_id, $start, $stop);
     
     if (count($captures_data) > 0) {
       foreach ($captures_data as $capture) {
@@ -77,9 +85,9 @@ class GraphController extends Controller {
                   'project'   => $project,
                   'scenario'  => $scenario,
                   'control'   => $control,
-                  'start'     => $startTs,
-                  'stop'      => $stopTs,
-                  'timezone'  => $user->getTimezone()
+                  'start'     => $start,
+                  'stop'      => $stop,
+                  'timezone'  => $TZ->getName()
           ));
     }
 
@@ -89,11 +97,11 @@ class GraphController extends Controller {
                 'project'         => $project,
                 'scenario'        => $scenario,
                 'control'         => $control,
-                'start'           => $startTs,
-                'stop'            => $stopTs,
+                'start'           => $start,
+                'stop'            => $stop,
                 'id'              => $control_id,
                 'capture_detail'  => $captureDetail,
-                'timezone'        => $user->getTimezone()
+                'timezone'        => $TZ->getName()
         ));
   }
 

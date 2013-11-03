@@ -47,19 +47,11 @@ class ScenarioController extends DefaultController {
     if ($verifyProject !== true) {
       return $verifyProject;
     }
-
-    // initiate useful display parameters
-    $startTs = new DateTime();
-    $stopTs = new DateTime();
-    $startTs->sub(new DateInterval('PT12H'));
-    $stopTs->add(new DateInterval('PT12H'));
-
+    
     return $this->render('FFNMonBundle:Page:Scenario\scenario_home.html.twig', array(
                 'project' => $project_entity,
                 'scenario' => $scenario_model,
                 'controls' => $scenario_model->getControls(),
-                'startTs' => $startTs->format('Y-m-d H:i:s'),
-                'stopTs' => $stopTs->format('Y-m-d H:i:s'),
             ));
   }
 

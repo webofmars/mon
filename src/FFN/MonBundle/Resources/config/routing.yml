@@ -38,14 +38,15 @@ mon_contact:
     _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
 
 mon_graph:
-  pattern: /{_locale}/graph/{control_id}/{startTs}/{stopTs}
+  pattern: /{_locale}/graph/{control_id}/{start}/{stop}/{TZ}
   defaults:
     _controller: FFNMonBundle:Graph:show
   requirements:
     _locale: "[a-z]{2}(?:_[A-Z]{2}){0,1}"
     control_id: \d+
-    startTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
-    stopTs: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
+    start: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
+    stop : \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
+    TZ: "[A-Za-z,]+"
 
 mon_graph_simple:
   pattern: /{_locale}/graph/{control_id}

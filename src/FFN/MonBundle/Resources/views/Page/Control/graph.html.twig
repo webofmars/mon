@@ -58,7 +58,7 @@
     <h1><small>{{ 'mon_graph_label' | trans({}, 'messages') }} {{ title }}</small></h1>
     <div id="chart_div" style="width: 900px; height: 500px;"></div>
     <div>
-      <em>{{ 'mon_graph_interval_sentence_1' | trans }} {{ start | date('d/m/Y H:i:s', timezone) }} {{ 'mon_graph_interval_sentence_2' | trans }} {{ stop | date('d/m/Y H:i:s', timezone) }}</em>
+      <em>{{ 'mon_graph_interval_sentence_1' | trans }} {{ start | date('d/m/Y H:i:s', timezone) }} {{ 'mon_graph_interval_sentence_2' | trans }} {{ stop | date('d/m/Y H:i:s', timezone)}} ({{ timezone }})</em>
     </div>      
     
     {# A refresh button to actualize the data #}
