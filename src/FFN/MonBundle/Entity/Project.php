@@ -139,7 +139,7 @@ class Project
      *
      * @return boolean
      */
-    public function getEnabled()
+    public function isEnabled()
     {
         return $this->enabled;
     }

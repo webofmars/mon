@@ -400,4 +400,11 @@ class Control {
         $this->totalTimeThreshold = $totalTimeThreshold;
     }
 
+    public function isEnabled() {
+      return $this->enabled;
+    }
+
+    public function setEnabled($enabled) {
+      $this->enabled = $enabled;
+    }
 }
