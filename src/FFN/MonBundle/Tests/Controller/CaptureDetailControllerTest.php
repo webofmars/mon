@@ -6,20 +6,20 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class CaptureDetailControllerTest extends WebTestCase
 {
-    /*
-    public function testCompleteScenario()
+    
+    public function testCaptureDetailsView()
     {
+      /**
+       * TO BE IMPLEMENTED 
+       
         // Create a new client to browse the application
         $client = static::createClient();
 
-        // Go to the list view
-        $crawler = $client->request('GET', '/capturedetail/');
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /capturedetail/");
-
-        // Go to the show view
-        $crawler = $client->click($crawler->selectLink('show')->link());
-        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code");
+        // Go to show view
+        $crawler = $client->request('GET', '/capture/detail/show/1');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode(), "Unexpected HTTP status code for GET /capture/details/show/1");
+       * 
+       */
     }
 
-    */
 }

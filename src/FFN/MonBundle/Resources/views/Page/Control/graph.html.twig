@@ -94,7 +94,7 @@
             {% set classType = 'error' %}
         {% endif %}
         
-            <tr class="{{ classType }}" onClick="javascript: window.location = '{{ path('mon_capture_details_show', { 'id': capture_detail.id }) }}';">
+            <tr class="{{ classType }}" onClick="javascript: window.location = '{{ path('mon_capture_show', { 'id': capture.id }) }}';">
               <td>{{ row.dateExecuted | date('d/m/Y H:i:s', timezone)}}</td>
               <td>{{ row.dns }}</td>
               <td>{{ row.tcp }}</td>

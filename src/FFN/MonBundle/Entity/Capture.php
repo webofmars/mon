@@ -105,11 +105,11 @@ class Capture {
     /**
      * @var CaptureDetail
      * 
-     * @ORM\OneToOne(targetEntity="CaptureDetail", cascade={"persist", "merge", "remove"})
+     * @ORM\OneToOne(targetEntity="CaptureDetail", mappedBy="capture")
      * @ORM\JoinColumn(name="capture_detail_id", referencedColumnName="id")
      * 
      */
-    protected $captureDetail;
+    protected $captureDetail = null;
 
     /**
      * @var int
@@ -121,7 +121,7 @@ class Capture {
     protected $control;
 
     public function __construct() {
-        
+        $this->captureDetail = new CaptureDetail();
     }
 
     /**

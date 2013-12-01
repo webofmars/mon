@@ -9,10 +9,8 @@ class Daemon {
 
     public static function run(Capture $capture) {
 
-        $cd = new CaptureDetail();
-        $cd->setOwner($capture->getOwner());
-        $capture->setCaptureDetail($cd);
-
+        $cd = $capture->getCaptureDetail();
+        
         try {
             $res = self::curl_wrapper($capture->getControl()->getUrl());
         }
@@ -65,6 +63,9 @@ class Daemon {
 
             $cd->setContent('error: '.$res[2].'. ('.$res[1].')');
         }
+        
+        $capture->setCaptureDetail($cd);
+        $cd->setCapture($capture);
     }
 
     /**

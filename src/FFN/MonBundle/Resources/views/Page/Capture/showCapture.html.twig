@@ -1,0 +1,96 @@
+{% extends 'FFNMonBundle::layout.html.twig' %}
+
+{% block body -%}
+<div class="container">
+    <div class="row">
+        <h1>{{ "mon_capture_title" | trans }}</h1>
+    </div>
+    <br/>
+    <div class="row">
+        <table class="table table-striped table-hover table-bordered">
+                
+                {# capture #}
+                <tr>
+                    <th>{{ "mon_capture_id" | trans }}</th>
+                    <td>{{ capture.id }}</td>
+                </tr>
+                
+                <tr>
+                    <th>{{ "mon_capture_owner" | trans }}</th>
+                    <td>{{ capture.owner }}</td>
+                </tr>
+                
+                <tr>
+                  <th>{{ "mon_capture_date_sched" | trans }}</th>
+                  <td>{{ capture.dateScheduled | date('d/m/Y H:i:s', capture.owner.timezone) }}</td>
+                </tr>
+                
+                <tr>
+                  <th>{{ "mon_capture_date_exec" | trans }}</th>
+                  <td>{{ capture.dateExecuted | date('d/m/Y H:i:s', capture.owner.timezone) }}</td>
+                </tr>
+                
+                <tr>
+                    <th>{{ "mon_capture_is_valid" | trans }}</th>
+                    <td>{{ capture.isValid }}</td>
+                    {# TODO: how to convert boolean by translated txt ? #}
+                </tr>
+                
+                <tr>
+                    <th>{{ "mon_capture_is_timeout" | trans }}</th>
+                    <td>{{ capture.isTimeout }}</td>
+                    {# TODO: how to convert boolean by translated txt ? #}
+                </tr>
+                
+                <tr>
+                  <th>{{ "mon_capture_tcp" | trans }}</th>
+                  <td>{{ capture.tcp }}</td>
+                </tr>
+
+                <tr>
+                  <th>{{ "mon_capture_dns" | trans }}</th>
+                  <td>{{ capture.dns }}</td>
+                </tr>
+                
+                <tr>
+                  <th>{{ "mon_capture_first_packet" | trans }}</th>
+                  <td>{{ capture.firstPacket }}</td>
+                </tr>
+                
+                <tr>
+                  <th>{{ "mon_capture_total_time" | trans }}</th>
+                  <td>{{ capture.total }}</td>
+                </tr>
+                
+               <tr>
+                  <th>{{ "mon_capture_response_code" | trans }}</th>
+                  <td>{{ capture.responseCode }}</td>
+                </tr>
+
+                <tr><th>&nbsp;</th><td>&nbsp;</td></tr>
+                
+                {# capture details #}
+                <tr>
+                    <th>{{ "mon_capture_details_connexion_to" | trans }}</th>
+                    <td>{{ details.isConnectionTimeout }}</td>
+                </tr>
+                
+                <tr>
+                    <th>{{ "mon_capture_details_response_to" | trans }}</th>
+                    <td>{{ details.isResponseTimeout }}</td>
+                </tr>
+
+                <tr>
+                    <th>{{ "mon_capture_details_content" | trans }}</th>
+                    <td>{{ details.content }}</td>
+                </tr>
+
+                <tr>
+                    <th>{{ "mon_capture_details_validators" | trans }}</th>
+                    <td>{{ details.validators }}</td>
+                </tr>
+                
+        </table>
+    </div>
+</div>
+{% endblock %}

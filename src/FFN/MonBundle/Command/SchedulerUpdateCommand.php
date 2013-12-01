@@ -88,12 +88,14 @@ class SchedulerUpdateCommand extends ContainerAwareCommand {
     try {
       // try to add a new scheduled capture to do
       $em = $this->getContainer()->get('doctrine')->getManager();
-      $capDetail = new CaptureDetail();
+      
       $cap = new capture();
+      $capDetail = $cap->getCaptureDetail();
       $cap->setDateScheduled($dateTime);
       $cap->setControl($control);
       $cap->setOwner($control->getScenario()->getProject()->getUser());
       $capDetail->setOwner($control->getScenario()->getProject()->getUser());
+      $em->persist($capDetail);
       $em->persist($cap);
       $em->flush();
       return true;

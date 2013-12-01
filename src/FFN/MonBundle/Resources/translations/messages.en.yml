@@ -135,8 +135,26 @@ mon_graph_refresh_button: Refresh
 mon_graph_interval_sentence_1: Data from
 mon_graph_interval_sentence_2: to
 
+# capture wordings
+mon_capture_title: Capture details
+mon_capture_id: identifier
+mon_capture_date_sched: scheduled date
+mon_capture_date_exec: execution date
+mon_capture_owner: owner
+mon_capture_is_valid: is valid ?
+mon_capture_is_timeout: is timeout ?
+mon_capture_tcp: TCP
+mon_capture_dns: DNS
+mon_capture_first_packet: 1st packet
+mon_capture_total_time: total time
+mon_capture_response_code: HTTP response code
+
 # capture details wordings
-mon_capture_detail_title: Capture details
+mon_capture_detail_title: Capture Details
+mon_capture_details_connexion_to: is a connexion timeout ?
+mon_capture_details_response_to: is a repsonse timeout ?
+mon_capture_details_content: fetched content
+mon_capture_details_validators: list of the active validators
 
 # Weather wordings
 mon_weather: Weather

@@ -175,9 +175,9 @@ mon_control_delete:
         id: \d+
 
 # captures
-mon_capture_details_show:
-    pattern: /capture/details/show/{id}
-    defaults: { _controller: FFNMonBundle:CaptureDetail:show }
+mon_capture_show:
+    pattern: /capture/show/{id}
+    defaults: { _controller: FFNMonBundle:Capture:show }
     requirements:
         _method: GET|POST
         id: \d+

@@ -2,24 +2,24 @@
 
 namespace FFN\MonBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use FFN\MonBundle\Entity\Capture;
 use FFN\MonBundle\Entity\CaptureDetail;
 use JMS\SecurityExtraBundle\Annotation\Secure;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
- * CaptureDetail controller.
+ * Capture controller.
  *
  */
-class CaptureDetailController extends Controller
+class CaptureController extends Controller
 {
 
     /**
-     * Finds and displays a CaptureDetail entity.
+     * Finds and displays a Capture entity.
      * @Secure(roles="ROLE_ADMIN")
      * @Secure(roles="ROLE_USER")
      */
@@ -27,21 +27,24 @@ class CaptureDetailController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('FFNMonBundle:CaptureDetail')->find($id);
+        $capture = $em->getRepository('FFNMonBundle:Capture')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find CaptureDetail entity.');
+        if (!$capture) {
+            throw $this->createNotFoundException('Unable to find Capture entity.');
         }
         
         $user    = $this->get('security.context')->getToken()->getUser();
         $isSA    = $this->get('security.context')->isGranted('ROLE_ADMIN');
         
-        if ( ($isSA == false) and ($user != $entity->getOwner()) )
+        if ( ($isSA == false) and ($user != $capture->getOwner()) )
         {
             throw new AccessDeniedException();
         }
         
-        return $this->render('FFNMonBundle:Page:Capture\showDetails.html.twig', array(
-                'entity' => $entity));
+        $details = $capture->getCaptureDetail();
+        
+        return $this->render('FFNMonBundle:Page:Capture\showCapture.html.twig', 
+                array( 'capture' =>  $capture , 
+                       'details' => $details ));
     }
 }

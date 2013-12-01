@@ -58,6 +58,7 @@ class SchedulerRunCommand extends ContainerAwareCommand {
                 $this->getContainer()->get('logger')->err("curl_wrapper: " . $e->getMessage());
                 $output->writeln("curl_wrapper: " . $e->getMessage());
                 $em->persist($capture);
+                $em->persist($capture->getCaptureDetail());
                 $em->flush();
                 continue;
             }
@@ -80,5 +81,4 @@ class SchedulerRunCommand extends ContainerAwareCommand {
 
         $em->close();
     }
-
 }

@@ -135,8 +135,26 @@ mon_graph_refresh_button: Rafraichir
 mon_graph_interval_sentence_1: Données du
 mon_graph_interval_sentence_2: au
 
+# capture wordings
+mon_capture_title: Détails de la capture
+mon_capture_id: identifiant
+mon_capture_date_sched: date d'éxécution planifiée
+mon_capture_date_exec: date d'éxécution réelle
+mon_capture_owner: propriétaire
+mon_capture_is_valid: validité (vrai/faux)
+mon_capture_is_timeout: timeout (vrai/faux)
+mon_capture_tcp: TCP
+mon_capture_dns: DNS
+mon_capture_first_packet: 1er paquet
+mon_capture_total_time: temps total
+mon_capture_response_code: code de retour HTTP
+
 # capture details wordings
 mon_capture_detail_title: Détails de la capture
+mon_capture_details_connexion_to: délai de connection dépassé (vrai/faux)
+mon_capture_details_response_to: délai de réponse dépassé (vrai/faux)
+mon_capture_details_content: contenu capturé
+mon_capture_details_validators: liste des validateurs utilisé
 
 # Weather wordings
 mon_weather: Météo
