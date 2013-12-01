@@ -70,13 +70,15 @@ class GraphController extends Controller {
       foreach ($captures_data as $capture) {
         if ($user === $capture->getControl()->getScenario()->getProject()->getUser()) {
           array_push($graphdata, $capture);
-          $captureDetail  = $capture->getCaptureDetail();
           if (!($control instanceof ControlEntity)) {
             $control        = $capture->getControl();
             $scenario       = $control->getScenario();
             $project        = $scenario->getProject();
             $title = $control->getName();
           }
+        }
+        else {
+            throw new AccessDeniedException();
         }
       }
     } else {
@@ -100,7 +102,7 @@ class GraphController extends Controller {
                 'start'           => $start,
                 'stop'            => $stop,
                 'id'              => $control_id,
-                'capture_detail'  => $captureDetail,
+                'capture'         => $capture,
                 'timezone'        => $TZ->getName()
         ));
   }
