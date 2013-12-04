@@ -100,6 +100,7 @@ mon_scenario_deletion_validated: Suppression du scénario effectuée
 mon_control_list: Mes contrôles
 mon_control_name: Nom
 mon_control_url: Url
+mon_control_enabled: Actif
 mon_control_number: contrôles existants
 mon_control_alone: 1 seul contrôle actuellement
 mon_control_none: Aucun contrôle configuré

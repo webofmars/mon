@@ -41,7 +41,7 @@ class LoadProjectData extends AbstractFixture implements OrderedFixtureInterface
         $proj = new Project();
         $proj->setName('ffn_fixt_prj_' . $i . '_' . $j);
         $proj->setDateCreation(new DateTime());
-        $proj->setEnabled(true);
+        $proj->setEnabled((bool) (rand(0,10)/10));
         $proj->setDescription('Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.');
         $proj->setUser($om->merge($this->getReference('usr_' . $i)));
         $om->persist($proj);

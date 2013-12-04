@@ -155,6 +155,16 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   background-position: -8px -7px;
 }
 
+.icoDisabled {
+  background: url("../images/disabled_icon.png") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  height: 40px;
+  width: 40px;
+  background-position: -8px -7px;
+}
+
 .imgCloud {
   background: url("../images/weather_images.jpg") no-repeat scroll 0 0 transparent;
   cursor: pointer;
@@ -200,7 +210,17 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   background-position: 135px 0px;
 }
 
-.blue-outline {
+.imgDisabled {
+  background: url("../images/disabled_image.png") no-repeat scroll 0 0 transparent;
+  cursor: pointer;
+  display: block;
+  height: 100px;
+  width: 370px;
+  background-position: 135px 0px;
+}
+
+#cat {
+    height: 450px;
     text-align: center;
     border-style: solid;
     border-color: lightgrey;
@@ -211,14 +231,18 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     padding: 3px;
 }
 
-.blue-outline:hover {
+#cat:hover {
     border-color: lightblue;
 }
 
-.projectdiv {
-  height: 450px
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
 }
 
-.scenariodiv {
-  height: 400px
+.enabled {
+  opacity: 1.0;
+  pointer-events: all;
+  cursor: default;
 }

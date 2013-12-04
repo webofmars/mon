@@ -53,6 +53,7 @@ class LoadControlData extends AbstractFixture implements OrderedFixtureInterface
           for ($l = 1; $l <= $nbControls; $l++) {
             $ctrl = new Control();
             $ctrl->setName('FFN_fixt_ctrl_' . $i . '_'. $j . '_'. $k . '_'. $l);
+            $ctrl->setEnabled((bool) (rand(0,10)/10));
             $ctrl->setUrl($urls[rand(0, count($urls) - 1)]);
             $ctrl->setMimeType('text/html');
             $ctrl->setConnectionTimeout(5);

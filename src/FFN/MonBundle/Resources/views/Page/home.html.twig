@@ -16,119 +16,137 @@
         <a class="btn" href="{{ path("mon_project_add")}}">{{ 'mon_project_create' | trans({}, 'messages') | raw }}</a>
     </div>
   </div>
-</div> <!-- /container -->
+</div> {# /container #}
 
 {% if nb_project > 0 %}
   <div class="container">
     {% set nb_current_line = 0 %}
     {% for project in projects %}
-      <!-- to reduce displayed description length if necessary -->
-      {% set project_description_length = project.getProjectEntity.description|length %}
-      {% if (project_description_length > max_project_description_length) %}
-        {% set project_description = project.getProjectEntity.description|slice(0,max_project_description_length-4)~' ...' %}
+      
+      {% if project.getProjectEntity.enabled %}
+        {% set project_state="enabled" %}
       {% else %}
-        {% set project_description = project.getProjectEntity.description %}
+        {% set project_state="disabled" %}
       {% endif %}
-      {% if (nb_current_line % 3) == 0 %}
-        <div class="row-fluid"> <!-- ligne de 3 projets -->
-      {% endif %}
-      {% set nb_current_line = nb_current_line + 1 %}
-      {% set nb_scenarii = project.getScenarios|length %}
-          <div class="span4 blue-outline projectdiv">
-            <div class="pagination-centered">
-              <h3>{{project.getProjectEntity.name}}</h2>
-              <p title="{{ project.getProjectEntity.description }}">{{ project_description }}</p>
-            </div>
-            <div class="pagination-centered"><!-- meteo globale -->
-              {% if project.getWeatherEntity == false %}
-                <span class="imgUnknown"></span>
-              {% elseif project.getWeatherEntity.getWeatherState == 1 %}
-                <span class="imgStorm"></span>
-              {% elseif project.getWeatherEntity.getWeatherState == 2 %}
-                <span class="imgRain"></span>
-              {% elseif project.getWeatherEntity.getWeatherState == 3 %}
-                <span class="imgCloud"></span>
-              {% elseif project.getWeatherEntity.getWeatherState == 4 %}
-                <span class="imgSun"></span>
-              {% elseif project.getWeatherEntity.getWeatherState == 5 %}
-                <span class="imgUnknown"></span>
-              {% endif %}
-            </div>
-            <div class="pagination-centered"> <!-- boutons -->
-              <div class="btn-toolbar">
-                <a class="btn" href="{{path('mon_project_home', { 'id': project.getIdProject })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
-                <div class="btn-group">
-                  <button class="btn dropdown-toggle" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="{{path('mon_scenario_add', { 'id': project.getIdProject })}}">{{ 'mon_scenario_create' | trans({}, 'messages') | raw }}</a></li>
-                    <li><a href="{{path('mon_project_edit', { 'id': project.getIdProject })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a></li>
-                    <li><a onclick="showConfirmDelete('{{path('mon_project_delete', { 'id': project.getIdProject })}}');">{{ 'mon_project_delete' | trans() | raw()}}</a></li>
-                  </ul>
+      
+        {# to reduce displayed description length if necessary #}
+        {% set project_description_length = project.getProjectEntity.description|length %}
+        {% if (project_description_length > max_project_description_length) %}
+          {% set project_description = project.getProjectEntity.description|slice(0,max_project_description_length-4)~' ...' %}
+        {% else %}
+          {% set project_description = project.getProjectEntity.description %}
+        {% endif %}
+        {% if (nb_current_line % 3) == 0 %}
+          <div class="row-fluid"> {# ligne de 3 projets #}
+        {% endif %}
+        {% set nb_current_line = nb_current_line + 1 %}
+        {% set nb_scenarii = project.getScenarios|length %}
+            <div id="cat" class="span4 {{project_state}}">
+              <div class="pagination-centered">
+                <h3>{{project.getProjectEntity.name}}</h2>
+                <p title="{{ project.getProjectEntity.description }}">{{ project_description }}</p>
+              </div>
+              <div class="pagination-centered">{# meteo globale #}
+                {% if project.getProjectEntity.enabled == false %}
+                  <span class="imgDisabled img-rounded"></span>
+                {% elseif project.getWeatherEntity == false or project.getProjectEntity.enabled == false %}
+                  <span class="imgUnknown img-rounded"></span>
+                {% elseif project.getWeatherEntity.getWeatherState == 1 %}
+                  <span class="imgStorm img-rounded"></span>
+                {% elseif project.getWeatherEntity.getWeatherState == 2 %}
+                  <span class="imgRain img-rounded"></span>
+                {% elseif project.getWeatherEntity.getWeatherState == 3 %}
+                  <span class="imgCloud img-rounded"></span>
+                {% elseif project.getWeatherEntity.getWeatherState == 4 %}
+                  <span class="imgSun img-rounded"></span>
+                {% elseif project.getWeatherEntity.getWeatherState == 5 %}
+                  <span class="imgUnknown img-rounded"></span>
+                {% endif %}
+              </div>
+              <div class="pagination-centered"> {# boutons #}
+                <div class="btn-toolbar">
+                  <a class="btn {{ project_state }}" href="{{ path('mon_project_home', { 'id': project.getIdProject })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
+                  <div class="btn-group">
+                    <button class="btn dropdown-toggle enabled" data-toggle="dropdown">{{ 'mon_actions' | trans({}, 'messages') | raw }} <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                      <li class="{{ project_state }}"><a  href="{{path('mon_scenario_add', { 'id': project.getIdProject })}}">{{ 'mon_scenario_create' | trans({}, 'messages') | raw }}</a></li>
+                      <li class="enabled"><a href="{{path('mon_project_edit', { 'id': project.getIdProject })}}">{{ 'mon_project_edit' | trans({}, 'messages') | raw }}</a></li>
+                      <li class="enabled"><a onclick="showConfirmDelete('{{path('mon_project_delete', { 'id': project.getIdProject })}}');">{{ 'mon_project_delete' | trans() | raw()}}</a></li>
+                    </ul>
+                  </div>
                 </div>
               </div>
-            </div>
-            <br/>
-            {% if nb_scenarii > 0 %}
-              {% set count = 0 %}
-              {% for scenario in project.getScenarios %}
-                {% if (count < nb_max_list) %}
-                  <!-- to reduce displayed name length if necessary -->
-                  {% set scenario_name_length = scenario.getScenarioEntity.name|length %}
-                  {% if (scenario_name_length > max_scenario_name_list_length) %}
-                    {% set scenario_name = scenario.getScenarioEntity.name|slice(0,max_scenario_name_list_length-4)~' ...' %}
-                  {% else %}
-                    {% set scenario_name = scenario.getScenarioEntity.name %}
+              <br/>
+              {% if nb_scenarii > 0 %}
+                {% set count = 0 %}
+                {% for scenario in project.getScenarios %}
+              
+                    {% if scenario.getScenarioEntity.enabled == true %}
+                      {% set scenario_state="enabled" %}
+                    {% else %}
+                      {% set scenario_state="disabled" %}
+                    {% endif %}
+              
+                  {% if (count < nb_max_list) %}
+                    {# to reduce displayed name length if necessary #}
+                    {% set scenario_name_length = scenario.getScenarioEntity.name|length %}
+                    {% if (scenario_name_length > max_scenario_name_list_length) %}
+                      {% set scenario_name = scenario.getScenarioEntity.name|slice(0,max_scenario_name_list_length-4)~' ...' %}
+                    {% else %}
+                      {% set scenario_name = scenario.getScenarioEntity.name %}
+                    {% endif %}
+                    {% set count = count + 1 %}
+                    <div class="inline">
+                      <table>
+                        <tr>
+                          <td>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            <a class="{{ scenario_state }}" href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name }}'>
+                              {% if project.getProjectEntity.enabled == false 
+                                  or scenario.getScenarioEntity.enabled == false %}
+                                <span class="icoDisabled img-rounded {{ scenario_state }}"></span>  
+                              {% elseif scenario.getWeatherEntity == false %}
+                                <span class="icoUnknown img-rounded {{ scenario_state }}"></span>
+                              {% elseif scenario.getWeatherEntity.weatherState == 1 %}
+                                <span class="icoStorm img-rounded {{ scenario_state }}"></span>
+                              {% elseif scenario.getWeatherEntity.weatherState == 2 %}
+                                <span class="icoRain img-rounded {{ scenario_state }}"></span>
+                              {% elseif scenario.getWeatherEntity.weatherState == 3 %}
+                                <span class="icoCloud img-rounded {{ scenario_state }}"></span>
+                              {% elseif scenario.getWeatherEntity.weatherState == 4 %}
+                                <span class="icoSun img-rounded {{ scenario_state }}"></span>
+                              {% elseif scenario.getWeatherEntity.weatherState == 5 %}
+                                <span class="icoUnknown img-rounded {{ scenario_state }}"></span>
+                              {% endif %}
+                              {{ scenario_name }}
+                            </a>
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
                   {% endif %}
-                  {% set count = count + 1 %}
-                  <div class="inline">
-                    <table>
-                      <tr>
-                        <td>
-                          &nbsp;&nbsp;&nbsp;&nbsp;
-                          <a href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name }}'>
-                            {% if scenario.getWeatherEntity == false %}
-                              <span class="icoUnknown"></span>
-                            {% elseif scenario.getWeatherEntity.weatherState == 1 %}
-                              <span class="icoStorm"></span>
-                            {% elseif scenario.getWeatherEntity.weatherState == 2 %}
-                              <span class="icoRain"></span>
-                            {% elseif scenario.getWeatherEntity.weatherState == 3 %}
-                              <span class="icoCloud"></span>
-                            {% elseif scenario.getWeatherEntity.weatherState == 4 %}
-                              <span class="icoSun"></span>
-                            {% elseif scenario.getWeatherEntity.weatherState == 5 %}
-                              <span class="icoUnknown"></span>
-                            {% endif %}
-                            {{ scenario_name }}
-                          </a>
-                        </td>
-                      </tr>
-                    </table>
-                  </div>
-                {% endif %}
-              {% endfor %}
-              <p class="pagination-centered">
-                {% if nb_scenarii == 1 %}
-                  <em>{{ 'mon_scenario_alone' | trans({}, 'messages') | raw }}</em>
-                {% else %}
-                  <em>{{ nb_scenarii }} {{ 'mon_scenario_number' | trans({}, 'messages') | raw }}</em>
-                {% endif %}
-              </p>
-            {% else %}
-              <p class="pagination-centered">
-                <em>{{ 'mon_scenario_none' | trans({}, 'messages') | raw }}</em>
-              </p>
-            {% endif %}
-          </div>
-      {% if (nb_current_line % 3) == 0 %}
-        </div> <!-- /ligne de 3 projets -->
-      {% endif %}
+                {% endfor %}
+                <p class="pagination-centered">
+                  {% if nb_scenarii == 1 %}
+                    <em>{{ 'mon_scenario_alone' | trans({}, 'messages') | raw }}</em>
+                  {% else %}
+                    <em>{{ nb_scenarii }} {{ 'mon_scenario_number' | trans({}, 'messages') | raw }}</em>
+                  {% endif %}
+                </p>
+              {% else %}
+                <p class="pagination-centered">
+                  <em>{{ 'mon_scenario_none' | trans({}, 'messages') | raw }}</em>
+                </p>
+              {% endif %}
+            </div>
+        {% if (nb_current_line % 3) == 0 %}
+          </div> {# /ligne de 3 projets #}
+        {% endif %}
     {% endfor %}
-
-  </div> <!-- /container -->
+  </div> {# /container #}
 {% endif %}
 
-<!-- Validation of project deletion -->
+{# Validation of project deletion #}
 <div id="myModal" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -139,6 +157,6 @@
     <a href="{{path("mon_home")}}" id="button_submit_cancel" class="btn btn-primary">{{ 'mon_yes' | trans({}, 'messages') | raw }}</a>
   </div>
 </div>
-<!-- / Validation of project deletion -->
+{# Validation of project deletion #}
 
 {% endblock %}

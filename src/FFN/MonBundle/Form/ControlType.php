@@ -22,20 +22,28 @@ class ControlType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         //parent::buildForm($builder, $options);
         $builder
-                ->add('name', 'text', array('label' => $this->getTranslator()->trans('mon_control_name')))
-                ->add('url', 'text', array('label' => $this->getTranslator()->trans('mon_control_url')))
-        //      ->add('controlHeaders', 'collection', array(
-        //          'type' => new ControlHeaderType(),
-        //          'allow_add'    => true,
-        //          'allow_delete' => true,
-        //          'by_reference' => false
-        //      ))
-        //      ->add('validators', 'collection', array(
-        //          'type' => new validatorType(),
-        //          'allow_add'    => true,
-        //          'allow_delete' => true,
-        //          'by_reference' => false
-        //      ))
+                ->add('name', 'text', array(
+                    'label' => $this->getTranslator()->trans('mon_control_name')
+                ))
+                ->add('url', 'text', array(
+                    'label' => $this->getTranslator()->trans('mon_control_url')
+                ))
+                ->add('enabled', 'checkbox', array(
+                    'label' => $this->getTranslator()->trans('mon_control_enabled'), 
+                    'required' => false
+                ))
+/*                ->add('controlHeaders', 'collection', array(
+                  'type' => new ControlHeaderType(),
+                  'allow_add'    => true,
+                  'allow_delete' => true,
+                  'by_reference' => false
+                ))
+                ->add('validators', 'collection', array(
+                  'type' => new validatorType(),
+                  'allow_add'    => true,
+                  'allow_delete' => true,
+                  'by_reference' => false
+                )) */
         ;
     }
 

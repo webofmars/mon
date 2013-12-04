@@ -8,15 +8,16 @@
   <div class="row">
     <div class="container-fluid">
       <form class="form-signin" action="{{ path("mon_project_edit", {'id': project.id}) }}" method="post">
-        <div class="row-fluid"><h2 class="form-signin-heading">{{ 'mon_project_edit'|trans({}, 'messages') }}</h2></div>
+        <div class="row-fluid"><h2 class="form-signin-heading">{{ 'mon_project_edit'| trans }}</h2></div>
         <div class="row-fluid">{{ form_row(form.name) }}</div>
         <div class="row-fluid">{{ form_row(form.description) }}</div>
+        <div class="row-fluid">{{ form_row(form.enabled) }}</div>
+        <div class="row-fluid">{{ form_rest(form) }}</div>
         <br/><br/>
         <div class="row-fluid pagination-centered">
-          <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
-          <a class="btn btn-large" href="{{ path("mon_project_home", {'id': project.id}) }}">{{ 'mon_cancel'|trans({}, 'messages') }}</a>
+          <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'| trans }}</button>
+          <a class="btn btn-large" href="{{ path("mon_project_home", {'id': project.id}) }}">{{ 'mon_cancel'| trans }}</a>
         </div>
-        {{ form_rest(form) }}
       </form>
     </div>
   </div>

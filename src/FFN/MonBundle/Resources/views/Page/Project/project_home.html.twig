@@ -22,7 +22,14 @@
   <div class="container">
     {% set nb_current_line = 0 %}
     {% for scenario in scenarios %}
-      <!-- to reduce displayed name length if necessary -->
+      {% if scenario.getScenarioEntity.enabled %} 
+        {% set scenario_state = "enabled" %}
+      {% else %}
+        {% set scenario_state = "disabled" %}
+      {% endif %}
+      
+
+      {# to reduce displayed name length if necessary #}
       {% set scenario_name_length = scenario.getScenarioEntity.name|length %}
       {% if (scenario_name_length > max_scenario_name_title_length) %}
         {% set scenario_name = scenario.getScenarioEntity.name|slice(0,max_scenario_name_title_length-4)~' ...' %}
@@ -30,30 +37,33 @@
         {% set scenario_name = scenario.getScenarioEntity.name %}
       {% endif %}
       {% if (nb_current_line % 3) == 0 %}
-        <div class="row-fluid"> <!-- ligne de 3 projets -->
+        <div class="row-fluid"> {# ligne de 3 projets #}
       {% endif %}
       {% set nb_current_line = nb_current_line + 1 %}
       {% set nb_control = scenario.getControls|length %}
-          <div class="span4 blue-outline scenariodiv"> <!-- bloc project -->
+          <div id="cat" class="span4 {{ scenario_state }}"> {# bloc project #}
             <div class="pagination-centered">
               <h3 title='{{ scenario.getScenarioEntity.name }}'>{{ scenario_name }}</h3>
             </div>
-            <div class="pagination-centered"><!-- meteo globale -->
-              {% if scenario.getWeatherEntity == false %}
-                <span class="imgUnknown"></span>
+            <div class="pagination-centered">{# global weather #}
+              {% if scenario.getScenarioEntity.enabled == false %}
+                <span class="imgDisabled img-rounded {{ scenario_state }}"></span>
+              {% elseif scenario.getWeatherEntity == false or scenario.getScenarioEntity.enabled == false %}
+                <span class="imgUnknown img-rounded {{ scenario_state }}"></span>
               {% elseif scenario.getWeatherEntity.weatherState == 1 %}
-                <span class="imgStorm"></span>
+                <span class="imgStorm img-rounded {{ scenario_state }}"></span>
               {% elseif scenario.getWeatherEntity.weatherState == 2 %}
-                <span class="imgRain"></span>
+                <span class="imgRain img-rounded {{ scenario_state }}"></span>
               {% elseif scenario.getWeatherEntity.weatherState == 3 %}
-                <span class="imgCloud"></span>
+                <span class="imgCloud img-rounded {{ scenario_state }}"></span>
               {% elseif scenario.getWeatherEntity.weatherState == 4 %}
-                <span class="imgSun"></span>
+                <span class="imgSun img-rounded {{ scenario_state }}"></span>
               {% elseif scenario.getWeatherEntity.weatherState == 5 %}
-                <span class="imgUnknown"></span>
+                <span class="imgUnknown img-rounded {{ scenario_state }}"></span>
               {% endif %}
             </div>
-            <div class="pagination-centered"> <!-- boutons -->
+              
+            <div class="pagination-centered"> {# boutons #}
               <div class="btn-toolbar">
                 <a class="btn" href="{{path('mon_scenario_home', { 'id': scenario.getIdScenario })}}">{{ 'mon_view_details' | trans({}, 'messages') | raw }}</a>
                 <div class="btn-group">
@@ -67,10 +77,10 @@
               </div>
             </div>
             <br/>
-            {% if nb_control > 0 %} <!-- affichage des controles -->
+            {% if nb_control > 0 %} {# affichage des controles #}
               {% set count = 0 %}
               {% for control in scenario.getControls %}
-                <!-- to reduce displayed name length if necessary -->
+                {# to reduce displayed name length if necessary #}
                 {% set control_name_length = control.getControlEntity.name|length %}
                 {% if (control_name_length > max_control_name_list_length) %}
                   {% set control_name = control.getControlEntity.name|slice(0,max_control_name_list_length-4)~' ...' %}
@@ -84,19 +94,21 @@
                       <tr>
                         <td>
                           &nbsp;&nbsp;&nbsp;&nbsp;
-                          <a href="{{ path( 'mon_graph_simple', { control_id: control.getIdControl } ) }}" title='{{ control.getControlEntity.name }}'>
-                            {% if control.getWeatherEntity == false %}
-                                <span class="icoUnknown"></span>
+                          <a class="" href="{{ path( 'mon_graph_simple', { control_id: control.getIdControl } ) }}" title='{{ control.getControlEntity.name }}'>
+                            {% if control.getControlEntity.enabled == false %}
+                              <span class="icoDisabled img-rounded {{ scenario_state }}"></span>
+                            {% elseif control.getWeatherEntity == false or control.getControlEntity.enabled == false %}
+                                <span class="icoUnknown img-rounded {{ scenario_state }}"></span>
                             {% elseif control.getWeatherEntity.weatherState == 1 %}
-                                <span class="icoStorm"></span>
+                                <span class="icoStorm img-rounded {{ scenario_state }}"></span>
                             {% elseif control.getWeatherEntity.weatherState == 2 %}
-                                <span class="icoRain"></span>
+                                <span class="icoRain img-rounded {{ scenario_state }}"></span>
                             {% elseif control.getWeatherEntity.weatherState == 3 %}
-                                <span class="icoCloud"></span>
+                                <span class="icoCloud img-rounded {{ scenario_state }}"></span>
                             {% elseif control.getWeatherEntity.weatherState == 4 %}
-                                <span class="icoSun"></span>
+                                <span class="icoSun img-rounded {{ scenario_state }}"></span>
                             {% elseif control.getWeatherEntity.weatherState == 5 %}
-                                <span class="icoUnknown"></span>
+                                <span class="icoUnknown img-rounded {{ scenario_state }}"></span>
                             {% endif %}
                             {{ control_name | escape}}
                           </a>
@@ -120,13 +132,13 @@
             {% endif %}
           </div>
       {% if (nb_current_line % 3) == 0 %}
-        </div> <!-- /ligne de 3 scenarios -->
+        </div> {# /ligne de 3 scenarios #}
       {% endif %}
-    {% endfor %}
-  </div> <!-- /container -->
+  {% endfor %}
+  </div> {# /container #}
 {% endif %}
 
-<!-- Validation of scenario deletion -->
+{# Validation of scenario deletion #}
 <div id="myModal" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -137,6 +149,6 @@
     <a href="{{path("mon_home")}}" id="button_submit_cancel" class="btn btn-primary">{{ 'mon_yes' | trans({}, 'messages') | raw }}</a>
   </div>
 </div>
-<!-- / Validation of scenario deletion -->
+{# / Validation of scenario deletion #}
 
 {% endblock %}

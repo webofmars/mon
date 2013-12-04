@@ -8,21 +8,22 @@
   <div class="row">
     <div class="container-fluid">
       <form class="form-signin" action="{{ path("mon_control_edit", {'id': control.id}) }}" method="post">
-        <div class="row-fluid"><h2 class="form-signin-heading">{{ 'mon_control_edit'|trans({}, 'messages') }}</h2></div>
+        <div class="row-fluid"><h2 class="form-signin-heading">{{ 'mon_control_edit'| trans }}</h2></div>
         <div class="row-fluid">{{ form_row(form.name) }}</div>
         <div class="row-fluid">{{ form_row(form.url) }}</div>
+        <div class="row-fluid">{{ form_row(form.enabled) }}</div>
         {# form_row(form.controlHeaders) #}
         {# form_row(form.validators)  #}
         {{ form_rest(form) }}
-        <div class="row-fluid">
-          <a href="#" id="add_control_header" class="btn">{{ 'mon_control_add_header'|trans({}, 'messages') }}</a>
+        {# <div class="row-fluid">
+          <a href="#" id="add_control_header" class="btn">{{ 'mon_control_add_header'| trans }}</a>
           <br/><br/>
-          <a href="#" id="add_validator" class="btn">{{ 'mon_control_add_validator'|trans({}, 'messages') }}</a>
+          <a href="#" id="add_validator" class="btn">{{ 'mon_control_add_validator'| trans }}</a>
         </div>
-        <br/>
+        <br/> #}
         <div class="row-fluid pagination-centered">
-          <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'|trans({}, 'messages') }}</button>
-          <a class="btn btn-large" href="{{ path("mon_scenario_home", {'id': scenario.id}) }}">{{ 'mon_cancel'|trans({}, 'messages') }}</a>
+          <button class="btn btn-large btn-primary" type="submit">{{ 'mon_validate'| trans }}</button>
+          <a class="btn btn-large" href="{{ path("mon_scenario_home", {'id': scenario.id}) }}">{{ 'mon_cancel'| trans }}</a>
         </div>
       </form>
     </div>

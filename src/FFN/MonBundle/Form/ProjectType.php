@@ -28,6 +28,10 @@ class ProjectType extends AbstractType {
             ->add('description', 'textarea', array(
                 'label' => $this->getTranslator()->trans('mon_project_description'),
                 'required' => false,
+            ))
+            ->add('enabled', 'checkbox', array(
+                'label' => $this->getTranslator()->trans('mon_project_enabled'),
+                'required' => false
             ));
   }
 

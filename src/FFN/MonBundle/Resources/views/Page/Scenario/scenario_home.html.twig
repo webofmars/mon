@@ -3,73 +3,93 @@
 {% set section = 'scenario' %}
 {% set nb_controls = controls|length %}
 
+{% if scenario.getScenarioEntity.enabled == true %}
+  {% set scenario_state = "enabled" %}
+{% else %}
+  {% set scenario_state = "enabled" %}
+{% endif %}
+
 {% block body %}
   <div class="container">
 
     {% include 'FFNMonBundle:Common:project_headerbar.html.twig' %}
-    <div>
-      <h1><small>{{ 'mon_control_list' | trans({}, 'messages') | raw }}</small></h1>
-    </div>
+    
     <div class="row-fluid">
-      <div class="span12 pagination-centered blue-outline" >
+      <h1>{{scenario.getScenarioEntity.name}}</h1><br/>
+    </div>
+    
+    <div class="row-fluid">
+      <h1><small>{{ 'mon_control_list' | trans }}</small></h1>
+    </div>
+   
+    {% if nb_controls > 0 %}
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>{{'mon_identifier' | trans }}</th>
+            <th>{{'mon_name'       | trans }}</th>
+            <th>{{'mon_weather'    | trans }}</th>
+            <th>{{'mon_actions'    | trans }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for control in controls %}
+            {% if control.getControlEntity.enabled == true %}
+              {% set control_state = "enabled" %}
+            {% else %}
+              {% set control_state = "disabled" %}
+            {% endif %}
+            
+          <tr class="{{control_state}}">
+            <td>{{control.getIdControl}}</td>
+            <td><a href="{{ path( 'mon_graph_simple', {control_id: control.getIdControl})
+                  }}">{{ control.getControlEntity.name}}</a>
+            </td>
+            <td>
+                {% if control.getControlEntity.enabled == false %}
+                  <span class="icoDisabled img-rounded"></span>
+                {% elseif control.getWeatherEntity == false %}
+                  <span class="icoUnknown img-rounded"></span>
+                {% elseif control.getWeatherEntity.weatherState == 1 %}
+                  <span class="icoStorm img-rounded"></span>
+                {% elseif control.getWeatherEntity.weatherState == 2 %}
+                  <span class="icoRain img-rounded"></span>
+                {% elseif control.getWeatherEntity.weatherState == 3 %}
+                  <span class="icoCloud img-rounded"></span>
+                {% elseif control.getWeatherEntity.weatherState == 4 %}
+                  <span class="icoSun img-rounded"></span>
+                {% elseif control.getWeatherEntity.weatherState == 5 %}
+                  <span class="icoUnknown img-rounded"></span>
+                {% endif %}
+            </td>
+            <td class="enabled">
+              <a class="btn enabled" href="{{path('mon_control_edit', {'id': control.getIdControl})}}">{{ 'mon_control_edit' | trans() | raw()}}</a>
+              <a class="btn enabled" onclick="showConfirmDelete('{{path('mon_control_delete', {'id': control.getIdControl})}}');">{{ 'mon_control_delete' | trans() | raw()}}</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
+    <div class="row-fluid">
+      <div class="span12 pagination-centered" >
           <b>&plus;</b>
           <a class="btn" href="{{path('mon_control_add', {'id': scenario.getIdScenario})}}">{{ 'mon_control_create' | trans() | raw()}}</a>
       </div>
     </div>
-
-   {% if nb_controls > 0 %}
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>{{'mon_identifier' | trans({}, 'messages') | raw }}</th>
-          <th>{{'mon_name'       | trans({}, 'messages') | raw }}</th>
-          <th>{{'mon_weather'    | trans({}, 'messages') | raw }}</th>
-          <th>{{'mon_actions'    | trans({}, 'messages') | raw }}</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for control in controls %}
-        <tr>
-          <td>{{control.getIdControl}}</td>
-          <td><a href="{{ path( 'mon_graph_simple', {control_id: control.getIdControl})
-                }}">{{ control.getControlEntity.name}}</a>
-          </td>
-          <td>
-              {% if control.getWeatherEntity == false %}
-                <span class="icoUnknown"></span>
-              {% elseif control.getWeatherEntity.weatherState == 1 %}
-                <span class="icoStorm"></span>
-              {% elseif control.getWeatherEntity.weatherState == 2 %}
-                <span class="icoRain"></span>
-              {% elseif control.getWeatherEntity.weatherState == 3 %}
-                <span class="icoCloud"></span>
-              {% elseif control.getWeatherEntity.weatherState == 4 %}
-                <span class="icoSun"></span>
-              {% elseif control.getWeatherEntity.weatherState == 5 %}
-                <span class="icoUnknown"></span>
-              {% endif %}
-          </td>
-          <td>
-            <a class="btn" href="{{path('mon_control_edit', {'id': control.getIdControl})}}">{{ 'mon_control_edit' | trans() | raw()}}</a>
-            <a class="btn" onclick="showConfirmDelete('{{path('mon_control_delete', {'id': control.getIdControl})}}');">{{ 'mon_control_delete' | trans() | raw()}}</a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% endif %}
-
+    
   </div> <!-- /container -->
 
   <!-- Validation of control deletion -->
   <div id="myModal" class="modal hide fade">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h3>{{ 'mon_control_deletion_confirm' | trans({}, 'messages') | raw }}</h3>
+      <h3>{{ 'mon_control_deletion_confirm' | trans }}</h3>
     </div>
     <div class="modal-footer">
-      <a href="#" class="btn" onclick="$('#myModal').modal('hide');">{{ 'mon_no' | trans({}, 'messages') | raw }}</a>
-      <a href="{{path("mon_home")}}" id="button_submit_cancel" class="btn btn-primary">{{ 'mon_yes' | trans({}, 'messages') | raw }}</a>
+      <a href="#" class="btn" onclick="$('#myModal').modal('hide');">{{ 'mon_no' | trans }}</a>
+      <a href="{{path("mon_home")}}" id="button_submit_cancel" class="btn btn-primary">{{ 'mon_yes' | trans }}</a>
     </div>
   </div>
   <!-- / Validation of control deletion -->

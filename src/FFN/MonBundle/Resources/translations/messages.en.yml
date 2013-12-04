@@ -100,6 +100,7 @@ mon_scenario_deletion_validated: Scenario deletion succeeded
 mon_control_list: My controls
 mon_control_name: Name
 mon_control_url: Url
+mon_control_enabled: Enabled
 mon_control_number: existing controls
 mon_control_alone: 1 control only
 mon_control_none: None configured control
