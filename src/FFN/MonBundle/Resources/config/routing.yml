@@ -125,6 +125,7 @@ mon_project_delete:
         _method: GET
         id: \d+
 
+# scenarii
 mon_scenario_add:
     pattern: /scenario/add/{id}
     defaults: { _controller: FFNMonBundle:Scenario:scenarioAdd }
@@ -153,6 +154,7 @@ mon_scenario_delete:
         _method: GET
         id: \d+
 
+# controls
 mon_control_add:
     pattern: /control/add/{id}
     defaults: { _controller: FFNMonBundle:Control:controlAdd }

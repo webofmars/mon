@@ -13,7 +13,7 @@ mon_register: S'inscrire
 mon_username: Nom d'utilisateur
 mon_cancel: Annuler
 mon_validate: Valider
-mon_view_details: Plus de détails &raquo;
+mon_view_details: Plus de détails
 mon_identifier: Id
 mon_name: Nom
 mon_actions: Actions
@@ -58,6 +58,7 @@ mon_user_no_created: Utilisateur non créé
 mon_project_my_projects: Mes Projets
 mon_project_name: Nom
 mon_project_description: Description
+mon_project_enabled: Actif
 mon_project_projects: Projets
 mon_project_wording: Projet
 mon_project_unknown: Le projet demandé n'existe pas
