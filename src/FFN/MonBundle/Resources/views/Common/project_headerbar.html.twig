@@ -1,37 +1,40 @@
-<ul class="breadcrumb">
-  <li><a href="{{ path('mon_home') }}">{{ 'mon_home' | trans({}, 'messages') | raw }}</a>
-  {% if project is defined %}
-    {% if project.id is defined %}
-      <span class="divider">/</span><li><a href="{{path('mon_project_home', { 'id': project.id })}}" class="brand">{{ 'mon_project_wording' | trans({}, 'messages') | raw }} : {{project.name}}</a>
-    {% elseif project.getIdProject is defined %}
-      <span class="divider">/</span><li><a href="{{path('mon_project_home', { 'id': project.getIdProject })}}" class="brand">{{ 'mon_project_wording' | trans({}, 'messages') | raw }} : {{project.getProjectEntity.name}}</a>
-    {% endif %}
-  {% endif %}
-  {% if scenario is defined %}
-    {% if scenario.id is defined %}
-      <span class="divider">/</span><li><a href="{{path('mon_scenario_home', { 'id': scenario.id })}}" class="brand">{{ 'mon_scenario_wording' | trans({}, 'messages') | raw }} : {{ scenario.name }}</a>
-    {% elseif scenario.getIdScenario is defined %}
-      <span class="divider">/</span><li><a href="{{path('mon_scenario_home', { 'id': scenario.getIdScenario })}}" class="brand">{{ 'mon_scenario_wording' | trans({}, 'messages') | raw }} : {{ scenario.getScenarioEntity.name }}</a>
-    {% endif %}
-  {% endif %}
-  {% if control is defined %}
-    {% if control.id is defined %}
-      <span class="divider">/</span><li>{{ 'mon_control_wording' | trans({}, 'messages') | raw }} : {{ control.name }}
-    {% elseif control.getIdControl is defined %}
-      <span class="divider">/</span><li>{{ 'mon_control_wording' | trans({}, 'messages') | raw }} : {{ control.getControlEntity.name }}
-    {% endif %}
-  {% endif %}
-  </li>
-</ul>
-
-<!-- Header notice -->
 <div class="row-fluid">
-  {% for key, msgs in app.session.flashbag.all() %}
-      <!-- messages {{key}} -->
-      <div class="alert alert-{{key}}">
-          {% for msg in msgs %}
-            {{ msg | trans }}
-          {% endfor %}
-      </div>
-  {% endfor %}
+  <ul class="breadcrumb">
+    <li><a href="{{ path('mon_home') }}">{{ 'mon_home' | trans({}, 'messages') | raw }}</a>
+    {% if project is defined %}
+      {% if project.id is defined %}
+        <span class="divider">/</span><li><a href="{{path('mon_project_home', { 'id': project.id })}}" class="brand">{{ 'mon_project_wording' | trans({}, 'messages') | raw }} : {{project.name}}</a>
+      {% elseif project.getIdProject is defined %}
+        <span class="divider">/</span><li><a href="{{path('mon_project_home', { 'id': project.getIdProject })}}" class="brand">{{ 'mon_project_wording' | trans({}, 'messages') | raw }} : {{project.getProjectEntity.name}}</a>
+      {% endif %}
+    {% endif %}
+    {% if scenario is defined %}
+      {% if scenario.id is defined %}
+        <span class="divider">/</span><li><a href="{{path('mon_scenario_home', { 'id': scenario.id })}}" class="brand">{{ 'mon_scenario_wording' | trans({}, 'messages') | raw }} : {{ scenario.name }}</a>
+      {% elseif scenario.getIdScenario is defined %}
+        <span class="divider">/</span><li><a href="{{path('mon_scenario_home', { 'id': scenario.getIdScenario })}}" class="brand">{{ 'mon_scenario_wording' | trans({}, 'messages') | raw }} : {{ scenario.getScenarioEntity.name }}</a>
+      {% endif %}
+    {% endif %}
+    {% if control is defined %}
+      {% if control.id is defined %}
+        <span class="divider">/</span><li>{{ 'mon_control_wording' | trans({}, 'messages') | raw }} : {{ control.name }}
+      {% elseif control.getIdControl is defined %}
+        <span class="divider">/</span><li>{{ 'mon_control_wording' | trans({}, 'messages') | raw }} : {{ control.getControlEntity.name }}
+      {% endif %}
+    {% endif %}
+    </li>
+  </ul>
+
+  <!-- TODO: move that to it's own macro or file -->
+  <!-- Warnings notices & errors  -->
+  <div class="row-fluid">
+    {% for key, msgs in app.session.flashbag.all() %}
+        <!-- messages {{key}} -->
+        <div class="alert alert-{{key}}">
+            {% for msg in msgs %}
+              {{ msg | trans }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+  </div>
 </div>

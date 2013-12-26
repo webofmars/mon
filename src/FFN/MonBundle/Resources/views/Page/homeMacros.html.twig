@@ -1,0 +1,157 @@
+{# projectblock: display an html block of the given object #}
+{% macro projectblock(project) %}
+
+  {% import "FFNMonBundle:Common:macros.html.twig"  as macros  %}
+  {% import _self as Pmacros  %}
+
+  {% if project.getProjectEntity.enabled %}
+    {% set project_state="enabled" %}
+  {% else %}
+    {% set project_state="disabled" %}
+  {% endif %}
+
+  {% set nb_scenarii = project.getScenarios | length %}
+
+  <div id="cat" class="span4 {{ project_state }}">
+    <div class="pagination-centered">
+      <h3>{{ macros.short(project.getProjectEntity.name, max_project_name_length) }}</h3>
+      <p title="{{ project.getProjectEntity.description }}">{{ macros.short(project.getProjectEntity.description, max_project_description_length) }}</p>
+    </div>
+  
+    <div class="pagination-centered">
+      {{ Pmacros.weatherbig(project) }}
+    </div>
+      
+    <div class="pagination-centered">
+      {{ Pmacros.buttons(project) }}
+    </div>
+    
+    <div class="pagination-centered">
+      {{ Pmacros.childdetailssmall(project) }}
+    </div>
+    
+  </div>
+{% endmacro %}
+
+{# weatherbig: display a big weather icon #}
+{% macro weatherbig(project) %}
+
+    {% if project.getProjectEntity.enabled == false %}
+      <span class="imgDisabled img-rounded"></span>
+    {% elseif project.getWeatherEntity == false or project.getProjectEntity.enabled == false %}
+      <span class="imgUnknown img-rounded"></span>
+    {% elseif project.getWeatherEntity.getWeatherState == 1 %}
+      <span class="imgStorm img-rounded"></span>
+    {% elseif project.getWeatherEntity.getWeatherState == 2 %}
+      <span class="imgRain img-rounded"></span>
+    {% elseif project.getWeatherEntity.getWeatherState == 3 %}
+      <span class="imgCloud img-rounded"></span>
+    {% elseif project.getWeatherEntity.getWeatherState == 4 %}
+      <span class="imgSun img-rounded"></span>
+    {% elseif project.getWeatherEntity.getWeatherState == 5 %}
+      <span class="imgUnknown img-rounded"></span>
+    {% endif %}
+
+{% endmacro %}
+ 
+{# buttons: displays the buttosn related to the given object #}
+{% macro buttons(project) %}
+  {% set state = project.getProjectEntity.enabled %}
+  <div class="pagination-centered">
+    <div class="btn-toolbar">
+      <a class="btn {{ state }}" href="{{ path('mon_project_home', { 'id': project.getIdProject })}}">{{ 'mon_view_details' | trans }}</a>
+      <div class="btn-group">
+        <button class="btn dropdown-toggle enabled" data-toggle="dropdown">{{ 'mon_actions' | trans }} <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li class="{{ state }}"><a  href="{{path('mon_scenario_add', { 'id': project.getIdProject })}}">{{ 'mon_scenario_create' | trans }}</a></li>
+          <li class="enabled"><a href="{{path('mon_project_edit', { 'id': project.getIdProject })}}">{{ 'mon_project_edit' | trans }}</a></li>
+          <li class="enabled"><a onclick="showConfirmDelete('{{ path('mon_project_delete', { 'id': project.getIdProject })}}');">{{ 'mon_project_delete' | trans() | raw()}}</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
+
+{# childdetailssmall: displays a list of small views of sub-objects of the given object #}
+{% macro childdetailssmall(project) %}
+  {% import _self  as Pmacros  %}
+  {% set nb_scenarii = project.getScenarios | length %}
+  
+  {% if nb_scenarii > 0 %}
+    {% set count = 0 %}
+    {% for scenario in project.getScenarios %}
+      {% if (count < nb_max_list) %}
+        {{ Pmacros.scenariosmall(scenario) }}
+      {% else %}
+        
+      {% endif %}
+      {% set count = count + 1 %}
+    {% endfor %}
+
+    <p class="pagination-centered">
+      {% if nb_scenarii == 1 %}
+        <em>{{ 'mon_scenario_alone' | trans }}</em>
+      {% else %}
+        <em>{{ nb_scenarii }} {{ 'mon_scenario_number' | trans }}</em>
+      {% endif %}
+    </p>
+  {% else %}
+    <p class="pagination-centered">
+      <em>{{ 'mon_scenario_none' | trans }}</em>
+    </p>
+  {% endif %}
+{% endmacro %}
+
+{# scenariosmall: display a block with a small scenario view #}
+{% macro scenariosmall(scenario) %}
+  {% import "FFNMonBundle:Common:macros.html.twig"  as macros  %}
+  {% import _self  as Pmacros  %}
+
+  {% if scenario.getScenarioEntity.enabled == true %}
+    {% set scenario_state="enabled" %}
+  {% else %}
+    {% set scenario_state="disabled" %}
+  {% endif %}
+  {% set scenario_name = macros.short(scenario.getScenarioEntity.name, max_scenario_name_list_length) %}
+   
+  <div class="inline">
+    <table>
+      <tr>
+        <td>
+          <a class="{{ scenario_state }}" href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name }}'>{{ 
+                Pmacros.weathersmall(scenario) }}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a 
+                  class="{{ scenario_state }}" href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name 
+                }}'>{{ scenario_name }}</a>
+        </td>
+        </a>
+      </tr>
+    </table>
+  </div>
+{% endmacro %}
+
+{# weathersmall : displays a small weather icon #}
+{% macro weathersmall(scenario) %}
+    
+  {% if scenario.getScenarioEntity.enabled == true %}
+    {% set scenario_state='enabled' %}
+  {% else %}
+    {% set scenario_state='disabled' %}
+  {% endif %}
+    
+  {% if scenario_state == 'disabled' %}
+<span class="icoDisabled img-rounded {{ scenario_state }}"></span>  
+  {% elseif scenario.getWeatherEntity == false %}
+<span class="icoUnknown img-rounded {{ scenario_state }}"></span>
+  {% elseif scenario.getWeatherEntity.weatherState == 1 %}
+<span class="icoStorm img-rounded {{ scenario_state }}"></span>
+  {% elseif scenario.getWeatherEntity.weatherState == 2 %}
+<span class="icoRain img-rounded {{ scenario_state }}"></span>
+  {% elseif scenario.getWeatherEntity.weatherState == 3 %}
+<span class="icoCloud img-rounded {{ scenario_state }}"></span>
+  {% elseif scenario.getWeatherEntity.weatherState == 4 %}
+<span class="icoSun img-rounded {{ scenario_state }}"></span>
+  {% elseif scenario.getWeatherEntity.weatherState == 5 %}
+<span class="icoUnknown img-rounded {{ scenario_state }}"></span>
+  {% endif %}
+
+{% endmacro %}

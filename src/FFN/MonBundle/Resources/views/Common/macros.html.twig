@@ -1,0 +1,8 @@
+{# reduce the displayed string to avoid display overflow #}
+{% macro short(string, max) %}
+  {% if (string | length >= max) %}
+    {{ string | slice(0,max-4)~' ...' }}
+  {% else %}
+    {{ string }}
+  {% endif %}
+{% endmacro %}
