@@ -15,9 +15,15 @@ class DefaultController extends Controller {
     $em = $this->get('doctrine')->getManager();
     // get user and his/her projects list
     $user = $this->get('security.context')->getToken()->getUser();
-    $project_entities = $em->getRepository('FFN\MonBundle\Entity\Project')->findBy(array('user' => $user));
+    if ($user->hasRole('ROLE_SUPER_ADMIN')) {
+      $project_entities = $em->getRepository('FFN\MonBundle\Entity\Project')->findAll();
+      $this->get('session')->getFlashBag()->add('info', $this->get('translator')->trans('mon_logged_as_admin'));
+    }
+    else {
+      $project_entities = $em->getRepository('FFN\MonBundle\Entity\Project')->findBy(array('user' => $user));
+    }
 
-    // TODO : implement case of none projects
+    // TODO : implement case of no projects found
     // initiate and hydrate project models
     $project_models = array();
     $project_key = 0;
@@ -39,7 +45,7 @@ class DefaultController extends Controller {
    */
   public function verifyProjectAccess(ProjectEntity $project) {
     $user = $this->get('security.context')->getToken()->getUser();
-    if ($user !== $project->getUser()) {
+    if ( ($user !== $project->getUser()) and (!$user->hasRole('ROLE_SUPER_ADMIN')) ) {
       // no right to access to this project
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_denied'));
       return $this->redirect($this->generateUrl('mon_home'));

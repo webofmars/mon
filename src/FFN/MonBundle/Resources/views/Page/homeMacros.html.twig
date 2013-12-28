@@ -13,23 +13,28 @@
   {% set nb_scenarii = project.getScenarios | length %}
 
   <div id="cat" class="span4 {{ project_state }}">
-    <div class="pagination-centered">
+    <div class="pagination-centered inline">
       <h3>{{ macros.short(project.getProjectEntity.name, max_project_name_length) }}</h3>
+      {% if is_granted('ROLE_SUPER_ADMIN')  %}
+        <p>&nbsp;{{ Pmacros.owner(project) }}</p>
+      {% endif %}
+    </div>
+    <div class="pagination-centered inline">
       <p title="{{ project.getProjectEntity.description }}">{{ macros.short(project.getProjectEntity.description, max_project_description_length) }}</p>
     </div>
   
-    <div class="pagination-centered">
+    <div class="pagination-centered inline">
       {{ Pmacros.weatherbig(project) }}
     </div>
       
-    <div class="pagination-centered">
+    <div class="pagination-centered inline">
       {{ Pmacros.buttons(project) }}
     </div>
     
-    <div class="pagination-centered">
+    <div class="pagination-centered inline">
       {{ Pmacros.childdetailssmall(project) }}
     </div>
-    
+      
   </div>
 {% endmacro %}
 
@@ -77,29 +82,25 @@
   {% import _self  as Pmacros  %}
   {% set nb_scenarii = project.getScenarios | length %}
   
-  {% if nb_scenarii > 0 %}
     {% set count = 0 %}
-    {% for scenario in project.getScenarios %}
-      {% if (count < nb_max_list) %}
-        {{ Pmacros.scenariosmall(scenario) }}
-      {% else %}
-        
-      {% endif %}
-      {% set count = count + 1 %}
-    {% endfor %}
+      <table>
+      {% for scenario in project.getScenarios %}
+        {% if (count < nb_max_list) %}
+          <tr>{{ Pmacros.scenariosmall(scenario) }}</tr>
+        {% endif %}
+        {% set count = count + 1 %}
+      {% endfor %}
+      </table>
 
-    <p class="pagination-centered">
-      {% if nb_scenarii == 1 %}
-        <em>{{ 'mon_scenario_alone' | trans }}</em>
-      {% else %}
-        <em>{{ nb_scenarii }} {{ 'mon_scenario_number' | trans }}</em>
-      {% endif %}
-    </p>
-  {% else %}
-    <p class="pagination-centered">
-      <em>{{ 'mon_scenario_none' | trans }}</em>
-    </p>
-  {% endif %}
+      <p class="pagination-centered">
+        {% if nb_scenarii == 1 %}
+          <em>{{ 'mon_scenario_alone' | trans }}</em>
+        {% elseif nb_scenarii == 0 %}
+                    <em>{{ 'mon_scenario_none' | trans }}</em>
+        {% elseif nb_scenarii > 1 %}
+          <em>{{ nb_scenarii }} {{ 'mon_scenario_number' | trans }}</em>
+        {% endif %}
+      </p>
 {% endmacro %}
 
 {# scenariosmall: display a block with a small scenario view #}
@@ -114,19 +115,9 @@
   {% endif %}
   {% set scenario_name = macros.short(scenario.getScenarioEntity.name, max_scenario_name_list_length) %}
    
-  <div class="inline">
-    <table>
-      <tr>
-        <td>
-          <a class="{{ scenario_state }}" href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name }}'>{{ 
-                Pmacros.weathersmall(scenario) }}</a>&nbsp;&nbsp;&nbsp;&nbsp;<a 
-                  class="{{ scenario_state }}" href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name 
-                }}'>{{ scenario_name }}</a>
-        </td>
-        </a>
-      </tr>
-    </table>
-  </div>
+  <td>{{ Pmacros.weathersmall(scenario) }}</td>&nbsp;&nbsp;&nbsp;&nbsp;<td><a 
+    class="{{ scenario_state }}" href="{{ path('mon_scenario_home', { 'id': scenario.getIdScenario }) }}" title='{{ scenario.getScenarioEntity.name 
+    }}'>{{ scenario_name }}</a></td>
 {% endmacro %}
 
 {# weathersmall : displays a small weather icon #}
@@ -154,4 +145,8 @@
 <span class="icoUnknown img-rounded {{ scenario_state }}"></span>
   {% endif %}
 
+{% endmacro %}
+
+{% macro owner(project) %}
+  {{ 'mon_owner' | trans }}: {{ project.getProjectEntity().getUser() | default('mon_no_owner') | trans }}
 {% endmacro %}

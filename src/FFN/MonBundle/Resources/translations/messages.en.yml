@@ -21,6 +21,8 @@ mon_options: Options
 mon_no: No
 mon_yes: Yes
 mon_menu_help: Help
+mon_logged_as_admin: Warning, you are now logged as Administrator with full privileges.
+mon_owner: owner
 
 # Subscription wordings
 ffn.mon.subscription.unknown: Can't determine your subscription type

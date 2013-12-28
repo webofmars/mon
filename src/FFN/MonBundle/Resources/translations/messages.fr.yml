@@ -7,7 +7,7 @@ mon_login: Connexion
 mon_logout: D&eacute;connexion
 mon_edit_profile: Profil
 mon_mail: Email
-mon_mail_already_used: Mail déjà utilisé
+mon_mail_already_used: Adresse e-mail déjà utilisée
 mon_password: Mot de passe
 mon_register: S'inscrire
 mon_username: Nom d'utilisateur
@@ -21,6 +21,8 @@ mon_options: Options
 mon_no: Non
 mon_yes: Oui
 mon_menu_help: Aide
+mon_logged_as_admin: Attention vous êtes maintenant connécté en tant qu'Administrateur avec des droits maximums.
+mon_owner: propriétaire
 
 # Subscription wordings
 ffn.mon.subscription.unknown: Impossible de determiner votre type d'abonement
