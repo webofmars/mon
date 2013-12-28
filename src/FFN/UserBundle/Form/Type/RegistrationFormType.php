@@ -11,8 +11,8 @@ class RegistrationFormType extends BaseType
     {
         parent::buildForm($builder, $options);
 
-        // add your custom field
-        $builder->add('timezone');
+        // add your custom fields bellow
+        $builder->add('timezone', 'timezone');
     }
 
     public function getName()
