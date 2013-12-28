@@ -6,7 +6,9 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use DateTime;
-use FFN\UserBundle\Entity\User;
+use FFN\UserBundle\Entity\User as User;
+use FFN\MonBundle\Model\User as UserModel;
+use FFN\MonBundle\Entity\Subscription as Subscription;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -32,11 +34,12 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
   public function load(ObjectManager $om) {
 
     // Get how many other users to create
-    $nbUsers = $this->container->getParameter('nb_users', 1);
-
+    $nbUsers        = $this->container->getParameter('nb_users', 1);
+    
     // Creation of users (first one is 'admin')
     for ($i = 1; $i <= $nbUsers; $i++) {
-      $user = new User();
+      $user = new User($om);
+      
       if ($i == 1) {
         // admin user
         $user->setUsername('admin');
@@ -54,8 +57,10 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
       $user->setLocked(false);
       $user->setExpired(false);
       $user->setSubscription($om->merge($this->getReference('subscription_premium')));
+      
       $om->persist($user);
       $om->flush();
+            
       $this->setReference('usr_' . $i, $user);
     }
   }
