@@ -4,6 +4,7 @@ namespace FFN\MonBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use FFN\UserBundle\Entity\User;
+use FFN\UserBundle\Form\Type\RegistrationFormType as UserType;
 
 /**
  * UserController
@@ -56,7 +57,7 @@ class UserController extends Controller {
   public function adminUserAddAction() {
     $em = $this->get('doctrine')->getManager();
     $user = new User();
-    $form = $this->createForm(new UserType($this->get('translator')), $user);
+    $form = $this->createForm(new UserType());
     $request = $this->getRequest();
     if ($request->getMethod() == 'POST') {
       $form->bind($request);
@@ -65,6 +66,7 @@ class UserController extends Controller {
         $username = $user_request_params['username'];
         $password = $user_request_params['password'];
         $email = $user_request_params['email'];
+        
         // Control if user already exists
         $is_exist = $em->getRepository('FFN\UserBundle\Entity\User')->findOneBy(array('username' => $username));
         if ($is_exist == false) {
@@ -122,8 +124,7 @@ class UserController extends Controller {
   */
   public function adminUserEditAction($id) {
     echo 'TODO';
-    return $this->render('FFNMonBundle:Page:home.html.twig', array(
-            ));
+    return $this->render('FFNMonBundle:Page:home.html.twig', array());
   }
 
 }

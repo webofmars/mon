@@ -72,6 +72,9 @@ fos_user:
     firewall_name: main
     user_class: FFN\UserBundle\Entity\User
     registration:
+        form:
+            type: ffn_user_registration
+            handler: ffn_user.form.handler.registration
         confirmation:
             enabled:    true
     from_email:

@@ -1,7 +1,0 @@
-parameters:
-#    ffn_user.example.class: FFN\UserBundle\Example
-
-services:
-#    ffn_user.example:
-#        class: %ffn_user.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
