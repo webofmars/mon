@@ -46,17 +46,18 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface, C
         $user->setEmail('dev@null.cz');
         $user->setPlainPassword('JABE6mA3JUw7BSvQPCfG');
         $user->setRoles(array($user::ROLE_SUPER_ADMIN));
+        $user->setSubscription($om->merge($this->getReference('subscription_premium')));
       } else {
         // other user
         $user->setUsername('user_' . $i);
         $user->setEmail('user_' . $i . '@null.cz');
         $user->setPlainPassword('user_' . $i);
         $user->setRoles(array($user::ROLE_DEFAULT));
+        $user->setSubscription($om->merge($this->getReference('subscription_free')));
       }
       $user->setEnabled(true);
       $user->setLocked(false);
       $user->setExpired(false);
-      $user->setSubscription($om->merge($this->getReference('subscription_premium')));
       
       $om->persist($user);
       $om->flush();
