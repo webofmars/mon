@@ -1,19 +1,12 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 {% block body %}
-<div class="container main_page top_50">
-  <div class="row-fluid">
-    <form action="{#{ path('user_new') }#}" method="post" {{ form_enctype(form) }}>
-      {{ form_errors(form) }}
-
-      {#{ form_row(form.user) }#}
-      {{ form_row(form.username) }}
-      {{ form_row(form.password) }}
-      {{ form_row(form.email) }}
-
-      {{ form_rest(form) }}
-
-      <input type="submit" />
-    </form>
-  </div><!-- end row-fluid -->
-</div> <!-- /container -->
+  <div class="container main_page top_50">
+    <div class="row-fluid">
+      <form action="{{ path('fos_user_registration_register') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+        {{ form_rest(form) }}
+        <input type="submit" />
+      </form>
+    </div><!-- end row-fluid -->
+  </div> <!-- /container -->
 {% endblock %}
