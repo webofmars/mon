@@ -68,7 +68,7 @@ class GraphController extends Controller {
     
     if (count($captures_data) > 0) {
       foreach ($captures_data as $capture) {
-        if ($user === $capture->getControl()->getScenario()->getProject()->getUser()) {
+        if ( ($user === $capture->getControl()->getScenario()->getProject()->getUser()) or ($user->hasRole('ROLE_SUPER_ADMIN')) ) {
           array_push($graphdata, $capture);
           if (!($control instanceof ControlEntity)) {
             $control        = $capture->getControl();
@@ -114,7 +114,7 @@ class GraphController extends Controller {
    */
   private function verifyProjectAccess(ProjectEntity $project) {
     $user = $this->get('security.context')->getToken()->getUser();
-    if ($user !== $project->getUser()) {
+    if ( ($user !== $project->getUser()) and (!$user->hasRole('ROLE_SUPER_ADMIN')) ) {
       // no right to access to this project
       $this->get('session')->getFlashBag()->add('error', $this->get('translator')->trans('mon_project_denied'));
       return $this->redirect($this->generateUrl('mon_home'));
