@@ -25,7 +25,7 @@ class CaptureDetail {
 
   /**
    * @var \FFN\MonBundle\Entity\Capture
-   * @ORM\OneToOne(targetEntity="FFN\MonBundle\Entity\Capture", inversedBy="captureDetail")
+   * @ORM\OneToOne(targetEntity="FFN\MonBundle\Entity\Capture", inversedBy="captureDetail", cascade={"persist", "remove"})
    * @ORM\JoinColumn(name="capture_id", referencedColumnName="id")
    * 
    */

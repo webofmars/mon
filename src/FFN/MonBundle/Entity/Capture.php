@@ -33,7 +33,7 @@ class Capture {
     /**
      *
      * @var \FFN\UserBundle\Entity\User
-     * @ORM\ManyToOne(targetEntity="FFN\UserBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="FFN\UserBundle\Entity\User", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="owner", referencedColumnName="id", nullable=false)
      * 
      */
