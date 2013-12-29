@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new FOS\UserBundle\FOSUserBundle(),
             new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Lunetics\LocaleBundle\LuneticsLocaleBundle(),
+            new Genemu\Bundle\FormBundle\GenemuFormBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

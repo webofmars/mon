@@ -26,7 +26,8 @@
         "jms/di-extra-bundle": "1.4.*@dev",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "doctrine/data-fixtures": "@dev",
-	"elao/web-profiler-extra-bundle" : "dev-master"
+        "elao/web-profiler-extra-bundle" : "dev-master",
+        "genemu/form-bundle": "2.2.*"
     },
     "scripts": {
         "post-install-cmd": [

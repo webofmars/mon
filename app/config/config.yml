@@ -98,3 +98,6 @@ lunetics_locale:
     show_current_locale: true
   cookie:
     set_on_change: true
+
+genemu_form:
+  date: ~
