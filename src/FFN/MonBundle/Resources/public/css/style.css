@@ -246,3 +246,19 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
   pointer-events: all;
   cursor: default;
 }
+
+input.pagedisplay {
+  width: 10%;
+  text-align: center;
+}
+
+select.pagesize {
+  width: 20%;
+  margin-top: 3%;
+}
+
+#pager {
+  width: 30%;
+  margin-left: auto;
+  margin-right: auto;
+}

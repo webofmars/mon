@@ -173,3 +173,10 @@ layout.fos_title: Mon Security
 mon_already_member: Already a member ?
 mon_not_yet_member: Or signup today for free !
 registration.flash.user_created: Your account has been created
+
+# pager tableSorter
+pager_first: first
+pager_prev: previous
+pager_next: next
+pager_last: last
+pager_max_elts: number of rows by page

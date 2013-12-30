@@ -1,5 +1,6 @@
-function sortTable(name) {
-    $("#"+name).tablesorter(); 
+function sortAndPageTable(name, pagerdiv) {
+    $("#"+name).tablesorter({ widthFixed: true });
+    $("#"+name).tablesorterPager({container: $("#"+pagerdiv)}); 
 }
 
 function manageUserActivation(button, user_id){

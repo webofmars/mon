@@ -11,6 +11,10 @@
     {% stylesheets
       'bundles/ffnmon/css/bootstrap.css'
       'bundles/ffnmon/css/style.css'
+      'bundles/ffnmon/css/jquery-ui.css'
+      'bundles/ffnmon/css/jquery.ui.core.css'
+      'bundles/ffnmon/css/jquery.ui.datepicker.css'
+      'bundles/ffnmon/css/jquery.tablesorter.pager.css'
       filter="cssrewrite, yui_css" output="css/all.css"
     %}
         <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
@@ -37,6 +41,7 @@
     {% javascripts
         '@FFNMonBundle/Resources/public/js/jquery-1.9.1.js'
         '@FFNMonBundle/Resources/public/js/jquery.tablesorter.js'
+        '@FFNMonBundle/Resources/public/js/jquery.tablesorter.pager.js'
         '@FFNMonBundle/Resources/public/js/bootstrap.js'
         '@FFNMonBundle/Resources/public/js/app.js'
             output='js/app.js'

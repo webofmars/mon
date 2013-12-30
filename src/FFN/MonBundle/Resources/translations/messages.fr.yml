@@ -173,3 +173,10 @@ layout.fos_title: Mon S&eactute;curit&eactute;
 mon_already_member: Déjà enregistré ?
 mon_not_yet_member: Ou créez un compte gratuit dès aujourd'hui
 registration.flash.user_created: Votre compte à bien été créé
+
+# pager tableSorter
+pager_first: premier
+pager_prev: précédent
+pager_next: suivant
+pager_last: dernier
+pager_max_elts: nombre de lignes par page
