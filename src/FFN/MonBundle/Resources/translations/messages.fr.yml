@@ -152,6 +152,7 @@ mon_capture_dns: DNS
 mon_capture_first_packet: 1er paquet
 mon_capture_total_time: temps total
 mon_capture_response_code: code de retour HTTP
+mon_click_to_see_capture_details: Cliquez pour voir le détail
 
 # capture details wordings
 mon_capture_detail_title: Détails de la capture

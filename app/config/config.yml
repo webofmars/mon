@@ -100,4 +100,4 @@ lunetics_locale:
     set_on_change: true
 
 genemu_form:
-  date: ~
+    date: ~

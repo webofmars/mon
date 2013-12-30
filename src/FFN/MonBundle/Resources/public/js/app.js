@@ -1,3 +1,7 @@
+function sortTable(name) {
+    $("#"+name).tablesorter(); 
+}
+
 function manageUserActivation(button, user_id){
   var statut = false;
   if(button.attr('class') == "alertRight on"){

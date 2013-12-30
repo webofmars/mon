@@ -33,6 +33,7 @@
         {% include 'FFNMonBundle:Common:footer.html.twig' %}
     {% endblock %}
 
+{% block javascripts %}
     {% javascripts
         '@FFNMonBundle/Resources/public/js/jquery-1.9.1.js'
         '@FFNMonBundle/Resources/public/js/jquery.tablesorter.js'
@@ -42,5 +43,6 @@
             filter='yui_js' %}
         <script src="{{ asset_url}}"></script>
     {% endjavascripts %}
+{% endblock %}
 </body>
 </html>
