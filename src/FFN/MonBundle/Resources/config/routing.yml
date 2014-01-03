@@ -46,7 +46,7 @@ mon_graph:
     control_id: \d+
     start: \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
     stop : \d\d\d\d\-\d\d\-\d\d\s\d\d:\d\d:\d\d
-    TZ: "[A-Za-z,]+"
+    TZ: "[A-Za-z/,]+"
 
 mon_graph_simple:
   pattern: /{_locale}/graph/{control_id}

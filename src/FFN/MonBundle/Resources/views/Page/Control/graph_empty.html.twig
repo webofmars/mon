@@ -1,5 +1,7 @@
 {% extends 'FFNMonBundle::layout.html.twig' %}
 
+{% set id = control.id %}
+
 {% block metarefresh %}
   <meta http-equiv="refresh" content="30">
 {% endblock %}
@@ -11,8 +13,10 @@
   </div>
 
   <div class="container">
-    <div class="row">
+    <div class="row-fluid text-center">
       <em>{{ 'mon_graph_interval_sentence_1' | trans }} {{ start | date('d/m/Y H:i:s', timezone) }} {{ 'mon_graph_interval_sentence_2' | trans }} {{ stop | date('d/m/Y H:i:s', timezone) }} ({{ timezone }})</em>
+      <br/>
+      {% include 'FFNMonBundle:Page:Control/graphToolbar.html.twig' %}
     </div>
   </div>
   
