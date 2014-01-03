@@ -1,0 +1,33 @@
+{# 
+
+xxxxxx -> 1/1 09:05
+1/1 08:05 -> 2/1 08:05
+2/1 09:05 -> xxxxxxxxx
++ bug sur graph empty
+
+#}
+
+<div class="row-fluid text-center">
+  
+  <input class="btn btn-primary" type="button" OnClick="javascript:window.location = '{{ 
+    path('mon_graph', { 
+        'control_id': id, 
+        'start': start | date_modify('-12 hours') | date('Y-m-d H:i:s'), 
+        'stop': start | date('Y-m-d H:i:s'), 
+        'TZ': timezone }) 
+    }}';" id="mon_graph_backward" name="mon_graph_backward" value="{{ 'mon_graph_backward_button' | trans }}" />
+
+  <input class="btn btn-primary" type="button" OnClick="javascript:window.location = '{{ 
+    path('mon_graph_simple', { 
+      'control_id': id }) 
+    }}';" id="_graph_refresh" name="mon_graph_refresh" value="{{ 'mon_graph_refresh_button' | trans }}" />
+
+  <input class="btn btn-primary" type="button" OnClick="javascript:window.location = '{{ 
+    path('mon_graph', { 
+      'control_id': id, 
+      'start': stop | date('Y-m-d H:i:s'), 
+      'stop': stop | date_modify('+12 hours') | date('Y-m-d H:i:s'), 
+      'TZ': timezone }) 
+    }}';" id="mon_graph_forward" name="mon_graph_forward" value="{{ 'mon_graph_forward_button' | trans }}" />
+
+</div>

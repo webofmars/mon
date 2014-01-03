@@ -1,0 +1,86 @@
+{% autoescape('js') %}
+<script type="text/javascript">
+  
+  google.load("visualization", "1", { packages:["corechart"], 'language': 'fr'} );
+  google.setOnLoadCallback(drawChart);
+  
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+            [
+              '{{ 'mon_graph_date' | trans }}',
+              '{{ 'mon_graph_dns_resolution' | trans }}',
+              '{{ 'mon_graph_tcp_connection' | trans }}',
+              '{{ 'mon_graph_first_packet' | trans }}',
+              '{{ 'mon_graph_total_time' | trans }}'
+            ],
+            {% for row in graphdata %}
+                [
+                    {{ row.dateExecuted | date('H:i:s', timezone) | json_encode() | replace( {'"': '\''} ) | raw() }},
+                    {{ row.dns | json_encode() | replace( {'"': ''} ) | raw() }},
+                    {{ row.tcp | json_encode() | replace( {'"': ''} ) | raw() }},
+                    {{ row.firstPacket | json_encode() | replace( {'"': ''} ) | raw() }},
+                    {{ row.total | json_encode() | replace( {'"': ''} ) | raw() }}            
+                ],
+            {% else %}
+                [ '' ]
+            {% endfor %}
+        ]
+    );
+
+    var options = {
+      isStacked: false,
+      vAxis: {
+        title: "Time (s)",
+        minValue: 0
+      },
+      hAxis: {
+        title: "Date",
+        format: 'hh:mm',
+        minValue: {{ start | date('H:i:s', timezone) | json_encode() | replace( {'"': '\''} ) | raw() }},
+        maxValue: {{ stop  | date('H:i:s', timezone) | json_encode() | replace( {'"': '\''} ) | raw() }}
+      }
+    };
+
+
+    /********************************************************* 
+    data.setColumnProperty(0, 'type', 'datetime');
+    data.addRows([
+      [
+        '{{ start | date('H:i:s', timezone) }}',
+        0, //dns
+        0, // tcp
+        0, // 1st pqt
+        0  // total
+      ],
+      [
+        '{{ stop | date('H:i:s', timezone) }}',
+        0, //dns
+        0, // tcp
+        0, // 1st pqt
+        0  // total
+      ]
+    ]);
+    
+    data.sort({'column': 0});
+    ****************************************************************************/
+
+    var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+    
+    chart.draw(data, options);
+  }
+</script>
+{% endautoescape %}
+
+{# Google chart #}
+<div class="container">
+  <h1><small>{{ 'mon_graph_label' | trans }} {{ title }}</small></h1>
+  <div id="chart_div" class="row-fluid text-center"></div>
+  <div id="table_div" class="row-fluid text-center"></div>
+  <div class="row-fluid text-center">
+    <em>{{ 'mon_graph_interval_sentence_1' | trans }} {{ start | date('d/m/Y H:i:s', timezone) }} {{ 'mon_graph_interval_sentence_2' | trans }} {{ stop | date('d/m/Y H:i:s', timezone)}} ({{ timezone }})</em>
+  </div>
+  <br/>
+  {# the graph toolbar with buttons & datepicker #}
+  {% include 'FFNMonBundle:Page:Control/graphToolbar.html.twig' %}
+</div>
+{# end Google chart #}
