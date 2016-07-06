@@ -5,8 +5,8 @@ MON
 
 Originaly based on a the idea we add when working at mobivillage (a french mobile content provider) it has been developed by :
 
-- [ Fabien Somnier | http://github.com/elfafa    ]
-- [ Frederic Leger | http://github.com/fleger    ]
-- [ Nicolas Sias   | http://github.com/bri13geii ]
+- [Fabien Somnier](http://github.com/elfafa)
+- [Frederic Leger](http://github.com/fleger)
+- [Nicolas Sias](http://github.com/bri13geii)
 
 We now decided to opensource it and give it to the opensource community. Please feel free to use it and enjoy !
